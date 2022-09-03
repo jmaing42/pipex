@@ -58,7 +58,7 @@ LDFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
 $(OBJ_DIR)/%.a:
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(AR) $(ARFLAGS) $@ $^
-$(OBJ_DIR)/%.exe:
+$(OBJ_DIR)/%.exe: $(OBJ_DIR)/libft$(SUFFIX).a $(OBJ_DIR)/libfto$(SUFFIX).a
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(CC) $(LDFLAGS) -o $@ $^
 $(OBJ_DIR)/%$(SUFFIX).o: %.c

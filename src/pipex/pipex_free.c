@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_main.c                                       :+:      :+:    :+:   */
+/*   pipex_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 08:48:49 by Juyeong Mai       #+#    #+#             */
-/*   Updated: 2022/09/04 08:14:34 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/04 04:40:11 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/04 04:43:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-#include <stdio.h>
+#include <stdlib.h>
 
-extern char	**environ;
-
-int	main(int argc, char **argv)
+void	pipex_free(t_pipex *pipex)
 {
-	t_pipex *const	pipex = pipex_new(argc - 1, argv + 1);
-	size_t			i;
-	size_t			j;
+	size_t	i;
 
-	if (pipex)
-	{
-		printf("total %zu nodes:\n", pipex->node_count);
-		i = -1;
-		while (++i < pipex->node_count)
-		{
-			j = -1;
-			while (++j < pipex->node[i].args_count)
-			{
-				printf("%zu:\t%s\n", j, pipex->node[i].args[j]);
-			}
-		}
-		pipex_free(pipex);
-	}
-	return (0);
+	i = -1;
+	while (++i < pipex->node_count)
+		pipex_free_node(pipex->node[i]);
+	free(pipex->node);
+	free(pipex);
 }

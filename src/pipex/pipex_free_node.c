@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_main.c                                       :+:      :+:    :+:   */
+/*   pipex_free_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 08:48:49 by Juyeong Mai       #+#    #+#             */
-/*   Updated: 2022/09/04 08:14:34 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/04 04:40:11 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/04 08:01:25 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-extern char	**environ;
+#include "ft_cstring_split.h"
 
-int	main(int argc, char **argv)
+void	pipex_free_node(t_pipex_node node)
 {
-	t_pipex *const	pipex = pipex_new(argc - 1, argv + 1);
-	size_t			i;
-	size_t			j;
-
-	if (pipex)
-	{
-		printf("total %zu nodes:\n", pipex->node_count);
-		i = -1;
-		while (++i < pipex->node_count)
-		{
-			j = -1;
-			while (++j < pipex->node[i].args_count)
-			{
-				printf("%zu:\t%s\n", j, pipex->node[i].args[j]);
-			}
-		}
-		pipex_free(pipex);
-	}
-	return (0);
+	if (node.fd_in != -1)
+		close(node.fd_in);
+	if (node.fd_out != -1)
+		close(node.fd_out);
+	free(node.path);
+	if (node.args)
+		ft_cstring_split_free(node.args);
 }
