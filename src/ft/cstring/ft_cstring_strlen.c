@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:00:11 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/31 15:32:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 06:34:29 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 #include <limits.h>
 
 #include "ft_byte_map.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	result;
-
-	result = 0;
-	while (*str)
-	{
-		str++;
-		result++;
-	}
-	return (result);
-}
 
 size_t	ft_strlen_until_set(
 	const char *str,

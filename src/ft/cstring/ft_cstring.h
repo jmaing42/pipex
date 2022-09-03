@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 05:28:39 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 05:30:06 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 06:34:02 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @param str
  * @return size_t cstring length of str
  */
-size_t		ft_strlen(const char *str);
+size_t		ft_cstring_length(const char *str);
 size_t		ft_strnlen(const char *str, size_t max_len);
 
 size_t		ft_strlen_until_set(
@@ -52,6 +52,10 @@ size_t		ft_strnrchp(const char *str, size_t max_len, char ch);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t len);
 
+char		*ft_cstring_duplicate(const char *src);
+char		*ft_cstring_duplicate_length(const char *src, size_t max_len);
+
+const char	*ft_cstring_find(const char *str, char c);
 const char	*ft_cstring_find_one_of(
 				const char *str,
 				const char *charset,

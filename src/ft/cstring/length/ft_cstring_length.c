@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cstring_duplicate.c                             :+:      :+:    :+:   */
+/*   ft_cstring_length.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 06:30:47 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 06:33:00 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/04 06:34:46 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/04 06:34:53 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cstring.h"
 
-#include <stdlib.h>
-
-char	*ft_cstring_duplicate(const char *src)
+size_t	ft_cstring_length(const char *str)
 {
-	const size_t	length = ft_cstring_length(src);
-	char *const		result = malloc(length + 1);
-	const char		*tmp;
-	char			*temp;
+	size_t	result;
 
-	if (!result)
-		return (NULL);
-	tmp = src;
-	temp = result;
-	while (*src)
-		*temp++ = *tmp++;
-	*temp = '\0';
+	result = 0;
+	while (*str)
+	{
+		str++;
+		result++;
+	}
 	return (result);
 }
