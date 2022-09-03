@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_os_file_open.c                                  :+:      :+:    :+:   */
+/*   ft_memory_duplicate.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 03:15:02 by Juyeong Maing     #+#    #+#             */
+/*   Created: 2022/04/22 08:09:51 by Juyeong Maing     #+#    #+#             */
 /*   Updated: 2022/09/04 07:31:13 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_os_file.h"
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include "ft_cstring.h"
 #include "ft_memory.h"
 
-t_ft_os_file	*ft_os_file_open(char *path, int mode)
-{
-	const int			fd = open(path, mode);
-	const size_t		path_length = ft_cstring_length(path);
-	t_ft_os_file *const	result = malloc(sizeof(t_ft_os_file) + path_length + 1);
+#include <stdlib.h>
 
-	if (fd == -1 || !result)
-	{
-		if (fd == -1)
-			close(fd);
-		free(result);
+void	*ft_memory_duplicate(const void *source, size_t size)
+{
+	void *const	result = malloc(size);
+
+	if (!result)
 		return (NULL);
-	}
-	result->fd = fd;
-	result->mode = mode;
-	ft_memory_copy(result->path, path, path_length + 1);
+	ft_memory_copy(result, source, size);
 	return (result);
 }
