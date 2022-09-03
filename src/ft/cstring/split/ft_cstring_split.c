@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 05:37:46 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 05:38:43 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 07:48:24 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include "ft_cstring.h"
 
-char	**ft_cstring_split(const char *str, char *charset)
+char	**ft_cstring_split(const char *str, const char *charset)
 {
 	const size_t	length = ft_cstring_split_count(str, charset);
 	char **const	result = (char **)malloc(sizeof(char *) * (length + 1));
@@ -32,7 +32,7 @@ char	**ft_cstring_split(const char *str, char *charset)
 	while (*str)
 	{
 		tmp = ft_cstring_find_one_of(str, charset, false);
-		result[index] = ft_cstring_duplicate(str, tmp - str);
+		result[index] = ft_cstring_duplicate_length(str, tmp - str);
 		if (!result[index++])
 			alloc_failed = true;
 		if (!*tmp || alloc_failed)

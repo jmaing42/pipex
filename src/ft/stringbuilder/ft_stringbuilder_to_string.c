@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:59:01 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/31 15:32:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 07:51:16 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,7 @@
 
 #include <stdlib.h>
 
-static void	ft_memcpy(void *dest, const void *source, size_t size)
-{
-	char		*d;
-	const char	*s;
-	size_t		i;
-
-	d = (char *) dest;
-	s = (const char *) source;
-	i = 0;
-	while (i < size)
-	{
-		i++;
-		*d++ = *s++;
-	}
-}
+#include "ft_memory.h"
 
 char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 {
@@ -43,7 +29,7 @@ char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 		return (result);
 	node = self->head;
 	position = 0;
-	ft_memcpy(
+	ft_memory_copy(
 		(void *)&result[position],
 		&node->str[offset],
 		node->length - offset);
@@ -51,7 +37,7 @@ char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 	node = node->next;
 	while (node)
 	{
-		ft_memcpy((void *)&result[position], node->str, node->length);
+		ft_memory_copy((void *)&result[position], node->str, node->length);
 		position += node->length;
 		node = node->next;
 	}

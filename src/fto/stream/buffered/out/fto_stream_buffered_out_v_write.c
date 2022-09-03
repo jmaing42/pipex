@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 08:47:40 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/27 23:02:03 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 07:51:30 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_err	buffer_is_enough(
 )
 {
 	*wrote_bytes = length;
-	ft_memcpy(
+	ft_memory_copy(
 		&self->buffer[self->buffer_size],
 		buffer,
 		length);

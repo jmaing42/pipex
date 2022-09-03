@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 02:01:04 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/06/01 12:00:25 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 07:50:21 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,7 @@
 
 #include <stdlib.h>
 
-static void	*ft_calloc(size_t count, size_t size)
-{
-	const size_t	total_size = count * size;
-	char *const		result = (char *)malloc(total_size);
-	size_t			i;
-
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (i < total_size)
-		result[i++] = 0;
-	return (result);
-}
+#include "ft_memory.h"
 
 static bool	ft_simple_map_static_set_internal(
 	const t_ft_simple_map_static_context_set *context,
@@ -40,7 +28,7 @@ static bool	ft_simple_map_static_set_internal(
 
 	if (fresh)
 		*current = (t_ft_simple_map_static_value *)
-			ft_calloc(1, sizeof(t_ft_simple_map_static_value));
+			ft_memory_allocate(1, sizeof(t_ft_simple_map_static_value));
 	if (!*current)
 		return (true);
 	if (depth + 1 == context->self->key_length)

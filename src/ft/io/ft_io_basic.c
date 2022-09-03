@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:50:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/31 15:32:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 07:49:00 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_err	ft_write(
 
 t_err	ft_puts(int fd, const char *str)
 {
-	return (ft_write(fd, str, ft_strlen(str)));
+	return (ft_write(fd, str, ft_cstring_length(str)));
 }
 
 static t_err	ft_putn_internal(int fd, int i)
@@ -76,7 +76,7 @@ t_err	ft_puts_prefix(
 	const char *prefix
 )
 {
-	const size_t	prefix_length = ft_strlen(prefix);
+	const size_t	prefix_length = ft_cstring_length(prefix);
 	size_t			length;
 
 	while (true)

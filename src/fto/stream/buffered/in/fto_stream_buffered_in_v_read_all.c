@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 22:59:07 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/02 08:57:24 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 07:51:22 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static size_t	feed(
 	const size_t	remain = self->buffer_size - self->buffer_offset;
 	const size_t	to_feed = ft_types_primitive_size_t_max(remain, limit);
 
-	ft_memcpy(buffer, self->buffer + self->buffer_offset, to_feed);
+	ft_memory_copy(buffer, self->buffer + self->buffer_offset, to_feed);
 	self->buffer_offset += to_feed;
 	if (self->buffer_offset == self->buffer_size)
 	{
