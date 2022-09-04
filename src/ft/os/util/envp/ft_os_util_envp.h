@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 15:08:56 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 16:22:20 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 17:40:16 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ft_types.h"
 # include "ft_simple_map.h"
 
-extern char	**environ;
+extern const char *const *const	environ;
 
 typedef struct s_ft_os_util_envp_builder
 {

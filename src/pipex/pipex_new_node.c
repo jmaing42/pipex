@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 06:10:23 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 15:34:48 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 17:39:27 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "ft_os_pipe.h"
 #include "ft_os_util_envp.h"
 
-char	**init_environment(char **environ)
+char	**init_environment(const char *const *environ)
 {
 	t_ft_os_util_envp_builder *const	builder
 		= new_ft_os_util_envp_builder(environ);
