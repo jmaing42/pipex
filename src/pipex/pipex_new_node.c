@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 06:10:23 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 18:35:03 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 01:29:32 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_err	pipex_new_node(t_pipex_node *out, const char *str)
 
 	if (ft_os_pipe(&result.fd_in, &result.fd_out))
 		return (true);
-	result.path = NULL;
 	result.args_count = args_count;
 	result.args = ft_cstring_split(str, "\t\n\v\f\r ");
 	result.envp = init_environment(environ);

@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 04:40:11 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:03:37 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 01:29:52 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	pipex_free_node(t_pipex_node node)
 		wrap_close(node.fd_in);
 	if (node.fd_out != -1)
 		wrap_close(node.fd_out);
-	wrap_free(node.path);
 	if (node.args)
 		ft_cstring_split_free(node.args);
 	// if (node.envp)
