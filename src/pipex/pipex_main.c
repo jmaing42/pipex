@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Mai       #+#    #+#             */
-/*   Updated: 2022/09/04 15:09:37 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 20:17:01 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int	main(int argc, char **argv)
 			}
 		}
 		pipex_free(pipex);
+	}
+	else
+	{
+		printf("Failed to initialize pipex\n");
 	}
 	return (0);
 }
