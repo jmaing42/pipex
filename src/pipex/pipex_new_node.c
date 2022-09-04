@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 06:10:23 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 17:39:27 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:35:03 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@
 
 char	**init_environment(const char *const *environ)
 {
-	t_ft_os_util_envp_builder *const	builder
-		= new_ft_os_util_envp_builder(environ);
-	char								**result;
+	// t_ft_os_util_envp_builder *const	builder
+	// 	= new_ft_os_util_envp_builder(environ);
+	// char								**result;
 
-	if (!builder)
-		return (NULL);
-	result = ft_os_util_envp_builder_build(builder);
-	ft_os_util_envp_builder_free(builder);
-	return (result);
+	// if (!builder)
+	// 	return (NULL);
+	// result = ft_os_util_envp_builder_build(builder);
+	// ft_os_util_envp_builder_free(builder);
+	// return (result);
+	return ((char **)environ);
 }
 
 t_err	pipex_new_node(t_pipex_node *out, const char *str)
