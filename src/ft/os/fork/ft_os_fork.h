@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wrap.h                                             :+:      :+:    :+:   */
+/*   ft_os_fork.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 18:39:06 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:43:38 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/04 19:41:08 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/04 19:44:37 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRAP_H
-# define WRAP_H
+#ifndef FT_OS_FORK_H
+# define FT_OS_FORK_H
 
-# include <stddef.h>
 # include <unistd.h>
 
-void	*wrap_malloc(size_t size);
-void	wrap_free(void *memory);
+# include "ft_types.h"
 
-void	wrap_exit(int status);
-
-ssize_t	wrap_read(int fd, void *buffer, size_t bytes);
-ssize_t	wrap_write(int fd, const void *buffer, size_t bytes);
-int		wrap_open(const char *path, int flags);
-int		wrap_close(int fd);
-
-int		wrap_pipe(int fds[2]);
-pid_t	wrap_fork(void);
+t_err	ft_os_fork(pid_t *out_pid);
 
 #endif
