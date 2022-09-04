@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 04:20:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 15:08:33 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:36:53 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stddef.h>
 
-# include "file/ft_os_file.h"
+# include "ft_os_file.h"
 
 typedef struct s_pipex_node
 {
