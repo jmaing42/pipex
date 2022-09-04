@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_os_fork.h                                       :+:      :+:    :+:   */
+/*   ft_os_process_wait_pids.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 19:41:08 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 05:55:43 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/05 05:57:50 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/05 06:03:15 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_OS_FORK_H
-# define FT_OS_FORK_H
+#include "ft_os_process.h"
 
-# include <unistd.h>
+#include "wrap.h"
 
-# include "ft_types.h"
+void	ft_os_process_wait_pids(pid_t *pids, size_t count)
+{
+	size_t	i;
+	int		unused_stat_loc;
 
-t_err	ft_os_fork(
-			pid_t *out_pid);
-t_err	ft_os_fork_multiple(
-			size_t count,
-			pid_t *out,
-			size_t *out_index,
-			size_t *out_count);
-
-#endif
+	i = -1;
+	while (++i < count)
+		wrap_waitpid(pids[i], &unused_stat_loc, 0);
+}

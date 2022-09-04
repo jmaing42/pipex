@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_os_fork.h                                       :+:      :+:    :+:   */
+/*   ft_os_process.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 19:41:08 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 05:55:43 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/05 05:56:29 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/05 05:57:37 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_OS_FORK_H
-# define FT_OS_FORK_H
+#ifndef FT_OS_PROCESS_H
+# define FT_OS_PROCESS_H
 
 # include <unistd.h>
 
-# include "ft_types.h"
-
-t_err	ft_os_fork(
-			pid_t *out_pid);
-t_err	ft_os_fork_multiple(
-			size_t count,
-			pid_t *out,
-			size_t *out_index,
-			size_t *out_count);
+void	ft_os_process_wait_pids(pid_t *pids, size_t count);
 
 #endif
