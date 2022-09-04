@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 05:28:39 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 16:35:05 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 00:34:03 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,6 @@ size_t		ft_strnlen_until_map(
 				size_t max_len,
 				const t_byte *map);
 
-size_t		ft_strchp(
-				const char *str,
-				char ch);
-size_t		ft_strrchp(
-				const char *str,
-				char ch);
 size_t		ft_strnchp(
 				const char *str,
 				size_t max_len,
@@ -86,6 +80,12 @@ const char	*ft_cstring_find_one_of(
 				const char *str,
 				const char *charset,
 				bool negate);
+size_t		ft_cstring_find_index(
+				const char *str,
+				char ch);
+size_t		ft_cstring_find_index_reverse(
+				const char *str,
+				char ch);
 
 bool		ft_cstring_equlals(
 				const char *a,
@@ -94,5 +94,8 @@ bool		ft_cstring_starts_with(
 				const char *self,
 				const char *substring,
 				size_t *substring_length);
+bool		ft_cstring_ends_with_char(
+				const char *self,
+				char expected_end);
 
 #endif

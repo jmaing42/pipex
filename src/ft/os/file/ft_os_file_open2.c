@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 03:15:02 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:56:29 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 00:16:56 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "ft_cstring.h"
 #include "ft_memory.h"
 
-t_ft_os_file	*ft_os_file_open2(char *path, int mode, int permission)
+t_ft_os_file	*ft_os_file_open2(const char *path, int mode, int permission)
 {
 	const int			fd = wrap_open2(path, mode, permission);
 	const size_t		path_length = ft_cstring_length(path);
