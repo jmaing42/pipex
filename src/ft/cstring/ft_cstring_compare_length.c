@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cstring_strcmp.c                                :+:      :+:    :+:   */
+/*   ft_cstring_compare_length.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 13:34:22 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/06/13 23:52:01 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 16:31:27 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cstring.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	const unsigned char	*a;
-	const unsigned char	*b;
-
-	a = (const unsigned char *) s1;
-	b = (const unsigned char *) s2;
-	while (*a && *b)
-	{
-		if (*a != *b)
-			break ;
-		a++;
-		b++;
-	}
-	return ((int) *a - *b);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t len)
+int	ft_cstring_compare_length(const char *s1, const char *s2, size_t len)
 {
 	const unsigned char	*a;
 	const unsigned char	*b;
