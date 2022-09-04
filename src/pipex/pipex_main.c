@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 06:05:08 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 06:29:39 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,19 @@
 #include "ft_malloc.h"
 #include "process/ft_os_process.h"
 
+char	**get_path(void)
+{
+	const char *const	paths = ft_os_util_envp_get(environ, "PATH");
+
+	if (!paths)
+		return (NULL);
+	return (ft_nonnull(ft_cstring_split(paths, ":")));
+}
+
 int	main(int argc, char **argv)
 {
 	t_pipex *const	pipex = pipex_init(argc - 1, argv + 1);
-	char **const	path = ft_nonnull(ft_cstring_split(
-				ft_nonnull((void *)ft_os_util_envp_get(environ, "PATH")), ":"));
+	char **const	path = get_path();
 	pid_t *const	pids = ft_malloc(sizeof(pid_t) * argc - 3);
 	size_t			index;
 	size_t			count;
