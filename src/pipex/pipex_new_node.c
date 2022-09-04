@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 06:10:23 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 08:06:49 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 15:28:25 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,20 @@
 #include "ft_cstring.h"
 #include "ft_cstring_split.h"
 #include "ft_os_pipe.h"
+#include "ft_os_environment.h"
 
-extern char	**environ;
+char	**init_environment(char **environ)
+{
+	t_ft_os_environment_builder *const	builder
+		= new_ft_os_environment_builder(environ);
+	char								**result;
+
+	if (!builder)
+		return (NULL);
+	result = ft_os_environment_builder_build(builder);
+	ft_os_environment_builder_free(builder);
+	return (result);
+}
 
 t_err	pipex_new_node(t_pipex_node *out, const char *str)
 {
@@ -28,8 +40,8 @@ t_err	pipex_new_node(t_pipex_node *out, const char *str)
 	result.path = NULL;
 	result.args_count = args_count;
 	result.args = ft_cstring_split(str, "\t\n\v\f\r ");
-	result.envp = environ;
-	if (!result.args)
+	result.envp = init_environment(environ);
+	if (!result.args || !result.envp)
 	{
 		pipex_free_node(result);
 		return (true);

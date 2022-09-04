@@ -6,15 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Mai       #+#    #+#             */
-/*   Updated: 2022/09/04 08:14:34 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 15:09:37 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 #include <stdio.h>
-
-extern char	**environ;
 
 int	main(int argc, char **argv)
 {
