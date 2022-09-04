@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 06:10:23 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 15:28:25 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 15:34:48 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 #include "ft_cstring.h"
 #include "ft_cstring_split.h"
 #include "ft_os_pipe.h"
-#include "ft_os_environment.h"
+#include "ft_os_util_envp.h"
 
 char	**init_environment(char **environ)
 {
-	t_ft_os_environment_builder *const	builder
-		= new_ft_os_environment_builder(environ);
+	t_ft_os_util_envp_builder *const	builder
+		= new_ft_os_util_envp_builder(environ);
 	char								**result;
 
 	if (!builder)
 		return (NULL);
-	result = ft_os_environment_builder_build(builder);
-	ft_os_environment_builder_free(builder);
+	result = ft_os_util_envp_builder_build(builder);
+	ft_os_util_envp_builder_free(builder);
 	return (result);
 }
 
