@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 04:20:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 00:55:58 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 01:17:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include <stddef.h>
+# include <unistd.h>
 
 # include "ft_os_file.h"
 
@@ -21,7 +22,6 @@ typedef struct s_pipex_node
 {
 	int		fd_in;
 	int		fd_out;
-	char	*path;
 	size_t	args_count;
 	char	**args;
 	char	**envp;
@@ -35,13 +35,11 @@ typedef struct s_pipex
 	t_pipex_node	node[];
 }	t_pipex;
 
-# define PIPEX_RESOLVE_RESULT_OK 0
-# define PIPEX_RESOLVE_RESULT_ERROR -1
-# define PIPEX_RESOLVE_RESULT_COMMAND_NOT_FOUND 1
-
-t_pipex	*pipex_new(size_t args_length, char **args);
+t_pipex	*pipex_init(size_t args_length, char **args);
 t_err	pipex_new_node(t_pipex_node *out, const char *str);
 void	pipex_free_node(t_pipex_node node);
 void	pipex_free(t_pipex *self);
+int		pipex_parent(t_pipex *self, pid_t *pids);
+int		pipex_child(t_pipex *self, size_t index);
 
 #endif

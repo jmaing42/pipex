@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_new.c                                        :+:      :+:    :+:   */
+/*   pipex_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 05:46:24 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 20:25:54 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 01:10:18 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "wrap.h"
 #include "ft_os_file.h"
 
-t_pipex	*pipex_new(size_t argc, char **argv)
+t_pipex	*pipex_init(size_t argc, char **argv)
 {
 	t_pipex	*result;
 	size_t	i;
