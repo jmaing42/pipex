@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_main.c                                       :+:      :+:    :+:   */
+/*   ft_cstring_starts_with.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 00:56:34 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/05 00:50:51 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/05 00:57:21 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_io.h"
-#include "pipex.h"
+#include "ft_cstring.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-
-#include "ft_cstring_split.h"
-#include "ft_os_util_envp.h"
-
-int	main(int argc, char **argv)
+bool	ft_cstring_starts_with(
+	const char *self,
+	const char *substring,
+	size_t *substring_length
+)
 {
-	t_pipex *const		pipex = pipex_new(argc - 1, argv + 1);
-	const char *const	env_path = ft_os_util_envp_get(environ, "PATH");
+	size_t	length;
 
-	if (!pipex || !env_path)
-		return (EXIT_FAILURE);
-	pipex_free(pipex);
-	return (0);
+	length = 0;
+	while (*self && *substring && *self == *substring)
+	{
+		length++;
+		self++;
+		substring++;
+	}
+	if (substring_length)
+		*substring_length = length;
+	return (*substring == '\0');
 }

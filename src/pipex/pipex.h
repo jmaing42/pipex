@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 04:20:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 18:36:53 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 00:55:58 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ t_pipex	*pipex_new(size_t args_length, char **args);
 t_err	pipex_new_node(t_pipex_node *out, const char *str);
 void	pipex_free_node(t_pipex_node node);
 void	pipex_free(t_pipex *self);
-int		pipex_resolve(t_pipex *self, char **path);
 
 #endif
