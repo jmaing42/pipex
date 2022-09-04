@@ -6,22 +6,22 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 06:29:39 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 06:33:25 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_io.h"
-#include "ft_os_fork.h"
 #include "pipex.h"
 
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "ft_cstring_split.h"
+#include "ft_io.h"
+#include "ft_os_fork.h"
+#include "ft_os_process.h"
 #include "ft_os_util_envp.h"
 
 #include "ft_malloc.h"
-#include "process/ft_os_process.h"
 
 char	**get_path(void)
 {
