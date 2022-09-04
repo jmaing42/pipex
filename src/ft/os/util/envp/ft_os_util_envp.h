@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 15:08:56 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 15:37:24 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 16:22:20 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,33 @@ typedef struct s_ft_os_util_envp_builder
 }	t_ft_os_util_envp_builder;
 
 t_ft_os_util_envp_builder	*new_ft_os_util_envp_builder(
-								char **environ);
+								const char *const *environ);
 t_ft_os_util_envp_builder	*ft_os_util_envp_builder_clone(
-								t_ft_os_util_envp_builder *builder);
+								const t_ft_os_util_envp_builder *builder);
 
 char						**ft_os_util_envp_builder_free(
 								t_ft_os_util_envp_builder *self);
 
 t_err						ft_os_util_envp_builder_override(
 								t_ft_os_util_envp_builder *self,
-								char **environ);
+								const char *const *environ);
 t_err						ft_os_util_envp_builder_override_entry(
 								t_ft_os_util_envp_builder *self,
-								char *key,
-								char *value);
+								const char *key,
+								const char *value);
 t_err						ft_os_util_envp_builder_override_builder(
 								t_ft_os_util_envp_builder *self,
-								t_ft_os_util_envp_builder *builder);
+								const t_ft_os_util_envp_builder *builder);
 
 char						**ft_os_util_envp_builder_build(
 								t_ft_os_util_envp_builder *self);
 
 char						*ft_os_util_envp_builder_get(
 								t_ft_os_util_envp_builder *self,
-								char *key);
+								const char *key);
 
-char						*ft_os_util_envp_get(
-								char **environ,
-								char *key);
+const char					*ft_os_util_envp_get(
+								const char *const *environ,
+								const char *key);
 
 #endif

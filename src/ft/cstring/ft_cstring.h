@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 05:28:39 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:26:09 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 16:21:12 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_CSTRING_H
 
 # include <stddef.h>
+# include <stdbool.h>
 # include <limits.h>
 
 # include "ft_types.h"
@@ -61,5 +62,11 @@ const char	*ft_cstring_find_one_of(
 				const char *str,
 				const char *charset,
 				bool negate);
+
+bool		ft_cstring_equlals(const char *a, const char *b);
+bool		ft_cstring_starts_with(
+				const char *self,
+				const char *substring,
+				size_t *substring_length);
 
 #endif
