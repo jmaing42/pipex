@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 02:01:04 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:50:21 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 17:50:48 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "ft_memory.h"
 
-static bool	ft_simple_map_static_set_internal(
+static t_err	ft_simple_map_static_set_internal(
 	const t_ft_simple_map_static_context_set *context,
 	t_ft_simple_map_static_value **current,
 	size_t depth
@@ -24,7 +24,7 @@ static bool	ft_simple_map_static_set_internal(
 {
 	const size_t	index = ((unsigned char *) context->key)[depth];
 	const bool		fresh = !*current;
-	bool			error;
+	t_err			error;
 
 	if (fresh)
 		*current = (t_ft_simple_map_static_value *)
@@ -49,7 +49,7 @@ static bool	ft_simple_map_static_set_internal(
 	return (error);
 }
 
-bool	ft_simple_map_static_set(
+t_err	ft_simple_map_static_set(
 	t_ft_simple_map_static *self,
 	const void *key,
 	void *value

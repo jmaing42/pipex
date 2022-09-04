@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:24:25 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/06/06 19:46:22 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 17:51:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-bool	ft_simple_map_dynamic_set(
+t_err	ft_simple_map_dynamic_set(
 	t_ft_simple_map_dynamic *self,
 	const void *key,
 	size_t key_length,
@@ -23,7 +23,7 @@ bool	ft_simple_map_dynamic_set(
 )
 {
 	bool	fresh;
-	bool	result;
+	t_err	result;
 
 	if (!key_length && self->value)
 		return (true);
