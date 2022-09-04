@@ -6,13 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 05:37:46 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 06:30:25 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:52:18 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cstring.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 char	*ft_cstring_duplicate_length(const char *src, size_t max_len)
 {
@@ -25,7 +25,7 @@ char	*ft_cstring_duplicate_length(const char *src, size_t max_len)
 	length = 0;
 	while (*tmp++ && ++length < max_len)
 		;
-	result = (char *) malloc(length + 1);
+	result = wrap_malloc(length + 1);
 	if (!result)
 		return (NULL);
 	temp = result;

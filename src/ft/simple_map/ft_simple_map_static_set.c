@@ -6,14 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 02:01:04 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 17:50:48 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:55:59 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_simple_map_internal.h"
+#include "ft_simple_map.h"
 
-#include <stdlib.h>
-
+#include "wrap.h"
 #include "ft_memory.h"
 
 static t_err	ft_simple_map_static_set_internal(
@@ -44,7 +44,7 @@ static t_err	ft_simple_map_static_set_internal(
 			depth + 1);
 	if (!(error && fresh))
 		return (error);
-	free(*current);
+	wrap_free(*current);
 	*current = NULL;
 	return (error);
 }

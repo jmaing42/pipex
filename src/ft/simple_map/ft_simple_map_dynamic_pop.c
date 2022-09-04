@@ -6,13 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:24:25 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/06/06 19:08:47 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:55:45 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_simple_map_internal.h"
+#include "ft_simple_map.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 static bool	ft_simple_map_dynamic_pop_internal(
 	t_ft_simple_map_dynamic **self,
@@ -43,7 +44,7 @@ static bool	ft_simple_map_dynamic_pop_internal(
 	i = -1;
 	while (++i < (1 << CHAR_BIT) && need_cleanup)
 		need_cleanup = !(*self)->array[i];
-	free(*self);
+	wrap_free(*self);
 	*self = NULL;
 	return (result);
 }

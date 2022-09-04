@@ -6,14 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:19:28 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/08/15 19:23:09 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 19:03:34 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fto_va_va_list.h"
 
-#include <stdlib.h>
-
+#include "wrap.h"
 #include "fto_va_va_list_v.h"
 
 static const t_fto_va_va_list_vtable	g_v = {
@@ -43,7 +42,7 @@ static const t_fto_va_va_list_vtable	g_v = {
 
 static t_fto_va_va_list	*new_shared(va_list *args)
 {
-	t_fto_va_va_list *const	result = malloc(sizeof(t_fto_va_va_list));
+	t_fto_va_va_list *const	result = wrap_malloc(sizeof(t_fto_va_va_list));
 
 	if (!result)
 		return (NULL);
@@ -56,7 +55,7 @@ static t_fto_va_va_list	*new_shared(va_list *args)
 static t_fto_va_va_list	*new_owned(va_list *args)
 {
 	t_fto_va_va_list_in *const	result
-		= malloc(sizeof(t_fto_va_va_list_in));
+		= wrap_malloc(sizeof(t_fto_va_va_list_in));
 
 	if (!result)
 		return (NULL);

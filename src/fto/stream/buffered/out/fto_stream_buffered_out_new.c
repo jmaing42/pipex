@@ -6,14 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 23:51:16 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/08/27 00:59:04 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 19:01:17 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fto_stream_buffered_out_v.h"
 
-#include <stdlib.h>
-
+#include "wrap.h"
 #include "fto_stream_out_v.h"
 
 static const struct s_fto_stream_buffered_out_vtable	g_v = {
@@ -30,7 +29,7 @@ t_fto_stream_buffered_out	*new_fto_stream_buffered_out(
 )
 {
 	t_fto_stream_buffered_out *const	result
-		= malloc(sizeof(t_fto_stream_buffered_out) + buffer_capacity);
+		= wrap_malloc(sizeof(t_fto_stream_buffered_out) + buffer_capacity);
 
 	if (!result)
 	{

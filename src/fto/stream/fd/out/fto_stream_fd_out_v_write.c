@@ -6,13 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 08:41:56 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/26 09:02:21 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 19:02:35 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fto_stream_fd_out_v.h"
 
-#include <unistd.h>
+#include "wrap.h"
 
 #ifndef WRITE_SIZE_MAX
 # define WRITE_SIZE_MAX 1048576
@@ -41,7 +41,7 @@ t_err	fto_stream_fd_out_v_write(
 		to_write = remain;
 		if (to_write > WRITE_SIZE_MAX)
 			to_write = WRITE_SIZE_MAX;
-		wrote = write(self->fd, str, to_write);
+		wrote = wrap_write(self->fd, str, to_write);
 		if (wrote < 0)
 		{
 			if (wrote_bytes)

@@ -6,13 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 02:01:04 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/05/15 02:28:41 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:55:51 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_simple_map_internal.h"
+#include "ft_simple_map.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 static void	ft_simple_map_static_free_internal(
 	t_ft_simple_map_static_value *current,
@@ -41,7 +42,7 @@ static void	ft_simple_map_static_free_internal(
 				free_value,
 				remain_depth - 1
 				);
-	free(current);
+	wrap_free(current);
 }
 
 void	ft_simple_map_static_free(
@@ -54,5 +55,5 @@ void	ft_simple_map_static_free(
 		free_value,
 		self->key_length - 1
 		);
-	free(self);
+	wrap_free(self);
 }

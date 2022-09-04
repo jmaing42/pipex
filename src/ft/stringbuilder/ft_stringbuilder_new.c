@@ -6,20 +6,19 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:33:58 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/31 15:32:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:56:49 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stringbuilder.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 #define MINIMUM_BUFFER_SIZE 1024
 
 t_stringbuilder	*new_stringbuilder(size_t buffer_size)
 {
-	t_stringbuilder *const	result
-		= (t_stringbuilder *)malloc(sizeof(t_stringbuilder));
+	t_stringbuilder *const	result = wrap_malloc(sizeof(t_stringbuilder));
 
 	if (!result)
 		return (NULL);

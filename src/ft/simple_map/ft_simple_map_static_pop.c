@@ -6,13 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 02:01:04 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/06/01 12:00:16 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:55:57 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_simple_map_internal.h"
+#include "ft_simple_map.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 static void	ft_simple_map_static_pop_internal_cleanup(
 	t_ft_simple_map_static_value **current
@@ -24,7 +25,7 @@ static void	ft_simple_map_static_pop_internal_cleanup(
 	while (i < (1 << CHAR_BIT))
 		if ((*current)->value[i++])
 			return ;
-	free(*current);
+	wrap_free(*current);
 	*current = NULL;
 }
 

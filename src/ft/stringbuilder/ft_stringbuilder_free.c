@@ -6,13 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:33:58 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/31 15:32:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:56:42 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stringbuilder.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 void	stringbuilder_free(t_stringbuilder *self)
 {
@@ -23,8 +23,8 @@ void	stringbuilder_free(t_stringbuilder *self)
 	while (current)
 	{
 		next = current->next;
-		free(current);
+		wrap_free(current);
 		current = next;
 	}
-	free(self);
+	wrap_free(self);
 }

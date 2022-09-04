@@ -6,14 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:59:01 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:50:58 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:56:33 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stringbuilder.h"
 
-#include <stdlib.h>
-
+#include "wrap.h"
 #include "ft_memory.h"
 
 static t_stringbuilder_node	*internal(
@@ -28,7 +27,7 @@ static t_stringbuilder_node	*internal(
 	size = length;
 	if (length < self->buffer_size)
 		size = self->buffer_size;
-	node = (t_stringbuilder_node *)malloc(sizeof(t_stringbuilder_node) + size);
+	node = wrap_malloc(sizeof(t_stringbuilder_node) + size);
 	if (!node)
 		return (NULL);
 	node->next = NULL;

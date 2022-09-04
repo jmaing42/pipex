@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fto_stream_fd_in_v_free.c                          :+:      :+:    :+:   */
+/*   wrap.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/25 23:38:51 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:02:14 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/04 18:39:06 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/04 18:59:02 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fto_stream_fd_in_v.h"
+#ifndef WRAP_H
+# define WRAP_H
 
-#include "wrap.h"
+# include <stddef.h>
+# include <unistd.h>
 
-void	fto_stream_fd_in_v_free(
-	t_fto_stream_fd_in *self
-)
-{
-	if (self->fd_owned)
-		wrap_close(self->fd);
-	wrap_free(self);
-}
+void	*wrap_malloc(size_t size);
+void	wrap_free(void *memory);
+
+void	wrap_exit(int status);
+
+ssize_t	wrap_read(int fd, void *buffer, size_t bytes);
+ssize_t	wrap_write(int fd, const void *buffer, size_t bytes);
+int		wrap_open(const char *path, int flags);
+int		wrap_close(int fd);
+
+int		wrap_pipe(int fds[2]);
+
+#endif

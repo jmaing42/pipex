@@ -6,14 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:50:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:49:00 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:52:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
 #include "ft_io.h"
 
+#include "wrap.h"
 #include "ft_cstring.h"
 
 #define WRITE_SIZE_MAX 1048576
@@ -36,7 +35,7 @@ t_err	ft_write(
 		to_write = remain;
 		if (to_write > WRITE_SIZE_MAX)
 			to_write = WRITE_SIZE_MAX;
-		wrote = write(fd, str, to_write);
+		wrote = wrap_write(fd, str, to_write);
 		if (wrote < 0)
 			return (1);
 		remain -= (size_t) wrote;

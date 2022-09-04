@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 22:18:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/06/15 01:23:18 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:41:27 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_err	ft_to_lines_drain(
  * @brief add temporary data to context, when no temporary data remains
  *
  * @param context data contains previous read data
- * @param append address of temporary data, maybe from read()
+ * @param append address of temporary data, maybe from wrap_read()
  * @param append_length length of append
  * @return true on error (error if data not drained before call)
  *

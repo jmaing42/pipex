@@ -6,15 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:19:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/08/27 00:59:04 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 19:03:09 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stringbuilder.h"
 #include "fto_stream_string_out_v.h"
 
-#include <stdlib.h>
-
+#include "wrap.h"
 #include "fto_stream_out_v.h"
 
 static const struct s_fto_stream_string_out_vtable	g_v = {
@@ -28,13 +27,13 @@ static const struct s_fto_stream_string_out_vtable	g_v = {
 t_fto_stream_string_out	*new_fto_stream_string_out(size_t buffer_size)
 {
 	t_fto_stream_string_out *const	result
-		= malloc(sizeof(t_fto_stream_string_out));
+		= wrap_malloc(sizeof(t_fto_stream_string_out));
 	t_stringbuilder *const			stringbuilder
 		= new_stringbuilder(buffer_size);
 
 	if (!result || !stringbuilder)
 	{
-		free(result);
+		wrap_free(result);
 		if (stringbuilder)
 			stringbuilder_free(stringbuilder);
 		return (NULL);

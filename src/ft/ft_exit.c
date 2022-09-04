@@ -6,14 +6,15 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:10:15 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/07/31 15:32:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 19:06:00 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exit.h"
 
 #include <stdbool.h>
-#include <stdlib.h>
+
+#include "wrap.h"
 
 static t_ft_exit_cleanup_function	x(
 	bool get,
@@ -38,7 +39,8 @@ int	ft_exit(signed char status)
 
 	if (cleanup_function)
 		cleanup_function();
-	exit((int) status);
+	wrap_exit((int) status);
+	return (status);
 }
 
 void	ft_set_exit_handler(t_ft_exit_cleanup_function cleanup_function)

@@ -6,19 +6,18 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:59:01 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:51:16 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:57:00 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stringbuilder.h"
 
-#include <stdlib.h>
-
+#include "wrap.h"
 #include "ft_memory.h"
 
 char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 {
-	char *const				result = (char *)malloc(self->length - offset + 1);
+	char *const				result = wrap_malloc(self->length - offset + 1);
 	t_stringbuilder_node	*node;
 	size_t					position;
 

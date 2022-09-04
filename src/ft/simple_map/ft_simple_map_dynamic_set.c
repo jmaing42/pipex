@@ -6,14 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:24:25 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 17:51:04 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 18:54:47 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_simple_map_internal.h"
 #include "ft_simple_map.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 t_err	ft_simple_map_dynamic_set(
 	t_ft_simple_map_dynamic *self,
@@ -43,7 +43,7 @@ t_err	ft_simple_map_dynamic_set(
 			value);
 	if (fresh && result)
 	{
-		free(self->array[*((unsigned char *)key)]);
+		wrap_free(self->array[*((unsigned char *)key)]);
 		self->array[*((unsigned char *)key)] = NULL;
 	}
 	return (result);
