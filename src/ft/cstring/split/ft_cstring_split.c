@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 05:37:46 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:48:24 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/04 08:58:16 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	**ft_cstring_split(const char *str, const char *charset)
 
 	if (!result)
 		return (NULL);
+	result[length] = NULL;
 	index = 0;
 	str = ft_cstring_find_one_of(str, charset, true);
 	while (*str)
