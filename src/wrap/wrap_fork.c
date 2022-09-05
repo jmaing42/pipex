@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_os_fork.h                                       :+:      :+:    :+:   */
+/*   wrap_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 19:41:08 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 05:55:43 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 2022/09/05 06:34:24 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2022/09/05 06:35:06 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_OS_FORK_H
-# define FT_OS_FORK_H
+#include "wrap.h"
 
-# include <unistd.h>
+#include <unistd.h>
 
-# include "ft_types.h"
-
-t_err	ft_os_fork(
-			pid_t *out_pid);
-t_err	ft_os_fork_multiple(
-			size_t count,
-			pid_t *out,
-			size_t *out_index,
-			size_t *out_count);
-
-#endif
+pid_t	wrap_fork(void)
+{
+	return (fork());
+}

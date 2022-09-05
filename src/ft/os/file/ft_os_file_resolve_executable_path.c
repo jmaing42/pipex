@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 23:56:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 00:47:38 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/05 06:29:24 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_err	ft_os_file_resolve_executable_path(
 	char				*full_path;
 
 	*out = NULL;
+	if (!path)
+		return (false);
 	tmp = path - 1;
 	while (*++tmp)
 	{
