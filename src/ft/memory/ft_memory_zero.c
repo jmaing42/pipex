@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 08:09:51 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 07:32:19 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 07:39:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,3 @@ void	ft_memory_zero(void *mem, size_t len)
 {
 	ft_memory_set(mem, 0, len);
 }
-
