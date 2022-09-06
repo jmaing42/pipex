@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 05:38:04 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 07:11:20 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,22 @@ t_err	dispose_others(t_pipex *self, pid_t *pids, size_t index, char **path)
 	t_err	error;
 	size_t	i;
 
+	sleep(index + 1);
 	error = false;
 	i = -1;
 	while (++i < self->node_count)
 	{
 		if (i != index)
-			error |= wrap_close(self->node[i].fd_in);
-		if (i != index - 1)
 			error |= wrap_close(self->node[i].fd_out);
+		if (i != index + 1)
+			error |= wrap_close(self->node[i].fd_in);
 	}
+	error |= wrap_close(self->last_pipe_out);
+	if (i != index + 1)
+		error |= wrap_close(self->last_pipe_in);
 	free(pids);
 	ft_cstring_split_free(path);
+	sleep(self->node_count);
 	return (error);
 }
 

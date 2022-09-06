@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 06:24:51 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 06:53:38 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include <errno.h>
+#include <unistd.h>
 
 #include "wrap.h"
 #include "ft_cstring_split.h"
@@ -37,6 +38,7 @@ static t_err	dispose_others(t_pipex *self, char **path)
 	}
 	error |= wrap_close(self->last_pipe_in);
 	ft_cstring_split_free(path);
+	sleep(self->node_count + 1);
 	return (error);
 }
 
