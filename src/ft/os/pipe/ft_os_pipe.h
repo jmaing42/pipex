@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 04:37:16 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 04:37:59 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/06 23:48:09 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "ft_types.h"
 
-t_err	ft_os_pipe(int *to_read, int *to_write);
+t_err	ft_os_pipe(int *in_to_write, int *out_to_read);
 
 #endif
