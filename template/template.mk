@@ -11,6 +11,7 @@ OBJS = $(OBJS_PIPEX) $(OBJS_LIBWRAP) $(OBJS_LIBFT) $(OBJS_LIBFTO) $(OBJS_LIBMS)
 OTHER_USEFUL_FILES = .editorconfig .gitignore
 
 CFLAGS = -Wall -Wextra -Werror
+ARFLAGS = cr
 
 
 default: all
