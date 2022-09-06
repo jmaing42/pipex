@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 05:25:15 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 05:38:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,23 @@
 #include "ft_io.h"
 #include "ft_os_file.h"
 
-void	dispose_others(t_pipex *self, pid_t *pids, size_t index, char **path)
+t_err	dispose_others(t_pipex *self, pid_t *pids, size_t index, char **path)
 {
+	t_err	error;
 	size_t	i;
 
+	error = false;
 	i = -1;
 	while (++i < self->node_count)
 	{
 		if (i != index)
-			wrap_close(self->node[i].fd_in);
+			error |= wrap_close(self->node[i].fd_in);
 		if (i != index - 1)
-			wrap_close(self->node[i].fd_out);
+			error |= wrap_close(self->node[i].fd_out);
 	}
 	free(pids);
 	ft_cstring_split_free(path);
+	return (error);
 }
 
 int	pipex_child(
@@ -49,7 +52,8 @@ int	pipex_child(
 	if (ft_os_file_resolve_executable_path(
 			it->args[0], (const char *const *)path, &executable_path))
 		return (EXIT_FAILURE);
-	dispose_others(self, pids, index, path);
+	if (dispose_others(self, pids, index, path))
+		return (EXIT_FAILURE);
 	if (!executable_path)
 	{
 		ft_write(STDERR_FILENO, "command not found\n", 18);
