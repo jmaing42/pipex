@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 06:53:38 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 07:30:45 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static t_err	dispose_others(t_pipex *self, char **path)
 	return (error);
 }
 
-#include <stdio.h>
-
 int	pipex_parent(t_pipex *self, pid_t *pids, char **path)
 {
 	char	buffer[BUFFER_SIZE];
@@ -61,37 +59,23 @@ int	pipex_parent(t_pipex *self, pid_t *pids, char **path)
 		{
 			bytes = wrap_read(self->in->fd, buffer, BUFFER_SIZE);
 			if (bytes < 0 && errno != EAGAIN)
-			{
-				perror("read(in)");
 				return (EXIT_FAILURE);
-			}
 			if (bytes > 0)
 				ft_write(self->node[0].fd_in, buffer, bytes);
 			if (!bytes && wrap_close(self->node[0].fd_in))
-			{
-				perror("close(in)");
 				return (EXIT_FAILURE);
-			}
 			in_closed = !bytes;
-			printf("in: %zd bytes\n", bytes);
 		}
 		if (!out_closed)
 		{
 			bytes = wrap_read(self->last_pipe_out, buffer, BUFFER_SIZE);
 			if (bytes < 0 && errno != EAGAIN)
-			{
-				perror("read(out)");
 				return (EXIT_FAILURE);
-			}
 			if (bytes > 0)
 				ft_write(self->out->fd, buffer, bytes);
 			if (!bytes && wrap_close(self->out->fd))
-			{
-				perror("close(out)");
 				return (EXIT_FAILURE);
-			}
 			out_closed = !bytes;
-			printf("out: %zd bytes\n", bytes);
 		}
 	}
 	return (ft_os_process_wait_pids(pids, self->node_count));
