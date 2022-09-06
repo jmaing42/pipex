@@ -1,5 +1,6 @@
 
 NAME = pipex
+NAME_LIBWRAP = libwrap.a
 NAME_LIBFT = libft.a
 NAME_LIBFTO = libfto.a
 
