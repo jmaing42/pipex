@@ -25,22 +25,26 @@ re:
 	$(Q3)$(MAKE) all
 test:
 	$(Q2)find src -type d -name test | sort | xargs -L1 $(MAKE) -C
+	$(Q2)$(MAKE) prepare_publish
+	$(Q2)$(MAKE) -C tmp
+	$(Q2)$(MAKE) -C test
 	@echo "Some test might need manual review"
-publish_without_test:
-ifndef GIT_REMOTE_URL
-	$(error GIT_REMOTE_URL is undefined)
-endif
+prepare_publish:
 	$(Q2)rm -rf tmp
 	$(Q2)mkdir tmp
 	$(Q2)sh src/build/script/copy_src_to_tmp_flatten.sh
 	$(Q2)cd tmp && sh ../template/template.sh > Makefile
+publish_without_test: prepare_publish
+ifndef GIT_REMOTE_URL
+	$(error GIT_REMOTE_URL is undefined)
+endif
 	$(Q2)(cd tmp && git init && git add . && git commit -m "Initial commit" && git push "$(GIT_REMOTE_URL)" HEAD:master) || (echo "Failed to publish" && false)
 	$(Q2)rm -rf tmp
 	$(Q2)git push "$(GIT_REMOTE_URL)" HEAD:source || echo "Failed to push HEAD to source"
 publish:
 	$(Q1)$(MAKE) test
 	$(Q1)$(MAKE) publish_without_test
-.PHONY: all clean fclean re init deinit reinit refresh test publish publish_without_test
+.PHONY: all clean fclean re init deinit reinit refresh test publish publish_without_test prepare_publish
 
 .PHONY: pre_dev
 pre_dev:
