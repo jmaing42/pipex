@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 05:37:46 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 00:18:54 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:48:51 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	**ft_cstring_split(const char *str, const char *charset)
 	while (*str)
 	{
 		l.tmp = ft_cstring_find_one_of(str, charset, false);
+		result[l.index] = NULL;
 		if (ft_cstring_duplicate_length(str, l.tmp - str, &result[l.index++]))
 			l.alloc_failed = true;
 		if (!*l.tmp || l.alloc_failed)
