@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 07:30:45 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 08:24:46 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static t_err	dispose_others(t_pipex *self, char **path)
 	}
 	error |= wrap_close(self->last_pipe_in);
 	ft_cstring_split_free(path);
-	sleep(self->node_count + 1);
 	return (error);
 }
 
