@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 00:35:30 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 05:28:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int	pipex_parent(t_pipex *self, pid_t *pids, char **path)
 		|| wrap_dup2(self->last_pipe_out, self->out->fd) == -1
 	)
 		return (EXIT_FAILURE);
-	ft_os_process_wait_pids(pids, self->node_count);
-	return (EXIT_SUCCESS);
+	return (ft_os_process_wait_pids(pids, self->node_count));
 }
