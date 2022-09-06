@@ -6,13 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 06:23:22 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 06:24:51 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 #include <stdlib.h>
+#include <errno.h>
 
 #include "wrap.h"
 #include "ft_cstring_split.h"
