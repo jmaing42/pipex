@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 04:20:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/06 23:14:42 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:11:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_pipex
 	size_t			node_count;
 	t_ft_os_file	*in;
 	t_ft_os_file	*out;
+	int				last_pipe_in;
+	int				last_pipe_out;
 	t_pipex_node	node[];
 }	t_pipex;
 
@@ -44,6 +46,6 @@ int		pipex_child(
 			t_pipex *self,
 			pid_t *pids,
 			size_t index,
-			const char *const *path);
+			char **path);
 
 #endif

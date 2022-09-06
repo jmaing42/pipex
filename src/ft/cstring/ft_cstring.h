@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 05:28:39 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 00:34:03 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:21:19 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,17 @@ int			ft_cstring_compare_length(
 				const char *b,
 				size_t length);
 
-char		*ft_cstring_duplicate(
-				const char *src);
-char		*ft_cstring_duplicate_length(
+t_err		ft_cstring_duplicate(
 				const char *src,
-				size_t max_len);
-char		*ft_cstring_concat(const char *a,
-				const char *b);
+				char **out);
+t_err		ft_cstring_duplicate_length(
+				const char *src,
+				size_t max_len,
+				char **out);
+t_err		ft_cstring_concat(
+				const char *a,
+				const char *b,
+				char **out);
 
 const char	*ft_cstring_find(
 				const char *str,
@@ -87,7 +91,7 @@ size_t		ft_cstring_find_index_reverse(
 				const char *str,
 				char ch);
 
-bool		ft_cstring_equlals(
+bool		ft_cstring_equals(
 				const char *a,
 				const char *b);
 bool		ft_cstring_starts_with(
@@ -97,5 +101,8 @@ bool		ft_cstring_starts_with(
 bool		ft_cstring_ends_with_char(
 				const char *self,
 				char expected_end);
+bool		ft_cstring_contains_char(
+				const char *self,
+				char expected);
 
 #endif

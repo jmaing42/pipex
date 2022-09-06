@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/06 23:15:18 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:11:08 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int	main(int argc, char **argv)
 	if (index == (size_t)(-1))
 		return (pipex_parent(pipex, pids, path));
 	else
-		return (pipex_child(pipex, pids, index, (const char *const *)path));
+		return (pipex_child(pipex, pids, index, path));
 }

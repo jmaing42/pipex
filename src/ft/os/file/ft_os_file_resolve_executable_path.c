@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 23:56:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 06:29:24 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:25:56 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,28 @@
 #include "wrap.h"
 #include "ft_os_file.h"
 
-static char	*to_full_path(const char *path, const char *name)
+static t_err	to_full_path(const char *path, const char *name, char **out)
 {
 	char	*tmp;
 	char	*temp;
 
 	if (ft_cstring_ends_with_char(path, '/'))
-		return (ft_cstring_concat(path, name));
-	temp = ft_cstring_concat(path, "/");
-	if (!temp)
+	{
+		if (ft_cstring_concat(path, name, &tmp))
+			return (true);
+		*out = tmp;
+		return (false);
+	}
+	if (ft_cstring_concat(path, "/", &temp))
 		return (NULL);
-	tmp = ft_cstring_concat(temp, name);
+	if (ft_cstring_concat(temp, name, &tmp))
+	{
+		wrap_free(temp);
+		return (true);
+	}
 	wrap_free(temp);
-	return (tmp);
+	*out = tmp;
+	return (false);
 }
 
 t_err	ft_os_file_resolve_executable_path(
@@ -40,13 +49,14 @@ t_err	ft_os_file_resolve_executable_path(
 	char				*full_path;
 
 	*out = NULL;
+	if (ft_cstring_contains_char(name, '/'))
+		return (ft_cstring_duplicate(name, out));
 	if (!path)
 		return (false);
 	tmp = path - 1;
 	while (*++tmp)
 	{
-		full_path = to_full_path(*tmp, name);
-		if (!full_path)
+		if (to_full_path(*tmp, name, &full_path))
 			return (true);
 		if (ft_os_file_is_executable(full_path))
 		{

@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 05:37:46 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 18:52:18 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:22:05 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "wrap.h"
 
-char	*ft_cstring_duplicate_length(const char *src, size_t max_len)
+t_err	ft_cstring_duplicate_length(const char *src, size_t max_len, char **out)
 {
 	size_t		length;
 	char		*result;
@@ -27,11 +27,12 @@ char	*ft_cstring_duplicate_length(const char *src, size_t max_len)
 		;
 	result = wrap_malloc(length + 1);
 	if (!result)
-		return (NULL);
+		return (true);
 	temp = result;
 	length = 0;
 	while (*src && length++ < max_len)
 		*temp++ = *src++;
 	*temp = '\0';
-	return (result);
+	*out = result;
+	return (false);
 }

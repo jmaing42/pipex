@@ -6,40 +6,66 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 05:46:24 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 01:10:18 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 00:10:05 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_os_pipe.h"
 #include "pipex.h"
 
 #include <fcntl.h>
-#include <sys/fcntl.h>
 
 #include "wrap.h"
 #include "ft_os_file.h"
+#include "ft_os_pipe.h"
+
+static t_err	init_self(t_pipex *self, size_t argc, char **argv)
+{
+	self->node_count = 0;
+	self->in = ft_os_file_open(argv[0], O_RDONLY);
+	if (!self->in)
+		return (true);
+	self->out
+		= ft_os_file_open2(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (!self->out)
+	{
+		ft_os_file_close(self->in);
+		return (true);
+	}
+	if (ft_os_pipe(&self->last_pipe_in, &self->last_pipe_out))
+	{
+		ft_os_file_close(self->in);
+		ft_os_file_close(self->out);
+		return (true);
+	}
+	return (false);
+}
+
+static t_err	init_child(t_pipex *self, size_t argc, char **argv)
+{
+	size_t	i;
+
+	self->node_count = argc - 2;
+	i = 0;
+	while (++i < argc - 1)
+	{
+		if (pipex_new_node(&self->node[i - 1], argv[i]))
+		{
+			self->node_count = i - 1;
+			break ;
+		}
+	}
+	return (self->node_count != argc - 2);
+}
 
 t_pipex	*pipex_init(size_t argc, char **argv)
 {
 	t_pipex	*result;
-	size_t	i;
 
 	if (argc < 3)
 		return (NULL);
 	result = wrap_malloc(sizeof(t_pipex) + (argc - 2) * sizeof(t_pipex_node));
-	result->node_count = argc - 2;
-	result->in = ft_os_file_open(argv[0], O_RDONLY);
-	result->out = ft_os_file_open2(
-			argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	i = 0;
-	while (++i < argc - 1)
-	{
-		if (pipex_new_node(&result->node[i - 1], argv[i]))
-		{
-			result->node_count = i - 1;
-			break ;
-		}
-	}
-	if (result->node_count != argc - 2 || !result->in || !result->out)
+	if (init_self(result, argc, argv) || init_child(result, argc, argv))
 	{
 		pipex_free(result);
 		return (NULL);
