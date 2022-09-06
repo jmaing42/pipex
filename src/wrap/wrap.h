@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 18:39:06 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 00:13:44 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/06 22:11:21 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	wrap_exit(int status);
 int		wrap_open(const char *path, int flags);
 int		wrap_open2(const char *path, int flags, int additional_flags);
 int		wrap_close(int fd);
+int		wrap_dup2(int source_fd, int new_fd);
 int		wrap_pipe(int fds[2]);
 pid_t	wrap_fork(void);
 pid_t	wrap_wait(int *stat_loc);

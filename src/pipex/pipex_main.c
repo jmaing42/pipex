@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 06:33:25 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/06 23:15:18 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	if (index == (size_t)(-1))
-		return (pipex_parent(pipex, pids));
+		return (pipex_parent(pipex, pids, path));
 	else
-		return (pipex_child(pipex, index, path));
+		return (pipex_child(pipex, pids, index, (const char *const *)path));
 }
