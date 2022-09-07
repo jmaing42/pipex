@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 05:46:24 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 00:10:05 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 09:40:30 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@ static t_err	init_self(t_pipex *self, size_t argc, char **argv)
 		ft_os_file_close(self->in);
 		return (true);
 	}
-	if (ft_os_pipe(&self->last_pipe_in, &self->last_pipe_out))
-	{
-		ft_os_file_close(self->in);
-		ft_os_file_close(self->out);
-		return (true);
-	}
 	return (false);
 }
 
@@ -49,7 +43,7 @@ static t_err	init_child(t_pipex *self, size_t argc, char **argv)
 	i = 0;
 	while (++i < argc - 1)
 	{
-		if (pipex_new_node(&self->node[i - 1], argv[i]))
+		if (pipex_new_node(&self->node[i - 1], argv[i], i))
 		{
 			self->node_count = i - 1;
 			break ;

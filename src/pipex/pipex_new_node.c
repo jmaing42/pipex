@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 06:10:23 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 01:29:32 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/07 09:40:55 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,18 @@ char	**init_environment(const char *const *environ)
 	return ((char **)environ);
 }
 
-t_err	pipex_new_node(t_pipex_node *out, const char *str)
+t_err	pipex_new_node(t_pipex_node *out, const char *str, size_t index)
 {
 	t_pipex_node	result;
 	const size_t	args_count = ft_cstring_split_count(str, "\t\n\v\f\r ");
 
-	if (ft_os_pipe(&result.fd_in, &result.fd_out))
+	if (index != 0 && ft_os_pipe(&result.fd_in, &result.fd_out))
 		return (true);
+	if (index == 0)
+	{
+		result.fd_in = -1;
+		result.fd_out = -1;
+	}
 	result.args_count = args_count;
 	result.args = ft_cstring_split(str, "\t\n\v\f\r ");
 	result.envp = init_environment(environ);
