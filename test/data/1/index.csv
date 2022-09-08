@@ -3,4 +3,4 @@ lorem_ipsum.txt,tr 'aeiou' 'AEIOU'
 lorem_ipsum.txt,tr -d 'aeiou'
 no_nl.txt,tr -d 'l',tr 'H' 'E',cat,rev
 test.txt,cat - lorem_ipsum.txt,wc -c,cat empty_lines.txt -,rev,wc,cat no_nl.txt - test.txt,tail -c 42
-empty,cat
+empty.txt,cat

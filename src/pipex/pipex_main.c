@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 00:11:08 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/09 01:07:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 	size_t			index;
 	size_t			count;
 
+	if (!pipex)
+		return (EXIT_FAILURE);
 	if (ft_os_fork_multiple(pipex->node_count, pids, &index, &count))
 	{
 		ft_os_process_wait_pids(pids, count);

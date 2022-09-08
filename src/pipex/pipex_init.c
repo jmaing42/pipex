@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 05:46:24 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/07 09:40:30 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/09 01:04:22 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 static t_err	init_self(t_pipex *self, size_t argc, char **argv)
 {
 	self->node_count = 0;
+	self->out = NULL;
 	self->in = ft_os_file_open(argv[0], O_RDONLY);
 	if (!self->in)
 		return (true);
