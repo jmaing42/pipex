@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_init.c                                       :+:      :+:    :+:   */
+/*   pipex_init_without_heredoc.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 05:46:24 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/09 01:04:22 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/12 16:39:28 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_os_pipe.h"
 #include "pipex.h"
 
 #include <fcntl.h>
@@ -53,7 +52,7 @@ static t_err	init_child(t_pipex *self, size_t argc, char **argv)
 	return (self->node_count != argc - 2);
 }
 
-t_pipex	*pipex_init(size_t argc, char **argv)
+t_pipex	*pipex_init_without_heredoc(size_t argc, char **argv)
 {
 	t_pipex	*result;
 
