@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:48:49 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/12 18:00:29 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/13 07:58:52 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "ft_cstring.h"
 #include "ft_cstring_split.h"
 #include "ft_io.h"
 #include "ft_os_fork.h"
@@ -37,10 +38,10 @@ static bool	is_heredoc(int argc, char **argv)
 	return (argc >= 2 && ft_cstring_equals(argv[1], "here_doc"));
 }
 
-static int	main_with_heredoc(t_pipex *pipex)
+static int	main_with_heredoc(t_pipex *pipex, size_t process_count)
 {
 	char **const	path = get_path();
-	pid_t *const	pids = ft_malloc(sizeof(pid_t) * argc - 3);
+	pid_t *const	pids = ft_malloc(sizeof(pid_t) * process_count);
 	size_t			index;
 	size_t			count;
 
@@ -56,10 +57,10 @@ static int	main_with_heredoc(t_pipex *pipex)
 		return (pipex_child(pipex, pids, index, path));
 }
 
-static int	main_without_heredoc(t_pipex *pipex)
+static int	main_without_heredoc(t_pipex *pipex, size_t process_count)
 {
 	char **const	path = get_path();
-	pid_t *const	pids = ft_malloc(sizeof(pid_t) * argc - 3);
+	pid_t *const	pids = ft_malloc(sizeof(pid_t) * process_count);
 	size_t			index;
 	size_t			count;
 
@@ -77,20 +78,20 @@ static int	main_without_heredoc(t_pipex *pipex)
 
 int	main(int argc, char **argv)
 {
-	t_pipex *const	pipex;
+	t_pipex	*pipex;
 
 	if (is_heredoc(argc, argv))
 	{
 		pipex = pipex_init_with_heredoc(argc - 1, argv + 1);
 		if (!pipex)
 			return (EXIT_FAILURE);
-		return (main_with_heredoc(pipex));
+		return (main_with_heredoc(pipex, argc - 4));
 	}
 	else
 	{
 		pipex = pipex_init_without_heredoc(argc - 1, argv + 1);
 		if (!pipex)
 			return (EXIT_FAILURE);
-		return (main_without_heredoc(pipex));
+		return (main_without_heredoc(pipex, argc - 3));
 	}
 }
