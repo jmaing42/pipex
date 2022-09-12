@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 03:15:02 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/05 00:16:56 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/12 16:07:55 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 t_ft_os_file	*ft_os_file_open2(const char *path, int mode, int permission)
 {
-	const int			fd = wrap_open2(path, mode, permission);
+	const int			fd = wrap_open(path, mode, permission);
 	const size_t		path_length = ft_cstring_length(path);
 	t_ft_os_file *const	result
 		= wrap_malloc(sizeof(t_ft_os_file) + path_length + 1);

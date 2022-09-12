@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 18:39:06 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/06 22:11:21 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/12 15:39:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	wrap_free(void *memory);
 ssize_t	wrap_write(int fd, const void *buffer, size_t bytes);
 ssize_t	wrap_read(int fd, void *buffer, size_t bytes);
 void	wrap_exit(int status);
-int		wrap_open(const char *path, int flags);
-int		wrap_open2(const char *path, int flags, int additional_flags);
+int		wrap_open(const char *path, int flags, ...);
 int		wrap_close(int fd);
 int		wrap_dup2(int source_fd, int new_fd);
 int		wrap_pipe(int fds[2]);
