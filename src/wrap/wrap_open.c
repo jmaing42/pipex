@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:09:42 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/12 16:10:38 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/13 07:55:29 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,22 @@
 #include <stdarg.h>
 #include <fcntl.h>
 
+#ifdef O_TMPFILE
+
+static const int	g_flags = O_CREAT | O_TMPFILE;
+
+#else
+
+static const int	g_flags = O_CREAT;
+
+#endif
+
 int	wrap_open(const char *path, int flags, ...)
 {
 	va_list	ap;
 	int		additional_flags;
 
-	if (flags & (O_CREAT | O_TMPFILE))
+	if (flags & g_flags)
 	{
 		va_start(ap, flags);
 		additional_flags = va_arg(ap, int);
