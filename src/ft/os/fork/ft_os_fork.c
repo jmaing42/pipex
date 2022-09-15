@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 19:42:30 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:44:55 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/15 09:53:15 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_err	ft_os_fork(pid_t *out_pid)
 {
 	const pid_t	pid = wrap_fork();
 
-	if (pid == -1)
+	if (pid < 0)
 		return (true);
 	*out_pid = pid;
 	return (false);

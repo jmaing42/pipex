@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:36:32 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:02:17 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/15 09:54:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_err	fto_stream_fd_in_v_read_all(
 	while (!self->end && *read_bytes != length)
 	{
 		read_result = wrap_read(self->fd, buffer, length - *read_bytes);
-		if (read_result == -1)
+		if (read_result < 0)
 			return (true);
 		if (read_result == 0)
 			self->end = true;

@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:36:34 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/04 19:02:21 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/15 09:55:31 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_err	fto_stream_fd_in_v_read(
 {
 	const ssize_t	result = wrap_read(self->fd, buffer, length);
 
-	if (result == -1)
+	if (result < 0)
 		return (true);
 	*read_bytes = (size_t)result;
 	if (result == 0)

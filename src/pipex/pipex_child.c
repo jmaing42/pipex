@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 21:54:13 by Juyeong Maing     #+#    #+#             */
-/*   Updated: 2022/09/15 09:50:18 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/09/15 09:54:17 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int	pipex_child(
 		return (EXIT_FAILURE);
 	}
 	return (
-		wrap_dup2(self->node[index].fd_out, STDIN_FILENO) == -1
+		wrap_dup2(self->node[index].fd_out, STDIN_FILENO) < 0
 		|| (index != self->node_count - 1
-			&& wrap_dup2(self->node[index + 1].fd_in, STDOUT_FILENO) == -1)
+			&& wrap_dup2(self->node[index + 1].fd_in, STDOUT_FILENO) < 0)
 		|| (index == self->node_count - 1
-			&& wrap_dup2(self->out->fd, STDOUT_FILENO) == -1)
-		|| execve(executable_path, it->args, it->envp) == -1);
+			&& wrap_dup2(self->out->fd, STDOUT_FILENO) < 0)
+		|| execve(executable_path, it->args, it->envp) < 0);
 }
