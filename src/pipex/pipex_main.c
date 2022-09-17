@@ -76,7 +76,7 @@ static int	main_without_heredoc(t_pipex *pipex, size_t process_count)
 		return (pipex_child(pipex, pids, index, path));
 }
 
-int	main(int argc, char **argv)
+int	pipex_main(int argc, char **argv)
 {
 	t_pipex	*pipex;
 

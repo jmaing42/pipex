@@ -12,7 +12,7 @@ CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
 SRC_DIR := .
 OBJ_DIR := .cache
 
-SRCS_PIPEX := $(shell find . -name "pipex_*.c" | grep -v /test/ | xargs)
+SRCS_PIPEX := ./main.c $(shell find . -name "pipex_*.c" | grep -v /test/ | xargs)
 SRCS_LIBWRAP := $(shell find . -name "wrap_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFTO := $(shell find . -name "fto_*.c" | grep -v /test/ | xargs)
