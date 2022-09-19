@@ -68,5 +68,7 @@ bool				ft_trie_iterator_next(
 						void **out_value);
 void				ft_trie_iterator_free(
 						t_ft_trie_iterator *self);
+void				ft_trie_unsafe_free(
+						t_ft_trie *self);
 
 #endif
