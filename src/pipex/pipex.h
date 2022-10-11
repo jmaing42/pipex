@@ -45,5 +45,6 @@ void	pipex_free(t_pipex *self);
 int		pipex_parent_with_heredoc(t_pipex *self, pid_t *pids, char **path);
 int		pipex_parent_without_heredoc(t_pipex *self, pid_t *pids, char **path);
 int		pipex_child(t_pipex *self, pid_t *pids, size_t index, char **path);
+t_err	pipex_tmpnam(char **out);
 
 #endif
