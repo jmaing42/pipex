@@ -10,25 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRAP_H
-# define WRAP_H
+#include "pipex.h"
 
-# include <stddef.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
 
-void	*wrap_malloc(size_t size);
-void	wrap_free(void *memory);
-ssize_t	wrap_write(int fd, const void *buffer, size_t bytes);
-ssize_t	wrap_read(int fd, void *buffer, size_t bytes);
-void	wrap_exit(int status);
-int		wrap_open(const char *path, int flags, ...);
-int		wrap_close(int fd);
-int		wrap_dup2(int source_fd, int new_fd);
-int		wrap_pipe(int fds[2]);
-pid_t	wrap_fork(void);
-pid_t	wrap_wait(int *stat_loc);
-pid_t	wrap_waitpid(pid_t pid, int *stat_loc, int options);
-int		wrap_access(const char *pathname, int mode);
-int		wrap_unlink(const char *path);
+#include "wrap.h"
+#include "ft_cstring_split.h"
+#include "ft_io.h"
+#include "ft_os_process.h"
 
-#endif
+#define BUFFER_SIZE 1024
+
+static t_err	dispose_others(t_pipex *self, char **path)
+{
+	t_err	error;
+	size_t	i;
+
+	error = wrap_unlink(self->in->path);
+	i = -1;
+	while (++i < self->node_count)
+	{
+		error |= wrap_close(self->node[i].fd_in);
+		error |= wrap_close(self->node[i].fd_out);
+	}
+	ft_cstring_split_free(path);
+	return (error);
+}
+
+int	pipex_parent_with_heredoc(t_pipex *self, pid_t *pids, char **path)
+{
+	if (dispose_others(self, path))
+		return (EXIT_FAILURE);
+	return (ft_os_process_wait_pids(pids, self->node_count));
+}
