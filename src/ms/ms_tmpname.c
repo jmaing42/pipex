@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_tmpname.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2022/10/14 20:07:08 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
-#include "pipex.h"
-#include "wrap.h"
+#include "ms.h"
 
 #include <stdbool.h>
 
-const char *const	g_prefix = "/tmp/pipex";
+#include "ft_cstring.h"
+#include "wrap.h"
 
-t_err	pipex_tmpnam(char **out)
+const char *const	g_prefix = "/tmp/pipex_tmp";
+
+t_err	ms_tmpname(char **out)
 {
 	unsigned int	i;
 	unsigned int	tmp;

@@ -95,4 +95,6 @@ t_err	ms_parse(const char *str, t_ms_node_parse_result *out);
 t_err	ms_run(t_ms_node *node, char ***variables);
 void	ms_free(t_ms_node *node);
 
+t_err	ms_tmpname(char **out);
+
 #endif
