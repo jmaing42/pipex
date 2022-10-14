@@ -16,6 +16,7 @@ SRCS_PIPEX := ./main.c $(shell find . -name "pipex_*.c" | grep -v /test/ | xargs
 SRCS_LIBWRAP := $(shell find . -name "wrap_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFTO := $(shell find . -name "fto_*.c" | grep -v /test/ | xargs)
+SRCS_LIBMS := $(shell find . -name "ms_*.c" | grep -v /test/ | xargs)
 
 NAME := pipex
 EXECUTABLE_TARGETS := $(NAME)
@@ -59,7 +60,7 @@ LDFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
 $(OBJ_DIR)/%.a:
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(AR) $(ARFLAGS) $@ $^
-$(OBJ_DIR)/%.exe: $(OBJ_DIR)/libwrap$(SUFFIX).a $(OBJ_DIR)/libft$(SUFFIX).a $(OBJ_DIR)/libfto$(SUFFIX).a
+$(OBJ_DIR)/%.exe: $(OBJ_DIR)/libwrap$(SUFFIX).a $(OBJ_DIR)/libft$(SUFFIX).a $(OBJ_DIR)/libfto$(SUFFIX).a $(OBJ_DIR)/libms$(SUFFIX).a
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(CC) $(LDFLAGS) -o $@ $^
 $(OBJ_DIR)/%$(SUFFIX).o: %.c
@@ -69,6 +70,7 @@ $(OBJ_DIR)/%$(SUFFIX).o: %.c
 $(OBJ_DIR)/libwrap$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBWRAP))
 $(OBJ_DIR)/libft$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFT))
 $(OBJ_DIR)/libfto$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFTO))
+$(OBJ_DIR)/libms$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBMS))
 $(OBJ_DIR)/$(NAME)$(SUFFIX).exe: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_PIPEX))
 $(EXECUTABLE_TARGETS): %: $(OBJ_DIR)/%$(SUFFIX).exe
 	$(Q1)cp $< $@.exe
