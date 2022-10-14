@@ -29,15 +29,13 @@ typedef enum e_ms_token_type
 	MS_TOKEN_TYPE_WORD_DOUBLE_QUOTED,
 }	t_ms_token_type;
 
-typedef union u_ms_token_value
-{
-	char	*word;
-}	t_ms_token_value;
-
 typedef struct s_ms_token
 {
-	t_ms_token_type		type;
-	t_ms_token_value	value;
+	t_ms_token_type	type;
+	char			*word;
 }	t_ms_token;
+
+t_err	ms_parse_tokenize(const char *string, t_ms_token **out);
+void	ms_parse_free_token(t_ms_token *token);
 
 #endif
