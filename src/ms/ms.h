@@ -18,28 +18,23 @@
 
 # include "ft_types.h"
 
-typedef struct s_ms_file_list
-{
-	char	**array;
-	size_t	length;
-}	t_ms_file_list;
-
-typedef struct s_ms_tmp_list
-{
-	char	**array;
-	size_t	length;
-}	t_ms_tmp_list;
-
 typedef enum e_ms_part_type
 {
 	MS_PART_TYPE_SIMPLE,
 	MS_PART_TYPE_COMPOUND,
 }	t_ms_part_type;
 
+typedef enum e_ms_part_simple_type
+{
+	MS_PART_SIMPLE_NORMAL,
+	MS_PART_SIMPLE_QUOTED,
+	MS_PART_SIMPLE_DOUBLE_QUOTED,
+}	t_ms_part_simple_type;
+
 typedef struct s_ms_part_simple
 {
-	char	**arguments;
-	char	**variables;
+	t_ms_part_simple_type	type;
+	char					*content;
 }	t_ms_part_simple;
 
 typedef struct s_ms_part_compound
@@ -50,16 +45,15 @@ typedef struct s_ms_part_compound
 
 typedef union u_ms_part
 {
-	t_ms_part_simple	simple;
+	t_ms_part_simple	*simple;
 	t_ms_part_compound	compound;
 }	t_ms_part;
 
 typedef struct s_ms
 {
-	t_ms_file_list	stdin;
-	t_ms_file_list	stdout;
-	t_ms_file_list	stderr;
-	t_ms_tmp_list	tmp;
+	char			*stdin;
+	char			*stdout;
+	char			*heredoc_tmp;
 	t_ms_part_type	type;
 	t_ms_part		part;
 }	t_ms;
