@@ -18,11 +18,11 @@
 
 # include "ft_types.h"
 
-typedef struct s_ms_fd_list
+typedef struct s_ms_file_list
 {
-	int		*array;
+	char	**array;
 	size_t	length;
-}	t_ms_fd_list;
+}	t_ms_file_list;
 
 typedef struct s_ms_tmp_list
 {
@@ -56,14 +56,11 @@ typedef union u_ms_node_part
 
 typedef struct s_ms_node
 {
-	int					stdin_pipe;
-	int					stdout_pipe;
-	int					stderr_pipe;
-	t_ms_fd_list		stdin_fds;
-	t_ms_fd_list		stdout_fds;
-	t_ms_fd_list		stderr_fds;
-	t_ms_tmp_list		tmp_files;
-	t_ms_node_part_type	part_type;
+	t_ms_file_list		stdin;
+	t_ms_file_list		stdout;
+	t_ms_file_list		stderr;
+	t_ms_tmp_list		tmp;
+	t_ms_node_part_type	type;
 	t_ms_node_part		part;
 }	t_ms_node;
 
