@@ -20,13 +20,13 @@
 typedef enum e_ms_parse_token_type
 {
 	MS_PARSE_TOKEN_TYPE_EOF,
-	MS_PARSE_TOKEN_TYPE_SPACE,
 	MS_PARSE_TOKEN_TYPE_AND,
 	MS_PARSE_TOKEN_TYPE_OR,
 	MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON,
 	MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON,
 	MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS,
 	MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS,
+	MS_PARSE_TOKEN_TYPE_SPACE,
 	MS_PARSE_TOKEN_TYPE_WORD,
 	MS_PARSE_TOKEN_TYPE_WORD_QUOTED,
 	MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED,
@@ -77,29 +77,33 @@ t_err	ms_parse_tokenize_state_default(
 			t_ms_parse_token_list *list,
 			t_stringbuilder *data,
 			t_ms_parse_tokenize_state *out_next_state);
-
 t_err	ms_parse_tokenize_state_space(
 			char c,
 			t_ms_parse_token_list *list,
 			t_stringbuilder *data,
 			t_ms_parse_tokenize_state *out_next_state);
-
 t_err	ms_parse_tokenize_state_word(
 			char c,
 			t_ms_parse_token_list *list,
 			t_stringbuilder *data,
 			t_ms_parse_tokenize_state *out_next_state);
-
 t_err	ms_parse_tokenize_state_quote(
 			char c,
 			t_ms_parse_token_list *list,
 			t_stringbuilder *data,
 			t_ms_parse_tokenize_state *out_next_state);
-
 t_err	ms_parse_tokenize_state_double_quote(
 			char c,
 			t_ms_parse_token_list *list,
 			t_stringbuilder *data,
 			t_ms_parse_tokenize_state *out_next_state);
+
+t_err	ms_parse_tokenize_add_simple_token(
+			t_ms_parse_token_list *list,
+			t_ms_parse_token_type type);
+t_err	ms_parse_tokenize_add_string_token(
+			t_ms_parse_token_list *list,
+			t_ms_parse_token_type type,
+			t_stringbuilder *data);
 
 #endif
