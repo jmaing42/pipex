@@ -15,6 +15,8 @@
 
 # include "ms.h"
 
+# include "ft_stringbuilder.h"
+
 typedef enum e_ms_parse_token_type
 {
 	MS_PARSE_TOKEN_TYPE_EOF,
@@ -33,59 +35,71 @@ typedef enum e_ms_parse_token_type
 typedef struct s_ms_parse_token
 {
 	t_ms_parse_token_type	type;
-	char					*word;
+	char					*data;
 }	t_ms_parse_token;
 
-t_err	ms_parse_tokenize(const char *string, t_ms_parse_token **out);
-void	ms_parse_free_token(t_ms_parse_token *token);
-
-# define MS_PARSE_TOKENIZER_STATE_ERROR -1
-# define MS_PARSE_TOKENIZER_STATE_DEFAULT 0
-# define MS_PARSE_TOKENIZER_STATE_SPACE 1
-# define MS_PARSE_TOKENIZER_STATE_WORD 2
-# define MS_PARSE_TOKENIZER_STATE_QUOTE 3
-# define MS_PARSE_TOKENIZER_STATE_DOUBLE_QUOTE 4
-
-typedef struct s_ms_parse_tokenizer_state
+typedef struct s_ms_parse_token_list_node
 {
-	int		state;
-	char	*data;
-}	t_ms_parse_tokenizer_state;
+	struct s_ms_parse_token_list_node	*next;
+	t_ms_parse_token					value;
+}	t_ms_parse_token_list_node;
+
+typedef struct s_ms_parse_token_list
+{
+	t_ms_parse_token_list_node	*head;
+	t_ms_parse_token_list_node	*tail;
+}	t_ms_parse_token_list;
+
+t_err	ms_parse_tokenize(const char *str, t_ms_parse_token_list *out);
+void	ms_parse_tokenize_free(t_ms_parse_token_list *list);
+
+# define MS_PARSE_TOKENIZE_STATE_ERROR -1
+# define MS_PARSE_TOKENIZE_STATE_DEFAULT 0
+# define MS_PARSE_TOKENIZE_STATE_SPACE 1
+# define MS_PARSE_TOKENIZE_STATE_WORD 2
+# define MS_PARSE_TOKENIZE_STATE_QUOTE 3
+# define MS_PARSE_TOKENIZE_STATE_DOUBLE_QUOTE 4
+
+typedef struct s_ms_parse_tokenize_state
+{
+	int				state;
+	t_stringbuilder	*data;
+}	t_ms_parse_tokenize_state;
 
 typedef t_err	(*t_ms_parse_tokenize_function)(
 					char c,
-					t_ms_parse_token *list,
-					void *data,
-					t_ms_parse_tokenizer_state *out_next_state);
+					t_ms_parse_token_list *list,
+					t_stringbuilder *data,
+					t_ms_parse_tokenize_state *out_next_state);
 
-t_err	ms_parse_tokenize_default(
+t_err	ms_parse_tokenize_state_default(
 			char c,
-			t_ms_parse_token *list,
-			void *data,
-			t_ms_parse_tokenizer_state *out_next_state);
+			t_ms_parse_token_list *list,
+			t_stringbuilder *data,
+			t_ms_parse_tokenize_state *out_next_state);
 
-t_err	ms_parse_tokenize_space(
+t_err	ms_parse_tokenize_state_space(
 			char c,
-			t_ms_parse_token *list,
-			void *data,
-			t_ms_parse_tokenizer_state *out_next_state);
+			t_ms_parse_token_list *list,
+			t_stringbuilder *data,
+			t_ms_parse_tokenize_state *out_next_state);
 
-t_err	ms_parse_tokenize_word(
+t_err	ms_parse_tokenize_state_word(
 			char c,
-			t_ms_parse_token *list,
-			void *data,
-			t_ms_parse_tokenizer_state *out_next_state);
+			t_ms_parse_token_list *list,
+			t_stringbuilder *data,
+			t_ms_parse_tokenize_state *out_next_state);
 
-t_err	ms_parse_tokenize_quote(
+t_err	ms_parse_tokenize_state_quote(
 			char c,
-			t_ms_parse_token *list,
-			void *data,
-			t_ms_parse_tokenizer_state *out_next_state);
+			t_ms_parse_token_list *list,
+			t_stringbuilder *data,
+			t_ms_parse_tokenize_state *out_next_state);
 
-t_err	ms_parse_tokenize_double_quote(
+t_err	ms_parse_tokenize_state_double_quote(
 			char c,
-			t_ms_parse_token *list,
-			void *data,
-			t_ms_parse_tokenizer_state *out_next_state);
+			t_ms_parse_token_list *list,
+			t_stringbuilder *data,
+			t_ms_parse_tokenize_state *out_next_state);
 
 #endif
