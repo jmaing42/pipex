@@ -70,9 +70,8 @@ typedef struct s_ms_compound
 	t_ms_compound_type	type;
 }	t_ms_compound;
 
-t_err	ms_validate(const char *str, bool *out);
 t_err	ms_parse(const char *str, t_ms **out);
-t_err	ms_run(t_ms *node, char **variables);
+t_err	ms_run(t_ms *node, char ***variables);
 void	ms_free(t_ms *node);
 
 t_err	ms_tmpname(char **out);
