@@ -3,7 +3,7 @@ BASE_PATH := ../../../../..
 include $(BASE_PATH)/build/common.mk
 
 test:
-	$(Q2)sh "$(BASE_PATH)/build/script/inout.sh" "fto_stream/fd_in"
+	$(Q2)sh "$(BASE_PATH)/build/script/inout_filename.sh" "fto_stream/fd_in"
 
 INCS_FILE := incs.txt
 SRCS_FILE := srcs.txt
