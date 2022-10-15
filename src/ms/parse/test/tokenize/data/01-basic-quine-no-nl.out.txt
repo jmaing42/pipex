@@ -1,0 +1,4 @@
+WORD - cat
+SPACE
+WORD - $0
+EOF

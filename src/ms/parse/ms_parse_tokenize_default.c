@@ -75,10 +75,10 @@ static t_err	transition_to_quote(
 	return (false);
 }
 
-t_err	ms_parse_tokenize_default(
+t_err	ms_parse_tokenize_state_default(
 	char c,
 	t_ms_parse_token_list *list,
-	void *data,
+	t_stringbuilder *data,
 	t_ms_parse_tokenize_state *out_next_state
 )
 {
