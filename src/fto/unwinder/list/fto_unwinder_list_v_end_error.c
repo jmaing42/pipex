@@ -12,7 +12,7 @@
 
 #include "fto_unwinder_list_v.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 t_err	fto_unwinder_list_v_end_error(
 	t_fto_unwinder_list *self
@@ -27,7 +27,7 @@ t_err	fto_unwinder_list_v_end_error(
 		if (tmp->value == *tmp->destination)
 			*tmp->destination = NULL;
 		tmp->how_to_remove_value(tmp->value);
-		free(tmp);
+		wrap_free(tmp);
 	}
 	return (true);
 }

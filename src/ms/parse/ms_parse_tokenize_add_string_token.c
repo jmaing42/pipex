@@ -12,7 +12,7 @@
 
 #include "ms_parse.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 t_err	ms_parse_tokenize_add_string_token(
 	t_ms_parse_token_list *list,
@@ -21,14 +21,14 @@ t_err	ms_parse_tokenize_add_string_token(
 )
 {
 	t_ms_parse_token_list_node *const	node
-		= malloc(sizeof(t_ms_parse_token_list_node));
+		= wrap_malloc(sizeof(t_ms_parse_token_list_node));
 	char *const							str = stringbuilder_to_string(data, 0);
 
 	stringbuilder_free(data);
 	if (!node || !str)
 	{
-		free(node);
-		free(str);
+		wrap_free(node);
+		wrap_free(str);
 		return (true);
 	}
 	node->next = NULL;

@@ -12,7 +12,7 @@
 
 #include "ms_parse.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 t_err	ms_parse_tokenize_add_simple_token(
 	t_ms_parse_token_list *list,
@@ -20,11 +20,11 @@ t_err	ms_parse_tokenize_add_simple_token(
 )
 {
 	t_ms_parse_token_list_node *const	node
-		= malloc(sizeof(t_ms_parse_token_list_node));
+		= wrap_malloc(sizeof(t_ms_parse_token_list_node));
 
 	if (!node)
 	{
-		free(node);
+		wrap_free(node);
 		return (true);
 	}
 	node->next = NULL;

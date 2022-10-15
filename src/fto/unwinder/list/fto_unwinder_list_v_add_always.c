@@ -12,7 +12,7 @@
 
 #include "fto_unwinder_list_v.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 t_err	fto_unwinder_list_v_add_always(
 	t_fto_unwinder_list *self,
@@ -22,13 +22,13 @@ t_err	fto_unwinder_list_v_add_always(
 )
 {
 	t_fto_unwinder_list_node *const	node
-		= malloc(sizeof(t_fto_unwinder_list_node));
+		= wrap_malloc(sizeof(t_fto_unwinder_list_node));
 
 	*destination = value;
 	if (!value || !node)
 	{
 		how_to_remove_value(value);
-		free(node);
+		wrap_free(node);
 		return (true);
 	}
 	node->next = self->head;

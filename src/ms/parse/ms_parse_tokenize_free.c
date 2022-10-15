@@ -12,7 +12,7 @@
 
 #include "ms_parse.h"
 
-#include <stdlib.h>
+#include "wrap.h"
 
 void	ms_parse_tokenize_free(t_ms_parse_token_list *list)
 {
@@ -20,7 +20,7 @@ void	ms_parse_tokenize_free(t_ms_parse_token_list *list)
 	{
 		list->tail = list->head;
 		list->head = list->head->next;
-		free(list->tail->value.data);
-		free(list->tail);
+		wrap_free(list->tail->value.data);
+		wrap_free(list->tail);
 	}
 }
