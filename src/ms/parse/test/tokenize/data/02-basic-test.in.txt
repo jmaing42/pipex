@@ -1,0 +1,1 @@
+export ARGS="1 2 3 4 5" && ./push_swap $ARGS | ./checker $ARGS >> result.txt
