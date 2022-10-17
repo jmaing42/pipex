@@ -1,0 +1,24 @@
+WORD - make
+SPACE
+WORD - PROFILE=
+WORD_QUOTED - release
+SPACE
+WORD - TARGET=
+WORD_QUOTED - production
+SPACE
+WORD - SANITIZER=
+WORD_QUOTED - leak
+SPACE
+OR
+OR
+SPACE
+WORD - echo
+SPACE
+WORD_QUOTED - Failed to build release/development/leak
+SPACE
+RIGHT_CHEVRON
+RIGHT_CHEVRON
+SPACE
+WORD - warning.log
+SPACE
+EOF

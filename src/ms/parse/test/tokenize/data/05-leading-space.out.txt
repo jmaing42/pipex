@@ -1,0 +1,5 @@
+SPACE
+WORD - echo
+SPACE
+WORD_QUOTED - Hello world!
+EOF

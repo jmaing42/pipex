@@ -1,0 +1,1 @@
+make PROFILE='release' TARGET='production' SANITIZER='leak' || echo 'Failed to build release/development/leak' >> warning.log
