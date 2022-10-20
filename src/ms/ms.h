@@ -51,11 +51,11 @@ typedef union u_ms_part
 
 typedef struct s_ms
 {
-	char			*stdin;
-	char			*stdout;
-	char			*heredoc_tmp;
-	t_ms_part_type	type;
-	t_ms_part		part;
+	t_ms_part_simple	*stdin;
+	t_ms_part_simple	*stdout;
+	t_ms_part_simple	*heredoc_tmp;
+	t_ms_part_type		type;
+	t_ms_part			part;
 }	t_ms;
 
 typedef enum s_ms_compound_type
