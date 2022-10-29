@@ -121,7 +121,7 @@ t_err	ms_parse_parse_ms_compound(
 			t_ms_parse_token_list_node **head,
 			t_ms *mut);
 
-t_err	ms_parse_parse_ms_part(
+t_err	ms_parse_parse_ms_simple_part(
 			t_ms_parse_token_list_node **head,
 			t_ms_part_simple **out);
 
