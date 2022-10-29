@@ -31,10 +31,16 @@ typedef enum e_ms_part_simple_type
 	MS_PART_SIMPLE_DOUBLE_QUOTED,
 }	t_ms_part_simple_type;
 
-typedef struct s_ms_part_simple
+typedef struct s_ms_part_simple_node
 {
 	t_ms_part_simple_type	type;
 	char					*content;
+}	t_ms_part_simple_node;
+
+typedef struct s_ms_part_simple
+{
+	t_ms_part_simple_node	*array;
+	size_t					length;
 }	t_ms_part_simple;
 
 typedef struct s_ms_part_compound
@@ -45,15 +51,15 @@ typedef struct s_ms_part_compound
 
 typedef union u_ms_part
 {
-	t_ms_part_simple	*simple;
+	t_ms_part_simple	simple;
 	t_ms_part_compound	compound;
 }	t_ms_part;
 
 typedef struct s_ms
 {
-	t_ms_part_simple	*stdin;
-	t_ms_part_simple	*stdout;
-	t_ms_part_simple	*heredoc_tmp;
+	t_ms_part_simple	stdin;
+	t_ms_part_simple	stdout;
+	t_ms_part_simple	heredoc_tmp;
 	t_ms_part_type		type;
 	t_ms_part			part;
 }	t_ms;
