@@ -112,17 +112,14 @@ void	ms_parse_skip_space_if_any(
 t_err	ms_parse_parse_ms(
 			t_ms_parse_token_list_node **head,
 			t_ms **out);
-
 t_err	ms_parse_parse_ms_simple(
 			t_ms_parse_token_list_node **head,
-			t_ms *mut);
-
+			t_ms **mut);
 t_err	ms_parse_parse_ms_compound(
 			t_ms_parse_token_list_node **head,
-			t_ms *mut);
-
+			t_ms **mut);
 t_err	ms_parse_parse_ms_simple_part(
 			t_ms_parse_token_list_node **head,
-			t_ms_part_simple **out);
+			t_ms_part_simple *out);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parse_parse_ms_simple_part.c                    :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/10/29 21:38:54 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 
 #include <stdlib.h>
 
-static size_t	count(t_ms_parse_token_list_node *head)
+static size_t	count(t_ms_parse_token_list_node **head)
 {
-	size_t	result;
+	size_t						result;
+	t_ms_parse_token_list_node	*tmp;
 
+	ms_parse_skip_space_if_any(head);
+	tmp = *head;
 	result = 0;
-	while (head->value.type == MS_PARSE_TOKEN_TYPE_WORD
-		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
-		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
+	while (tmp->value.type == MS_PARSE_TOKEN_TYPE_WORD
+		|| tmp->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
+		|| tmp->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
 	{
 		result++;
-		head = head->next;
+		tmp = tmp->next;
 	}
 	return (result);
 }
@@ -70,27 +73,22 @@ static t_err	fill(
 
 t_err	ms_parse_parse_ms_simple_part(
 	t_ms_parse_token_list_node **head,
-	t_ms_part_simple **out
+	t_ms_part_simple *out
 )
 {
-	t_ms_part_simple *const	result = malloc(sizeof(t_ms_part_simple));
-	size_t					length;
+	const size_t		length = count(head);
+	t_ms_part_simple	result;
 
-	if (!result)
-		return (true);
-	ms_parse_skip_space_if_any(head);
-	length = count(*head);
-	result->length = length;
-	result->array = malloc(sizeof(t_ms_part_simple_node) * length);
-	if (!result->array)
+	result.length = length;
+	result.array = malloc(sizeof(t_ms_part_simple_node) * length);
+	if (!length || !result.array || fill(head, result.array))
 	{
-		free(result);
-		return (true);
-	}
-	if (fill(head, result->array))
-	{
-		free(result->array);
-		free(result);
+		free(result.array);
+		if (!length)
+		{
+			*out = (t_ms_part_simple){NULL, 0};
+			return (false);
+		}
 		return (true);
 	}
 	*out = result;

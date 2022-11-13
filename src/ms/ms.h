@@ -43,6 +43,31 @@ typedef struct s_ms_part_simple
 	size_t					length;
 }	t_ms_part_simple;
 
+typedef struct s_ms_part_simple_list_node
+{
+	struct s_ms_part_simple_list	*next;
+	t_ms_part_simple				value;
+}	t_ms_part_simple_list_node;
+
+typedef struct s_ms_part_simple_list
+{
+	t_ms_part_simple_list_node	*head;
+	t_ms_part_simple_list_node	*tail;
+}	t_ms_part_simple_list;
+
+typedef struct s_ms_part_special_list_node
+{
+	struct s_ms_part_special_list	*next;
+	t_ms_part_special				value;
+	bool							special;
+}	t_ms_part_special_list_node;
+
+typedef struct s_ms_part_special_list
+{
+	t_ms_part_special_list_node	*head;
+	t_ms_part_special_list_node	*tail;
+}	t_ms_part_special_list;
+
 typedef struct s_ms_part_compound
 {
 	struct s_ms_compound	*array;
@@ -57,11 +82,10 @@ typedef union u_ms_part
 
 typedef struct s_ms
 {
-	t_ms_part_simple	stdin;
-	t_ms_part_simple	stdout;
-	t_ms_part_simple	heredoc_tmp;
-	t_ms_part_type		type;
-	t_ms_part			part;
+	t_ms_part_special_list	stdin;
+	t_ms_part_special_list	stdout;
+	t_ms_part_type			type;
+	t_ms_part				part;
 }	t_ms;
 
 typedef enum s_ms_compound_type
