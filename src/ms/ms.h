@@ -58,7 +58,7 @@ typedef struct s_ms_part_simple_list
 typedef struct s_ms_part_special_list_node
 {
 	struct s_ms_part_special_list	*next;
-	t_ms_part_special				value;
+	t_ms_part_simple				value;
 	bool							special;
 }	t_ms_part_special_list_node;
 
