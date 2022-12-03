@@ -23,5 +23,6 @@ static bool	is_heredoc(int argc, char **argv)
 
 int	pipex_main(int argc, char **argv)
 {
-	return (is_heredoc(argc, argv), EXIT_FAILURE);
+	is_heredoc(argc, argv);
+	return (EXIT_FAILURE);
 }
