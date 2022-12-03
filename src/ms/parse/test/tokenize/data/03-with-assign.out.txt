@@ -13,6 +13,8 @@ WORD - cmp
 SPACE
 WORD - -s
 SPACE
+WORD - -
+SPACE
 WORD_DOUBLE_QUOTED - data/$line.out.txt
 SPACE
 EOF

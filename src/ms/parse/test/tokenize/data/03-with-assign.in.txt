@@ -1,1 +1,1 @@
-LLVM_PROFILE_FILE=".cache/$line.profraw" .cache/test.exe < "data/$line.in.txt" | cmp -s "data/$line.out.txt"
+LLVM_PROFILE_FILE=".cache/$line.profraw" .cache/test.exe < "data/$line.in.txt" | cmp -s - "data/$line.out.txt"
