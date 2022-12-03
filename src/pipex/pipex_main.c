@@ -13,16 +13,8 @@
 #include "pipex.h"
 
 #include <stdlib.h>
-#include <unistd.h>
 
 #include "ft_cstring.h"
-#include "ft_cstring_split.h"
-#include "ft_io.h"
-#include "ft_os_fork.h"
-#include "ft_os_process.h"
-#include "ft_os_util_envp.h"
-
-#include "ft_malloc.h"
 
 static bool	is_heredoc(int argc, char **argv)
 {
@@ -31,5 +23,5 @@ static bool	is_heredoc(int argc, char **argv)
 
 int	pipex_main(int argc, char **argv)
 {
-	// TODO
+	return (is_heredoc(argc, argv), EXIT_FAILURE);
 }

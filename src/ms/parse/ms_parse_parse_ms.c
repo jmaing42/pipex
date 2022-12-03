@@ -56,9 +56,7 @@ t_err	ms_parse_parse_ms(
 	*out = malloc(sizeof(t_ms));
 	if (!*out)
 		return (true);
-	(*out)->stdin = (t_ms_part_simple_list){NULL, NULL};
-	(*out)->stdout = (t_ms_part_simple_list){NULL, NULL};
-	(*out)->heredoc = (t_ms_part_simple_list){NULL, NULL};
-	(*out)->append = (t_ms_part_simple_list){NULL, NULL};
+	(*out)->stdin = (t_ms_part_special_list){NULL, NULL};
+	(*out)->stdout = (t_ms_part_special_list){NULL, NULL};
 	return (internal(head, out));
 }
