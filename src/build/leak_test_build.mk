@@ -6,6 +6,7 @@ CPPFLAGS := -I$(BASE_PATH)/../assets/leak_test/include $(addprefix -I$(BASE_PATH
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS) $(COMMON_FLAGS) -g3 -fprofile-instr-generate -fcoverage-mapping
 LDFLAGS := $(COMMON_FLAGS) -fprofile-instr-generate
 else
+CC := clang
 CPPFLAGS := -I$(BASE_PATH)/../assets/leak_test/include $(addprefix -I$(BASE_PATH),$(shell xargs < $(INCS_FILE)))
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS) $(COMMON_FLAGS) -g3
 LDFLAGS := $(COMMON_FLAGS)
