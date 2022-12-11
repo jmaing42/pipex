@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parse.h                                         :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/12/04 02:08:38 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,12 @@ void	ms_parse_skip_space_if_any(
 
 t_err	ms_parse_parse_ms(
 			t_ms_parse_token_list_node **head,
-			t_ms **out);
+			t_ms_program **out);
 t_err	ms_parse_parse_ms_simple(
 			t_ms_parse_token_list_node **head,
-			t_ms **mut);
+			t_ms_command_simple **mut);
 t_err	ms_parse_parse_ms_compound(
 			t_ms_parse_token_list_node **head,
-			t_ms **mut);
-t_err	ms_parse_parse_ms_simple_part(
-			t_ms_parse_token_list_node **head,
-			t_ms_part_simple *out);
+			t_ms_command_compound **mut);
 
 #endif
