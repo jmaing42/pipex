@@ -14,25 +14,24 @@
 
 #include "wrap.h"
 
-static t_err	parse_and_or_list_node(
+static t_err	parse_pipe_list_node(
 	t_ms_parse_token_list_node **mut_head,
-	bool is_and,
-	t_ms_and_or_list_node **out
+	t_ms_pipe_list_node **out
 )
 {
-	t_ms_and_or_list_node *const	result
-		= wrap_malloc(sizeof(t_ms_and_or_list_node));
+	t_ms_pipe_list_node *const	result
+		= wrap_malloc(sizeof(t_ms_pipe_list_node));
 
 	if (!result)
 		return (true);
 	ms_parse_skip_space_if_any(mut_head);
-	*result = (t_ms_and_or_list_node){NULL, is_and, {NULL, NULL}};
-	if (ms_parse_parse_pipe_list(mut_head, &result->pipe_list))
+	result->next = NULL;
+	if (ms_parse_parse_command(mut_head, &result->command))
 	{
 		wrap_free(result);
 		return (true);
 	}
-	if (!result->pipe_list.head)
+	if (!result->command.value.any)
 	{
 		wrap_free(result);
 		*out = NULL;
@@ -42,48 +41,28 @@ static t_err	parse_and_or_list_node(
 	return (false);
 }
 
-static bool	is_and(t_ms_parse_token_list_node **mut_head)
-{
-	ms_parse_skip_space_if_any(mut_head);
-	return (
-		(*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_AND
-		&& (*mut_head)->next->value.type == MS_PARSE_TOKEN_TYPE_AND
-	);
-}
-
-static bool	is_or(t_ms_parse_token_list_node **mut_head)
-{
-	ms_parse_skip_space_if_any(mut_head);
-	return (
-		(*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_AND
-		&& (*mut_head)->next->value.type == MS_PARSE_TOKEN_TYPE_AND
-	);
-}
-
-t_err	ms_parse_parse_and_or_list(
+t_err	ms_parse_parse_pipe_list(
 	t_ms_parse_token_list_node **mut_head,
-	t_ms_and_or_list *out
+	t_ms_pipe_list *out
 )
 {
-	t_ms_and_or_list_node	*node;
-	bool					is_next_and;
+	t_ms_pipe_list_node	*node;
 
-	if (parse_and_or_list_node(mut_head, false, &node))
+	if (parse_pipe_list_node(mut_head, &node))
 		return (true);
-	*out = (t_ms_and_or_list){node, node};
-	while (is_and(mut_head) || is_or(mut_head))
+	*out = (t_ms_pipe_list){node, node};
+	while ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_OR)
 	{
-		is_next_and = is_and(mut_head);
-		*mut_head = (*mut_head)->next->next;
-		if (parse_and_or_list_node(mut_head, is_next_and, &node))
+		*mut_head = (*mut_head)->next;
+		if (parse_pipe_list_node(mut_head, &node))
 		{
-			ms_parse_free_and_or_list(out);
+			ms_parse_free_pipe_list(out);
 			return (true);
 		}
 		if (!node)
 		{
-			ms_parse_free_and_or_list(out);
-			*out = (t_ms_and_or_list){NULL, NULL};
+			ms_parse_free_pipe_list(out);
+			*out = (t_ms_pipe_list){NULL, NULL};
 			return (false);
 		}
 		out->tail->next = node;

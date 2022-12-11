@@ -139,6 +139,7 @@ typedef enum e_ms_command_type
 
 typedef union u_ms_command_value
 {
+	void					*any;
 	t_ms_command_simple		*simple;
 	t_ms_command_compound	*compound;
 }	t_ms_command_value;
