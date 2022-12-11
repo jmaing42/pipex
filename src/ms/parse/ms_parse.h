@@ -106,17 +106,20 @@ t_err	ms_parse_tokenize_add_string_token(
 			t_ms_parse_token_type type,
 			t_stringbuilder *data);
 
-void	ms_parse_skip_space_if_any(
-			t_ms_parse_token_list_node **head);
-
-t_err	ms_parse_parse_ms(
-			t_ms_parse_token_list_node **head,
+t_err	ms_parse_parse_program(
+			t_ms_parse_token_list_node **mut_head,
 			t_ms_program **out);
-t_err	ms_parse_parse_ms_simple(
-			t_ms_parse_token_list_node **head,
-			t_ms_command_simple **mut);
-t_err	ms_parse_parse_ms_compound(
-			t_ms_parse_token_list_node **head,
-			t_ms_command_compound **mut);
+t_err	ms_parse_parse_and_or_list(
+			t_ms_parse_token_list_node **mut_head,
+			t_ms_and_or_list *out);
+t_err	ms_parse_parse_pipe_list(
+			t_ms_parse_token_list_node **mut_head,
+			t_ms_pipe_list *out);
+
+void	ms_parse_free_program(t_ms_program *program);
+void	ms_parse_free_and_or_list(t_ms_and_or_list *and_or_list);
+
+void	ms_parse_skip_space_if_any(
+			t_ms_parse_token_list_node **mut_head);
 
 #endif
