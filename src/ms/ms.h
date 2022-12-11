@@ -78,7 +78,7 @@ typedef struct s_ms_word
 typedef struct s_ms_word_list_node
 {
 	struct s_ms_word_list_node	*next;
-	t_ms_word					word;
+	t_ms_word					*word;
 }	t_ms_word_list_node;
 
 typedef struct s_ms_word_list
@@ -87,36 +87,23 @@ typedef struct s_ms_word_list
 	t_ms_word_list_node	*tail;
 }	t_ms_word_list;
 
-typedef struct s_ms_input_redirection_list_node
+typedef struct s_ms_redirection_list_node
 {
-	struct s_ms_input_redirection_list	*next;
-	bool								is_heredoc;
-	t_ms_word							to;
-}	t_ms_input_redirection_list_node;
+	struct s_ms_redirection_list_node	*next;
+	bool								is_special;
+	t_ms_word							*target;
+}	t_ms_redirection_list_node;
 
-typedef struct s_ms_input_redirection_list
+typedef struct s_ms_redirection_list
 {
-	t_ms_input_redirection_list_node	*head;
-	t_ms_input_redirection_list_node	*tail;
-}	t_ms_input_redirection_list;
-
-typedef struct s_ms_output_redirection_list_node
-{
-	struct s_ms_output_redirection_list	*next;
-	bool								is_append;
-	t_ms_word							to;
-}	t_ms_output_redirection_list_node;
-
-typedef struct s_ms_output_redirection_list
-{
-	t_ms_output_redirection_list_node	*head;
-	t_ms_output_redirection_list_node	*tail;
-}	t_ms_output_redirection_list;
+	t_ms_redirection_list_node	*head;
+	t_ms_redirection_list_node	*tail;
+}	t_ms_redirection_list;
 
 typedef struct s_ms_redirections
 {
-	t_ms_input_redirection_list		stdin;
-	t_ms_output_redirection_list	stdout;
+	t_ms_redirection_list	stdin;
+	t_ms_redirection_list	stdout;
 }	t_ms_redirections;
 
 typedef struct s_ms_command_simple
@@ -133,6 +120,7 @@ typedef struct s_ms_command_compound
 
 typedef enum e_ms_command_type
 {
+	MS_COMMAND_TYPE_INVALID,
 	MS_COMMAND_TYPE_SIMPLE,
 	MS_COMMAND_TYPE_COMPOUND,
 }	t_ms_command_type;
