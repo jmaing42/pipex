@@ -118,10 +118,6 @@ t_err	ms_parse_parse_pipe_list(
 t_err	ms_parse_parse_command(
 			t_ms_parse_token_list_node **mut_head,
 			t_ms_command *out);
-t_err	ms_parse_parse_command_compound(
-			t_ms_parse_token_list_node **mut_head,
-			t_ms_redirections redirections,
-			t_ms_command *out);
 bool	ms_parse_parse_command_is_word(
 			t_ms_parse_token_list_node *head);
 t_err	ms_parse_parse_command_add_redirection(
@@ -129,6 +125,10 @@ t_err	ms_parse_parse_command_add_redirection(
 			t_ms_redirections *mut_redirections);
 bool	ms_parse_parse_command_is_redirection(
 			t_ms_parse_token_list_node **mut_head);
+t_err	ms_parse_parse_command_compound(
+			t_ms_parse_token_list_node **mut_head,
+			t_ms_redirections redirections,
+			t_ms_command *out);
 t_err	ms_parse_parse_command_simple(
 			t_ms_parse_token_list_node **mut_head,
 			t_ms_redirections redirections,
@@ -141,6 +141,7 @@ void	ms_parse_free_program(t_ms_program *program);
 void	ms_parse_free_and_or_list(t_ms_and_or_list *and_or_list);
 void	ms_parse_free_pipe_list(t_ms_pipe_list *pipe_list);
 void	ms_parse_free_redirections(t_ms_redirections *redirections);
+void	ms_parse_free_command(t_ms_command *command);
 
 void	ms_parse_skip_space_if_any(
 			t_ms_parse_token_list_node **mut_head);

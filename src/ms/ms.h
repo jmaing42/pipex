@@ -112,10 +112,30 @@ typedef struct s_ms_command_simple
 	t_ms_redirections	redirections;
 }	t_ms_command_simple;
 
+typedef struct s_ms_pipe_list
+{
+	struct s_ms_pipe_list_node	*head;
+	struct s_ms_pipe_list_node	*tail;
+}	t_ms_pipe_list;
+
+typedef struct s_ms_and_or_list_node
+{
+	struct s_ms_and_or_list_node	*next;
+	bool							is_and;
+	t_ms_pipe_list					pipe_list;
+}	t_ms_and_or_list_node;
+
+typedef struct s_ms_and_or_list
+{
+	t_ms_and_or_list_node	*head;
+	t_ms_and_or_list_node	*tail;
+}	t_ms_and_or_list;
+
+
 typedef struct s_ms_command_compound
 {
-	struct s_ms_and_or_list	*and_or_list;
-	t_ms_redirections		redirections;
+	t_ms_and_or_list	and_or_list;
+	t_ms_redirections	redirections;
 }	t_ms_command_compound;
 
 typedef enum e_ms_command_type
@@ -143,25 +163,6 @@ typedef struct s_ms_pipe_list_node
 	struct s_ms_pipe_list_node	*next;
 	t_ms_command				command;
 }	t_ms_pipe_list_node;
-
-typedef struct s_ms_pipe_list
-{
-	t_ms_pipe_list_node	*head;
-	t_ms_pipe_list_node	*tail;
-}	t_ms_pipe_list;
-
-typedef struct s_ms_and_or_list_node
-{
-	struct s_ms_and_or_list_node	*next;
-	bool							is_and;
-	t_ms_pipe_list					pipe_list;
-}	t_ms_and_or_list_node;
-
-typedef struct s_ms_and_or_list
-{
-	t_ms_and_or_list_node	*head;
-	t_ms_and_or_list_node	*tail;
-}	t_ms_and_or_list;
 
 typedef struct s_ms_program
 {
