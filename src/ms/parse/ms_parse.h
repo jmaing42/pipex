@@ -122,6 +122,13 @@ t_err	ms_parse_parse_command_compound(
 			t_ms_parse_token_list_node **mut_head,
 			t_ms_redirections redirections,
 			t_ms_command *out);
+bool	ms_parse_parse_command_is_word(
+			t_ms_parse_token_list_node *head);
+t_err	ms_parse_parse_command_add_redirection(
+			t_ms_parse_token_list_node **mut_head,
+			t_ms_redirections *mut_redirections);
+bool	ms_parse_parse_command_is_redirection(
+			t_ms_parse_token_list_node **mut_head);
 t_err	ms_parse_parse_command_simple(
 			t_ms_parse_token_list_node **mut_head,
 			t_ms_redirections redirections,

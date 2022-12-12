@@ -12,31 +12,16 @@
 
 #include "ms_parse.h"
 
-#include "wrap.h"
-
-t_err	ms_parse_parse_command(
-	t_ms_parse_token_list_node **mut_head,
-	t_ms_command *out
-)
+bool	ms_parse_parse_command_is_word(t_ms_parse_token_list_node *head)
 {
-	t_ms_redirections	redirections;
-
-	redirections = (t_ms_redirections){{NULL, NULL}, {NULL, NULL}};
-	while (ms_parse_parse_command_is_redirection(mut_head))
-	{
-		if (ms_parse_parse_command_add_redirection(mut_head, &redirections))
-			return (true);
-		if (!redirections.stdin.head && !redirections.stdout.head)
-		{
-			*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
-			return (false);
-		}
-	}
-	if ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS)
-		return (ms_parse_parse_command_compound(mut_head, redirections, out));
-	if (ms_parse_parse_command_is_word(*mut_head))
-		return (ms_parse_parse_command_simple(mut_head, redirections, out));
-	ms_parse_free_redirections(&redirections);
-	*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
-	return (false);
+	return (head->value.type == MS_PARSE_TOKEN_TYPE_WORD
+		|| (head->value.type == MS_PARSE_TOKEN_TYPE_SPACE
+			&& head->next->value.type == MS_PARSE_TOKEN_TYPE_WORD)
+		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
+		|| (head->value.type == MS_PARSE_TOKEN_TYPE_SPACE
+			&& head->next->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED)
+		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED
+		|| (head->value.type == MS_PARSE_TOKEN_TYPE_SPACE
+			&& head->next->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
+	);
 }
