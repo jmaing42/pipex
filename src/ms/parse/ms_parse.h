@@ -143,7 +143,7 @@ void	ms_parse_free_pipe_list(t_ms_pipe_list *pipe_list);
 void	ms_parse_free_redirections(t_ms_redirections *redirections);
 void	ms_parse_free_command(t_ms_command *command);
 
-void	ms_parse_parse_skip_space_if_any(
+void	ms_parse_util_skip_space_if_any(
 			t_ms_parse_token_list_node **mut_head);
 
 #endif

@@ -25,7 +25,7 @@ static t_err	parse_and_or_list_node(
 
 	if (!result)
 		return (true);
-	ms_parse_parse_skip_space_if_any(mut_head);
+	ms_parse_util_skip_space_if_any(mut_head);
 	*result = (t_ms_and_or_list_node){NULL, is_and, {NULL, NULL}};
 	if (ms_parse_parse_pipe_list(mut_head, &result->pipe_list))
 	{
@@ -44,7 +44,7 @@ static t_err	parse_and_or_list_node(
 
 static bool	is_and(t_ms_parse_token_list_node **mut_head)
 {
-	ms_parse_parse_skip_space_if_any(mut_head);
+	ms_parse_util_skip_space_if_any(mut_head);
 	return (
 		(*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_AND
 		&& (*mut_head)->next->value.type == MS_PARSE_TOKEN_TYPE_AND
@@ -53,7 +53,7 @@ static bool	is_and(t_ms_parse_token_list_node **mut_head)
 
 static bool	is_or(t_ms_parse_token_list_node **mut_head)
 {
-	ms_parse_parse_skip_space_if_any(mut_head);
+	ms_parse_util_skip_space_if_any(mut_head);
 	return (
 		(*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_AND
 		&& (*mut_head)->next->value.type == MS_PARSE_TOKEN_TYPE_AND

@@ -62,7 +62,7 @@ t_err	ms_parse_parse_command_add_redirection(
 	*mut_head = (*mut_head)->next;
 	if (is_special)
 		*mut_head = (*mut_head)->next;
-	ms_parse_parse_skip_space_if_any(mut_head);
+	ms_parse_util_skip_space_if_any(mut_head);
 	if (ms_parse_parse_word(mut_head, &word))
 	{
 		ms_parse_free_redirections(mut_redirections);

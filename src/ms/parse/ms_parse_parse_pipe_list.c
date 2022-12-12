@@ -24,7 +24,7 @@ static t_err	parse_pipe_list_node(
 
 	if (!result)
 		return (true);
-	ms_parse_parse_skip_space_if_any(mut_head);
+	ms_parse_util_skip_space_if_any(mut_head);
 	result->next = NULL;
 	if (ms_parse_parse_command(mut_head, &result->command))
 	{
