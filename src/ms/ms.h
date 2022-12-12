@@ -108,7 +108,7 @@ typedef struct s_ms_redirections
 
 typedef struct s_ms_command_simple
 {
-	t_ms_word_list		*word_list;
+	t_ms_word_list		word_list;
 	t_ms_redirections	redirections;
 }	t_ms_command_simple;
 
