@@ -55,7 +55,7 @@ t_err	ms_parse_parse_command_compound(
 		wrap_free(result);
 		return (true);
 	}
-	ms_parse_skip_space_if_any(mut_head);
+	ms_parse_parse_skip_space_if_any(mut_head);
 	if (!result->and_or_list.head
 		|| (*mut_head)->value.type != MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS)
 	{

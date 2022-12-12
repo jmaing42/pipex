@@ -131,7 +131,6 @@ typedef struct s_ms_and_or_list
 	t_ms_and_or_list_node	*tail;
 }	t_ms_and_or_list;
 
-
 typedef struct s_ms_command_compound
 {
 	t_ms_and_or_list	and_or_list;
