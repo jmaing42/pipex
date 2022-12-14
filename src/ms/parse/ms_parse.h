@@ -136,9 +136,6 @@ t_err	ms_parse_parse_command_simple(
 t_err	ms_parse_parse_word(
 			t_ms_parse_token_list_node **mut_head,
 			t_ms_word **out);
-t_err	ms_parse_parse_word_part(
-			t_ms_parse_token_list_node **mut_head,
-			t_ms_word **out);
 t_err	ms_parse_parse_word_part_unquoted(
 			const char *data,
 			t_ms_word_part_unquoted **out);
