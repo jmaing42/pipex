@@ -49,7 +49,7 @@ static bool	is_word(t_ms_parse_token_list_node *head)
 	);
 }
 
-static t_ms_word_part_type	typeof(t_ms_parse_token_list_node *head)
+static t_ms_word_part_type	type(t_ms_parse_token_list_node *head)
 {
 	if (head->value.type == MS_PARSE_TOKEN_TYPE_WORD)
 		return (MS_WORD_PART_UNQUOTED);
@@ -77,7 +77,7 @@ static t_err	fill_list(
 		if ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
 			error = ms_parse_parse_word_part_double_quoted(
 					(*mut_head)->value.data, &value.double_quoted);
-		if (error || !value.any || add_part(mut_word, typeof(*mut_head), value))
+		if (error || !value.any || add_part(mut_word, type(*mut_head), value))
 		{
 			ms_parse_free_word_part_list(&mut_word->part_list);
 			return (error);
