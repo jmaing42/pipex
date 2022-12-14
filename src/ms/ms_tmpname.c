@@ -27,7 +27,7 @@ t_err	ms_tmpname(char **out)
 
 	buffer[4] = '\0';
 	i = -1;
-	while (++i < 9999)
+	while (++i < 10000)
 	{
 		tmp = i;
 		buffer[3] = tmp % 10;
