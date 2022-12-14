@@ -33,7 +33,7 @@ static t_err	add_part(
 	node->type = type;
 	node->value = always_consume_value;
 	if (mut_word->part_list.head)
-		mut_word->part_list.head->next = node;
+		mut_word->part_list.tail->next = node;
 	else
 		mut_word->part_list.head = node;
 	mut_word->part_list.tail = node;

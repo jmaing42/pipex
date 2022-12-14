@@ -37,12 +37,6 @@ typedef struct s_ms_word_part_string_list
 	t_ms_word_part_string_list_node	*tail;
 }	t_ms_word_part_string_list;
 
-typedef t_ms_word_part_string_list	*t_ms_word_part_unquoted;
-
-typedef char						*t_ms_word_part_single_quoted;
-
-typedef t_ms_word_part_string_list	*t_ms_word_part_double_quoted;
-
 typedef enum e_ms_word_part_type
 {
 	MS_WORD_PART_UNQUOTED,
@@ -52,10 +46,10 @@ typedef enum e_ms_word_part_type
 
 typedef union u_ms_word_part_value
 {
-	void							*any;
-	t_ms_word_part_unquoted			*unquoted;
-	t_ms_word_part_single_quoted	*single_quoted;
-	t_ms_word_part_double_quoted	*double_quoted;
+	void						*any;
+	t_ms_word_part_string_list	*unquoted;
+	char						*single_quoted;
+	t_ms_word_part_string_list	*double_quoted;
 }	t_ms_word_part_value;
 
 typedef struct s_ms_word_part_list_node

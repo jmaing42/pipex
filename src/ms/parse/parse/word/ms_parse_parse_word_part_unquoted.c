@@ -12,13 +12,27 @@
 
 #include "ms_parse.h"
 
-#include "ft_cstring.h"
 #include "wrap.h"
 
-t_err	ms_parse_parse_word_part_single_quoted(
+t_err	ms_parse_parse_word_part_unquoted(
 	const char *data,
-	char **out
+	t_ms_word_part_string_list **out
 )
 {
-	return (ft_cstring_duplicate(data, out));
+	t_ms_word_part_string_list *const	result
+		= wrap_malloc(sizeof(t_ms_word_part_string_list));
+
+	if (!result)
+	{
+		wrap_free(result);
+		return (true);
+	}
+	*result = (t_ms_word_part_string_list){NULL, NULL};
+	if (ms_parse_parse_word_part_fill(data, result))
+	{
+		ms_parse_free_word_part_string_list(result);
+		return (true);
+	}
+	*out = result;
+	return (false);
 }

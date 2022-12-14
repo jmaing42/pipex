@@ -138,13 +138,16 @@ t_err	ms_parse_parse_word(
 			t_ms_word **out);
 t_err	ms_parse_parse_word_part_unquoted(
 			const char *data,
-			t_ms_word_part_unquoted **out);
+			t_ms_word_part_string_list **out);
 t_err	ms_parse_parse_word_part_single_quoted(
 			const char *data,
-			t_ms_word_part_single_quoted **out);
+			char **out);
 t_err	ms_parse_parse_word_part_double_quoted(
 			const char *data,
-			t_ms_word_part_double_quoted **out);
+			t_ms_word_part_string_list **out);
+t_err	ms_parse_parse_word_part_fill(
+			const char *data,
+			t_ms_word_part_string_list *mut_list);
 
 void	ms_parse_free_program(
 			t_ms_program *program);
@@ -162,12 +165,8 @@ void	ms_parse_free_word_part_list(
 			t_ms_word_part_list *list);
 void	ms_parse_free_word_part(
 			t_ms_word_part_value part);
-void	ms_parse_free_word_part_unquoted(
-			t_ms_word_part_unquoted *part);
-void	ms_parse_free_word_part_single_quoted(
-			t_ms_word_part_single_quoted *part);
-void	ms_parse_free_word_part_double_quoted(
-			t_ms_word_part_double_quoted *part);
+void	ms_parse_free_word_part_string_list(
+			t_ms_word_part_string_list *string_list);
 
 void	ms_parse_util_skip_space_if_any(
 			t_ms_parse_token_list_node **mut_head);
