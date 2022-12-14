@@ -52,6 +52,7 @@ typedef enum e_ms_word_part_type
 
 typedef union u_ms_word_part_value
 {
+	void							*any;
 	t_ms_word_part_unquoted			*unquoted;
 	t_ms_word_part_single_quoted	*single_quoted;
 	t_ms_word_part_double_quoted	*double_quoted;
