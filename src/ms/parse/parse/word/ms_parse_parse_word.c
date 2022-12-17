@@ -95,13 +95,12 @@ t_err	ms_parse_parse_word(
 	t_ms_word *const	result = wrap_malloc(sizeof(t_ms_word));
 	t_err				error;
 
-	if (!result)
-		return (true);
-	if (!is_word(*mut_head))
+	error = !result;
+	if (error || !is_word(*mut_head))
 	{
 		wrap_free(result);
 		*out = NULL;
-		return (false);
+		return (error);
 	}
 	result->part_list = (t_ms_word_part_list){NULL, NULL};
 	if (fill_list(mut_head, result))
@@ -116,5 +115,6 @@ t_err	ms_parse_parse_word(
 		*out = NULL;
 		return (error);
 	}
+	*out = result;
 	return (false);
 }

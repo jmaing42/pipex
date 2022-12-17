@@ -51,11 +51,11 @@ static t_err	read_file_contents(const char *filename, char **out)
 static bool	test_leak(const void *context)
 {
 	const char *const	contents = context;
-	t_ms_program		*list;
+	t_ms_program		*program;
 
 	leak_test_start();
-	if (!ms_parse(contents, &list))
-		ms_free(list);
+	if (!ms_parse(contents, &program))
+		ms_free(program);
 	return (false);
 }
 

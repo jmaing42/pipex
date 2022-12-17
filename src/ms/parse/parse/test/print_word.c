@@ -34,7 +34,7 @@ static t_err	print_word_string_list(
 			return (true);
 		node = node->next;
 	}
-	if (printf("%*s} {\n", depth, "") < 0)
+	if (printf("%*s}\n", depth, "") < 0)
 		return (true);
 	return (false);
 }
@@ -48,7 +48,7 @@ static t_err	print_word_part(
 	if (type == MS_WORD_PART_UNQUOTED)
 	{
 		if (printf("%*sUnquoted {\n", depth, "") < 0
-			|| print_word_string_list(depth, value.unquoted)
+			|| print_word_string_list(depth + 1, value.unquoted)
 			|| printf("%*s}\n", depth, "") < 0)
 			return (true);
 	}
@@ -62,7 +62,7 @@ static t_err	print_word_part(
 	else if (type == MS_WORD_PART_DOUBLE_QUOTED)
 	{
 		if (printf("%*sDoubleQuoted {\n", depth, "") < 0
-			|| print_word_string_list(depth, value.double_quoted)
+			|| print_word_string_list(depth + 1, value.double_quoted)
 			|| printf("%*s}\n", depth, "") < 0)
 			return (true);
 	}
@@ -75,7 +75,7 @@ t_err	print_word(int depth, t_ms_word *word)
 {
 	t_ms_word_part_list_node	*node;
 
-	if (printf("%*sWordList {\n", depth, "") < 0)
+	if (printf("%*sWord {\n", depth, "") < 0)
 		return (true);
 	node = word->part_list.head;
 	while (node)
@@ -84,7 +84,7 @@ t_err	print_word(int depth, t_ms_word *word)
 			return (true);
 		node = node->next;
 	}
-	if (printf("%*s} {\n", depth, "") < 0)
+	if (printf("%*s}\n", depth, "") < 0)
 		return (true);
 	return (false);
 }

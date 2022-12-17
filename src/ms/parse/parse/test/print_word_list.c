@@ -23,11 +23,11 @@ t_err	print_word_list(int depth, t_ms_word_list *word_list)
 	node = word_list->head;
 	while (node)
 	{
-		if (print_word(depth, node->word))
+		if (print_word(depth + 1, node->word))
 			return (true);
 		node = node->next;
 	}
-	if (printf("%*s} {\n", depth, "") < 0)
+	if (printf("%*s}\n", depth, "") < 0)
 		return (true);
 	return (false);
 }

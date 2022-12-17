@@ -32,11 +32,11 @@ static t_err	print_in_list(int depth, t_ms_redirection_list *list)
 			return (true);
 		if (print_word(depth + 2, node->target))
 			return (true);
-		if (printf("%*s} {\n", depth + 1, "") < 0)
+		if (printf("%*s}\n", depth + 1, "") < 0)
 			return (true);
 		node = node->next;
 	}
-	if (printf("%*s} {\n", depth, "") < 0)
+	if (printf("%*s}\n", depth, "") < 0)
 		return (true);
 	return (false);
 }
@@ -56,11 +56,11 @@ static t_err	print_out_list(int depth, t_ms_redirection_list *list)
 			return (true);
 		if (print_word(depth + 2, node->target))
 			return (true);
-		if (printf("%*s} {\n", depth + 1, "") < 0)
+		if (printf("%*s}\n", depth + 1, "") < 0)
 			return (true);
 		node = node->next;
 	}
-	if (printf("%*s} {\n", depth, "") < 0)
+	if (printf("%*s}\n", depth, "") < 0)
 		return (true);
 	return (false);
 }
