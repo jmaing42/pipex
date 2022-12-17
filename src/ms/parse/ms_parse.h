@@ -169,7 +169,7 @@ void	ms_parse_free_word_part(
 void	ms_parse_free_word_part_string_list(
 			t_ms_word_part_string_list *string_list);
 
-void	ms_parse_util_skip_space_if_any(
+void	ms_parse_parse_util_skip_space_if_any(
 			t_ms_parse_token_list_node **mut_head);
 
 #endif
