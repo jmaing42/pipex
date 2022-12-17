@@ -15,9 +15,9 @@
 
 # include <stdlib.h>
 
-typedef void	(*t_ft_exit_cleanup_function)();
+typedef void	(*t_ft_exit_cleanup_function)(void);
 
 int		ft_exit(signed char status);
-void	ft_set_exit_handler(void (*cleanup)());
+void	ft_set_exit_handler(void (*cleanup)(void));
 
 #endif
