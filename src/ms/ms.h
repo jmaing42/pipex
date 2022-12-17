@@ -165,8 +165,7 @@ typedef struct s_ms_program
 
 t_err	ms_tmpname(char **out);
 
-t_err	ms_parse(
-			const char *source,
-			t_ms_program **out);
+t_err	ms_parse(const char *source, t_ms_program **out);
+void	ms_free(t_ms_program *program);
 
 #endif

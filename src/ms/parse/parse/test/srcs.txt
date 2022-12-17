@@ -1,5 +1,6 @@
 main.c
 ../../ms_parse.c
+../../ms_free.c
 ../../tokenize/ms_parse_tokenize.c
 ../../tokenize/ms_parse_tokenize_free.c
 ../../tokenize/ms_parse_tokenize_add_simple_token.c
