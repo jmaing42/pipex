@@ -1,0 +1,20 @@
+WORD - LLVM_PROFILE_FILE=
+WORD_DOUBLE_QUOTED - .cache/$line.profraw
+SPACE
+WORD - .cache/test.exe
+SPACE
+LEFT_CHEVRON
+SPACE
+WORD_DOUBLE_QUOTED - data/$line.in.txt
+SPACE
+OR
+SPACE
+WORD - cmp
+SPACE
+WORD - -s
+SPACE
+WORD - -
+SPACE
+WORD_DOUBLE_QUOTED - data/$line.out.txt
+SPACE
+EOF
