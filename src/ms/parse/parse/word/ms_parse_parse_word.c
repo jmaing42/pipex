@@ -97,7 +97,7 @@ t_err	ms_parse_parse_word(
 
 	if (!result)
 		return (true);
-	if (is_word(*mut_head))
+	if (!is_word(*mut_head))
 	{
 		wrap_free(result);
 		*out = NULL;
