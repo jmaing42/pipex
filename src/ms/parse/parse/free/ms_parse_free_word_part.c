@@ -14,21 +14,15 @@
 
 #include "wrap.h"
 
-static void	free_node(t_ms_pipe_list_node *node)
+void	ms_parse_free_word_part(
+	t_ms_word_part_type type,
+	t_ms_word_part_value value
+)
 {
-	ms_parse_free_command(&node->command);
-	wrap_free(node);
-}
-
-void	ms_parse_free_pipe_list(t_ms_pipe_list *pipe_list)
-{
-	t_ms_pipe_list_node	*node_to_remove;
-
-	while (pipe_list->head)
-	{
-		node_to_remove = pipe_list->head;
-		pipe_list->head = node_to_remove->next;
-		free_node(node_to_remove);
-	}
-	pipe_list->tail = NULL;
+	if (type == MS_WORD_PART_UNQUOTED)
+		ms_parse_free_word_part_string_list(value.unquoted);
+	if (type == MS_WORD_PART_SINGLE_QUOTED)
+		wrap_free(value.single_quoted);
+	if (type == MS_WORD_PART_DOUBLE_QUOTED)
+		ms_parse_free_word_part_string_list(value.double_quoted);
 }

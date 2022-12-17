@@ -46,9 +46,7 @@ static void	free_compound(t_ms_command_compound *command)
 	wrap_free(command);
 }
 
-void	ms_parse_free_command(
-	t_ms_command *command
-)
+void	ms_parse_free_command(t_ms_command *command)
 {
 	if (command->type == MS_COMMAND_TYPE_SIMPLE)
 		free_simple(command->value.simple);

@@ -14,9 +14,7 @@
 
 #include "wrap.h"
 
-void	ms_parse_free_program(
-	t_ms_program *program
-)
+void	ms_parse_free_program(t_ms_program *program)
 {
 	ms_parse_free_and_or_list(&program->and_or_list);
 	wrap_free(program);

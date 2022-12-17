@@ -26,7 +26,7 @@ static t_err	add_part(
 
 	if (!node)
 	{
-		ms_parse_free_word_part(always_consume_value);
+		ms_parse_free_word_part(type, always_consume_value);
 		return (true);
 	}
 	node->next = NULL;

@@ -20,9 +20,7 @@ static void	free_node(t_ms_and_or_list_node *node)
 	wrap_free(node);
 }
 
-void	ms_parse_free_and_or_list(
-	t_ms_and_or_list *and_or_list
-)
+void	ms_parse_free_and_or_list(t_ms_and_or_list *and_or_list)
 {
 	t_ms_and_or_list_node	*node_to_remove;
 

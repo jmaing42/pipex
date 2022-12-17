@@ -164,7 +164,8 @@ void	ms_parse_free_word(
 void	ms_parse_free_word_part_list(
 			t_ms_word_part_list *list);
 void	ms_parse_free_word_part(
-			t_ms_word_part_value part);
+			t_ms_word_part_type type,
+			t_ms_word_part_value value);
 void	ms_parse_free_word_part_string_list(
 			t_ms_word_part_string_list *string_list);
 

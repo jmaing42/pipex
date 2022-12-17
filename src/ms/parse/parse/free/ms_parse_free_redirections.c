@@ -34,9 +34,7 @@ static void	free_list(t_ms_redirection_list *list)
 	list->tail = NULL;
 }
 
-void	ms_parse_free_redirections(
-	t_ms_redirections *redirections
-)
+void	ms_parse_free_redirections(t_ms_redirections *redirections)
 {
 	free_list(&redirections->stdin);
 	free_list(&redirections->stdout);

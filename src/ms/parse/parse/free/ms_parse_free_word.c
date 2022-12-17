@@ -14,21 +14,8 @@
 
 #include "wrap.h"
 
-static void	free_node(t_ms_pipe_list_node *node)
+void	ms_parse_free_word(t_ms_word *word)
 {
-	ms_parse_free_command(&node->command);
-	wrap_free(node);
-}
-
-void	ms_parse_free_pipe_list(t_ms_pipe_list *pipe_list)
-{
-	t_ms_pipe_list_node	*node_to_remove;
-
-	while (pipe_list->head)
-	{
-		node_to_remove = pipe_list->head;
-		pipe_list->head = node_to_remove->next;
-		free_node(node_to_remove);
-	}
-	pipe_list->tail = NULL;
+	ms_parse_free_word_part_list(&word->part_list);
+	wrap_free(word);
 }
