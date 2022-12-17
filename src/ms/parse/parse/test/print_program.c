@@ -13,11 +13,13 @@
 #include "test.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 
 t_err	print_program(t_ms_program *program)
 {
 	if (!program)
 		return (puts("INVALID PROGRAM") < 0);
-	return (print_and_or_list(0, &program->and_or_list));
+	return (
+		puts("Program {") < 0
+		|| print_and_or_list(1, &program->and_or_list)
+		|| puts("}") < 0);
 }

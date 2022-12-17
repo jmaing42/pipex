@@ -10,18 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "test.h"
 
-# include "ms.h"
+#include <stdio.h>
 
-t_err	print_program(t_ms_program *program);
+t_err	print_and_or_list(int depth, t_ms_and_or_list *and_or_list)
+{
+	t_ms_and_or_list_node	*node;
+	bool					first;
 
-t_err	print_and_or_list(int depth, t_ms_and_or_list *and_or_list);
-t_err	print_pipe_list(int depth, t_ms_pipe_list *pipe_list);
-t_err	print_command(int depth, t_ms_command *command);
-t_err	print_redirections(int depth, t_ms_redirections *redirections);
-t_err	print_word_list(int depth, t_ms_word_list *word_list);
-t_err	print_word(int depth, t_ms_word *word);
-
-#endif
+	if (printf("%*sAndOrList {\n", depth, "") < 0)
+		return (true);
+	first = true;
+	node = and_or_list->head;
+	while (node)
+	{
+		if (!first)
+		{
+			if (node->is_and && printf("%*sAND\n", depth, ""))
+				return (true);
+			if (!node->is_and && printf("%*sOR\n", depth, ""))
+				return (true);
+		}
+		if (print_pipe_list(depth + 1, &node->pipe_list))
+			return (true);
+		node = node->next;
+		first = false;
+	}
+	if (printf("%*s}\n", depth, "") < 0)
+		return (true);
+	return (false);
+}
