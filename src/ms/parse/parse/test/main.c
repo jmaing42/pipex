@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "test.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -46,78 +48,23 @@ static t_err	read_file_contents(const char *filename, char **out)
 	return (error);
 }
 
-static t_err	print_token_type(t_ms_parse_token_type type)
-{
-	if (type == MS_PARSE_TOKEN_TYPE_EOF)
-		return (printf("EOF") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_AND)
-		return (printf("AND") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_OR)
-		return (printf("OR") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON)
-		return (printf("LEFT_CHEVRON") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON)
-		return (printf("RIGHT_CHEVRON") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS)
-		return (printf("LEFT_PARENTHESIS") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS)
-		return (printf("RIGHT_PARENTHESIS") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_SPACE)
-		return (printf("SPACE") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_WORD)
-		return (printf("WORD") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED)
-		return (printf("WORD_QUOTED") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
-		return (printf("WORD_DOUBLE_QUOTED") < 0);
-	return (true);
-}
-
-static t_err	print_token_list(t_ms_parse_token_list list)
-{
-	t_ms_parse_token_list_node	*node;
-	t_ms_parse_token			token;
-
-	node = list.head;
-	while (node)
-	{
-		token = node->value;
-		if (print_token_type(token.type))
-			return (true);
-		if (token.type == MS_PARSE_TOKEN_TYPE_WORD
-			|| token.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
-			|| token.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
-		{
-			if (printf(" - %s\n", token.data) < 0)
-				return (true);
-		}
-		else
-		{
-			if (printf("\n") < 0)
-				return (true);
-		}
-		node = node->next;
-	}
-	return (false);
-}
-
 static bool	test_leak(const void *context)
 {
-	const char *const		contents = context;
-	t_ms_parse_token_list	list;
+	const char *const	contents = context;
+	t_ms_program		*list;
 
 	leak_test_start();
-	if (!ms_parse_tokenize(contents, &list))
-		ms_parse_tokenize_free(&list);
+	if (!ms_parse(contents, &list))
+		ms_free(list);
 	return (false);
 }
 
 int	main(int argc, char **argv)
 {
-	char					*contents;
-	t_ms_parse_token_list	list;
-	int						errno;
-	t_err					error;
+	char			*contents;
+	t_ms_program	*program;
+	int				errno;
+	t_err			error;
 
 	if (argc < 2 || read_file_contents(argv[1], &contents))
 		return (EXIT_FAILURE);
@@ -128,13 +75,13 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	error = !!errno;
-	if (ms_parse_tokenize(contents, &list))
+	if (ms_parse(contents, &program))
 	{
 		free(contents);
 		return (EXIT_FAILURE);
 	}
-	error |= print_token_list(list);
-	ms_parse_tokenize_free(&list);
+	error |= print_program(program);
+	ms_free(program);
 	if (error)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
