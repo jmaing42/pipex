@@ -55,7 +55,7 @@ static t_err	add(
 	{
 		if (ms_parse_parse_command_add_redirection(mut_head, redirections))
 			return (true);
-		if (!redirections->stdin.head && !redirections->stdout.head)
+		if (!redirections->in.head && !redirections->out.head)
 			*out_syntax_error = true;
 		return (false);
 	}

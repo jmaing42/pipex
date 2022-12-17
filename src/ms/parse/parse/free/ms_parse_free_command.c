@@ -36,14 +36,12 @@ static void	free_simple(t_ms_command_simple *command)
 {
 	free_word_list(&command->word_list);
 	ms_parse_free_redirections(&command->redirections);
-	wrap_free(command);
 }
 
 static void	free_compound(t_ms_command_compound *command)
 {
 	ms_parse_free_and_or_list(&command->and_or_list);
 	ms_parse_free_redirections(&command->redirections);
-	wrap_free(command);
 }
 
 void	ms_parse_free_command(t_ms_command *command)

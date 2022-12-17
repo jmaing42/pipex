@@ -29,7 +29,7 @@ static t_err	fill_remain_redirections(
 			ms_parse_free_command(out);
 			return (true);
 		}
-		if (!redirections->stdin.head && !redirections->stdout.head)
+		if (!redirections->in.head && !redirections->out.head)
 		{
 			ms_parse_free_command(out);
 			*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};

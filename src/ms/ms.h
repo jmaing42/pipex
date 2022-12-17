@@ -97,8 +97,8 @@ typedef struct s_ms_redirection_list
 
 typedef struct s_ms_redirections
 {
-	t_ms_redirection_list	stdin;
-	t_ms_redirection_list	stdout;
+	t_ms_redirection_list	in;
+	t_ms_redirection_list	out;
 }	t_ms_redirections;
 
 typedef struct s_ms_command_simple

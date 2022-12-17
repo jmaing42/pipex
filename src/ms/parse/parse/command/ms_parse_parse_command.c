@@ -26,7 +26,7 @@ t_err	ms_parse_parse_command(
 	{
 		if (ms_parse_parse_command_add_redirection(mut_head, &redirections))
 			return (true);
-		if (!redirections.stdin.head && !redirections.stdout.head)
+		if (!redirections.in.head && !redirections.out.head)
 		{
 			*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
 			return (false);

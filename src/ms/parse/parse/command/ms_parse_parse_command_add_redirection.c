@@ -31,19 +31,19 @@ static t_err	add_node(
 	*node = (t_ms_redirection_list_node){NULL, is_special, word};
 	if (is_output)
 	{
-		if (mut_redirections->stdout.head)
-			mut_redirections->stdout.tail->next = node;
+		if (mut_redirections->out.head)
+			mut_redirections->out.tail->next = node;
 		else
-			mut_redirections->stdout.head = node;
-		mut_redirections->stdout.tail = node;
+			mut_redirections->out.head = node;
+		mut_redirections->out.tail = node;
 	}
 	else
 	{
-		if (mut_redirections->stdin.head)
-			mut_redirections->stdin.tail->next = node;
+		if (mut_redirections->in.head)
+			mut_redirections->in.tail->next = node;
 		else
-			mut_redirections->stdin.head = node;
-		mut_redirections->stdin.tail = node;
+			mut_redirections->in.head = node;
+		mut_redirections->in.tail = node;
 	}
 	return (false);
 }

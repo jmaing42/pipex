@@ -36,6 +36,6 @@ static void	free_list(t_ms_redirection_list *list)
 
 void	ms_parse_free_redirections(t_ms_redirections *redirections)
 {
-	free_list(&redirections->stdin);
-	free_list(&redirections->stdout);
+	free_list(&redirections->in);
+	free_list(&redirections->out);
 }
