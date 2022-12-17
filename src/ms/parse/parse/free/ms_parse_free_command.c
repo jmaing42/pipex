@@ -30,6 +30,7 @@ static void	free_word_list(t_ms_word_list *list)
 		list->head = node_to_remove->next;
 		free_word_list_node(node_to_remove);
 	}
+	wrap_free(list);
 }
 
 static void	free_simple(t_ms_command_simple *command)
