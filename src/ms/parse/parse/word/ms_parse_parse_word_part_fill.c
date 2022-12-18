@@ -41,7 +41,7 @@ static t_err	add_expansion(
 
 	if (!node)
 		return (true);
-	if (ft_cstring_duplicate_length(data, length - 1, &node->value))
+	if (ft_cstring_duplicate_length(data + 1, length - 1, &node->value))
 	{
 		wrap_free(node);
 		return (true);
@@ -63,7 +63,7 @@ static size_t	length_of_no_expansion(const char *data)
 
 	length = ft_cstring_find_index(data, '$');
 	while (data[length] == '$'
-		&& !(ft_types_char_alpha(data[length]) || data[length] == '_'))
+		&& !(ft_types_char_alpha(data[length + 1]) || data[length + 1] == '_'))
 		length = length + 1 + ft_cstring_find_index(data + length + 1, '$');
 	return (length);
 }
