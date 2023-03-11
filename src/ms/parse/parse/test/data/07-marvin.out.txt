@@ -1,10 +1,41 @@
-WORD - echo
-SPACE
-WORD - 42
-SPACE
-RIGHT_CHEVRON
-SPACE
-WORD_QUOTED - "\?$*
-WORD_DOUBLE_QUOTED - 'MaRViN'
-WORD_QUOTED - *$?\"
-EOF
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - echo
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - 42
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+     OutputRedirections {
+      Overwrite {
+       Word {
+        SingleQuoted - "\?$*
+        DoubleQuoted {
+         StringList {
+          NoExpansion - 'MaRViN'
+         }
+        }
+        SingleQuoted - *$?\"
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

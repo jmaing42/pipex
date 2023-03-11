@@ -1,5 +1,24 @@
-SPACE
-WORD - echo
-SPACE
-WORD_QUOTED - Hello world!
-EOF
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - echo
+       }
+      }
+     }
+     Word {
+      SingleQuoted - Hello world!
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ }
+}

@@ -1,30 +1,122 @@
-WORD - find
-SPACE
-WORD - .
-SPACE
-WORD - -name
-SPACE
-WORD_DOUBLE_QUOTED - *.c
-SPACE
-OR
-SPACE
-WORD - cut
-SPACE
-WORD - -c
-SPACE
-WORD - 3-
-SPACE
-OR
-SPACE
-WORD - sort
-SPACE
-OR
-SPACE
-WORD - xargs
-SPACE
-WORD - clang
-SPACE
-WORD - -MM
-SPACE
-WORD - -MG
-EOF
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - find
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - .
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - -name
+       }
+      }
+     }
+     Word {
+      DoubleQuoted {
+       StringList {
+        NoExpansion - *.c
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - cut
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - -c
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - 3-
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - sort
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - xargs
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - clang
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - -MM
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - -MG
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ }
+}

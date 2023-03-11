@@ -1,20 +1,86 @@
-WORD - LLVM_PROFILE_FILE=
-WORD_DOUBLE_QUOTED - .cache/$line.profraw
-SPACE
-WORD - .cache/test.exe
-SPACE
-LEFT_CHEVRON
-SPACE
-WORD_DOUBLE_QUOTED - data/$line.in.txt
-SPACE
-OR
-SPACE
-WORD - cmp
-SPACE
-WORD - -s
-SPACE
-WORD - -
-SPACE
-WORD_DOUBLE_QUOTED - data/$line.out.txt
-SPACE
-EOF
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - LLVM_PROFILE_FILE=
+       }
+      }
+      DoubleQuoted {
+       StringList {
+        NoExpansion - .cache/
+        Expansion - $line
+        NoExpansion - .profraw
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - .cache/test.exe
+       }
+      }
+     }
+    }
+    Input {
+     InputRedirections {
+      File {
+       Word {
+        DoubleQuoted {
+         StringList {
+          NoExpansion - data/
+          Expansion - $line
+          NoExpansion - .in.txt
+         }
+        }
+       }
+      }
+     }
+    }
+    Output {
+    }
+   }
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - cmp
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - -s
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - -
+       }
+      }
+     }
+     Word {
+      DoubleQuoted {
+       StringList {
+        NoExpansion - data/
+        Expansion - $line
+        NoExpansion - .out.txt
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ }
+}
