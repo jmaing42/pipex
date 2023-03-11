@@ -14,6 +14,16 @@
 
 #include "wrap.h"
 
+static t_err	free_and_return(
+	t_ms_redirections *mut_redirections,
+	t_ms_word *word
+)
+{
+	ms_parse_free_redirections(mut_redirections);
+	ms_parse_free_word(word);
+	return (true);
+}
+
 static t_err	add_node(
 	t_ms_redirections *mut_redirections,
 	bool is_output,
@@ -25,9 +35,7 @@ static t_err	add_node(
 		= wrap_malloc(sizeof(t_ms_parse_token_list_node));
 
 	if (!node)
-		ms_parse_free_redirections(mut_redirections);
-	if (!node)
-		return (true);
+		return free_and_return(mut_redirections, word);
 	*node = (t_ms_redirection_list_node){NULL, is_special, word};
 	if (is_output)
 	{
