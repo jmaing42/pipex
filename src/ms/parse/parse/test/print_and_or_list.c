@@ -27,9 +27,9 @@ t_err	print_and_or_list(int depth, t_ms_and_or_list *and_or_list)
 	{
 		if (!first)
 		{
-			if (node->is_and && printf("%*sAND\n", depth, ""))
+			if (node->is_and && printf("%*sAND\n", depth, "") < 0)
 				return (true);
-			if (!node->is_and && printf("%*sOR\n", depth, ""))
+			if (!node->is_and && printf("%*sOR\n", depth, "") < 0)
 				return (true);
 		}
 		if (print_pipe_list(depth + 1, &node->pipe_list))
