@@ -1,4 +1,28 @@
-WORD - cat
-SPACE
-WORD - $0
-EOF
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - cat
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - $0
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ }
+}

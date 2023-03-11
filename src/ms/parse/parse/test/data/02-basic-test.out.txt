@@ -1,24 +1,91 @@
-WORD - export
-SPACE
-WORD - ARGS=
-WORD_DOUBLE_QUOTED - 1 2 3 4 5
-SPACE
-AND
-AND
-SPACE
-WORD - ./push_swap
-SPACE
-WORD - $ARGS
-SPACE
-OR
-SPACE
-WORD - ./checker
-SPACE
-WORD - $ARGS
-SPACE
-RIGHT_CHEVRON
-RIGHT_CHEVRON
-SPACE
-WORD - result.txt
-SPACE
-EOF
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - export
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - ARGS=
+       }
+      }
+      DoubleQuoted {
+       StringList {
+        NoExpansion - 1 2 3 4 5
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ AND
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - ./push_swap
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        Expansion - $ARGS
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - ./checker
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        Expansion - $ARGS
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+     OutputRedirections {
+      Append {
+       Word {
+        Unquoted {
+         StringList {
+          NoExpansion - result.txt
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
