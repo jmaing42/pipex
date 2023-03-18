@@ -70,6 +70,7 @@ int	pipex_main(int argc, char **argv)
 	const bool		hd = is_heredoc(argc, argv);
 	char			*source;
 	t_ms_program	*program;
+	int				result;
 
 	if (argc < 4)
 		return (EXIT_FAILURE);
@@ -86,8 +87,8 @@ int	pipex_main(int argc, char **argv)
 		ft_write(STDERR_FILENO, "Syntax error!\n", 14);
 		return (EXIT_SUCCESS);
 	}
-	ft_write(STDOUT_FILENO, source, ft_cstring_length(source));
+	result = ms_execute(program);
 	wrap_free(source);
 	ms_free(program);
-	return (EXIT_SUCCESS);
+	return (result);
 }
