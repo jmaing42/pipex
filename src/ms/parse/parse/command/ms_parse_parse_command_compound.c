@@ -36,7 +36,7 @@ static t_err	fill_remain_redirections(
 			return (false);
 		}
 	}
-	return (true);
+	return (false);
 }
 
 t_err	ms_parse_parse_command_compound(
