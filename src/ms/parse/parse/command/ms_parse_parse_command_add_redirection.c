@@ -35,7 +35,7 @@ static t_err	add_node(
 		= wrap_malloc(sizeof(t_ms_parse_token_list_node));
 
 	if (!node)
-		return free_and_return(mut_redirections, word);
+		return (free_and_return(mut_redirections, word));
 	*node = (t_ms_redirection_list_node){NULL, is_special, word};
 	if (is_output)
 	{
