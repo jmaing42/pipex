@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/03/22 19:52:45 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,5 @@ t_err	ms_tmpname(char **out);
 
 t_err	ms_parse(const char *source, t_ms_program **out);
 void	ms_free(t_ms_program *program);
-
-int		ms_execute(t_ms_program *program);
 
 #endif
