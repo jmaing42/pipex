@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_execute.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/03/23 22:14:06 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,12 @@ t_err					ms_execute_command_compound(
 							t_ms_command_compound *command,
 							int *piped_input,
 							int *piped_output);
-
+t_err					ms_execute_word_list(
+							t_ms_word_list *word_list,
+							int *piped_in,
+							int *piped_out);
+t_err					ms_execute_word_part_list(
+							t_ms_word_part_list *wp_list);
+t_err					ms_execute_word_part_string_list(
+							t_ms_word_part_string_list *wps_list);
 #endif
