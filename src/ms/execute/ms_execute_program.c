@@ -10,16 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms.h"
-
-#include <stdlib.h>
-
-#include "ft_exit.h"
 #include "ms_execute.h"
 
-int	ms_execute(t_ms_program *program)
+#include "ft_types.h"
+#include "ms.h"
+
+t_err	ms_execute_program(t_ms_program *program)
 {
-	if (ms_execute_program(program))
-		ft_exit(EXIT_FAILURE);
-	return (ms_execute_globals()->exit_status);
+	return (ms_execute_and_or_list(&program->and_or_list));
 }

@@ -10,16 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms.h"
-
-#include <stdlib.h>
-
-#include "ft_exit.h"
 #include "ms_execute.h"
 
-int	ms_execute(t_ms_program *program)
+#include <stdlib.h>
+#include <sys/wait.h>
+
+#include "wrap.h"
+#include "ft_types.h"
+#include "ft_os_fork.h"
+#include "ft_exit.h"
+#include "ms.h"
+
+static t_err setup_redirections(t_ms_command_compound *command)
 {
-	if (ms_execute_program(program))
-		ft_exit(EXIT_FAILURE);
-	return (ms_execute_globals()->exit_status);
+	// TODO: set up redirections
+	return ((void)command, true);
+}
+
+t_err	ms_execute_command_compound(t_ms_command_compound *command)
+{
+	pid_t	pid;
+	int		stat;
+
+	if (ft_os_fork(&pid))
+		return (true);
+	if (pid == 0)
+	{
+		if (setup_redirections(command)
+			|| ms_execute_and_or_list(&command->and_or_list))
+			ft_exit(EXIT_FAILURE);
+		ft_exit(ms_execute_globals()->exit_status);
+	}
+	wrap_waitpid(pid, &stat, 0);
+	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+	return (false);
 }
