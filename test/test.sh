@@ -2,8 +2,8 @@
 
 set -e
 
-if [ "$1" == "" ]; then
-  find data -mindepth 1 -maxdepth 1 | xargs -L1 sh "$0"
+if [ "$1" = "" ]; then
+  find data -depth 1 | xargs -L1 sh "$0"
   exit
 fi
 
