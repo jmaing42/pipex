@@ -88,7 +88,7 @@ int	pipex_main(int argc, char **argv)
 		ft_write(STDERR_FILENO, "Syntax error!\n", 14);
 		return (EXIT_SUCCESS);
 	}
-	ms_execute(program, &result);
+	result = ms_execute(program);
 	wrap_free(source);
 	ms_free(program);
 	return (result);
