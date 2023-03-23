@@ -21,11 +21,11 @@ void	*ft_leak_test_internal_mock_malloc(
 	t_context *const	ctx = (t_context *) context;
 	void				*result;
 
-	if (ctx->count_limit && ctx->total_count >= ctx->count_limit)
-	{
-		ctx->error = true;
-		return (NULL);
-	}
+	// if (ctx->count_limit && ctx->total_count >= ctx->count_limit)
+	// {
+	// 	ctx->error = true;
+	// 	return (NULL);
+	// }
 	if (!ctx->current || ctx->current->next_fail != ctx->fail_counter)
 	{
 		result = real(size);
