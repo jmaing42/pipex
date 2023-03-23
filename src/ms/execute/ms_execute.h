@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_execute.h                                       :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 19:53:02 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/20 22:40:08 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_EXECUTE_H
-# define MS_EXCUTE_H
-# define FAIL -1
+# define MS_EXECUTE_H
+
 # include "ms.h"
 
-typedef struct s_ms_pipe
+# include "ft_types.h"
+
+# define FAIL -1
+
+typedef struct s_ms_execute_globals
 {
-	char	*infile;
-	char	*outfile;
-	char	**path;
-	char	**envp;
-	t_cmd	*cmd;
-	t_cmd	*cmd_back;
-	int		pid;
-	int		fd[2];
-	int		fd_input;
-	int		cmd_num;
-	int		is_here_doc;
-}	t_ms_pipe;
+	int	exit_status;
+}	t_ms_execute_globals;
+
+t_ms_execute_globals	*ms_execute_globals(void);
+
+t_err					ms_execute_program(
+							t_ms_program *program);
+t_err					ms_execute_and_or_list(
+							t_ms_and_or_list *and_or_list);
+t_err					ms_execute_pipe_list(
+							t_ms_pipe_list *pipe_list);
+t_err					ms_execute_command(
+							t_ms_command *command);
+t_err					ms_execute_command_simple(
+							t_ms_command_simple *command);
+t_err					ms_execute_command_compound(
+							t_ms_command_compound *command);
 
 #endif

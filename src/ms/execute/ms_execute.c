@@ -1,53 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_execute.c                                       :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 19:52:20 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/20 22:40:55 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_execute.h"
 
-t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe)
-{
-	t_ms_pipe_list_node	*cur;
-	t_ms_pipe			pipe_data;
+#include <stdlib.h>
 
-	cur = pipe->head;
-	while (cur)
-	{
-		if (pipe(data->fd) == FAIL)
-	}
-}
-
-int	ms_execute_and_or_list(t_ms_and_or_list *and_or)
-{
-	t_ms_and_or_list_node	*cur;			
-	int						exit_status;
-
-	cur = and_or->head;
-	exit_status = 0;
-	while (cur)
-	{
-		if (cur->is_and && !exit_status)
-			exit_status = ms_execute_and_or_list(cur->pipe_list);
-		else if (!cur->is_and && exit_status)
-			exit_status = ms_execute_and_or_list(cur->pipe_list);
-		cur = cur->next;
-	}
-	return (exit_status);
-}
-
-int	ms_execute_program(t_ms_program *program)
-{
-	return (ms_execute_and_or_list(program->and_or_list));
-}
+#include "ft_exit.h"
 
 int	ms_execute(t_ms_program *program)
 {
-	return (ms_execute_program(program));
+	if (ms_execute_program(program))
+		ft_exit(EXIT_FAILURE);
+	return (ms_execute_globals()->exit_status);
 }
