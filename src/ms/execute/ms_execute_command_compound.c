@@ -21,13 +21,21 @@
 #include "ft_exit.h"
 #include "ms.h"
 
-static t_err setup_redirections(t_ms_command_compound *command)
+static t_err setup_redirections(
+	t_ms_command_compound *command,
+	int *piped_input,
+	int *piped_output
+)
 {
 	// TODO: set up redirections
-	return ((void)command, true);
+	return ((void)command, (void)piped_input, (void)piped_output, true);
 }
 
-t_err	ms_execute_command_compound(t_ms_command_compound *command)
+t_err	ms_execute_command_compound(
+	t_ms_command_compound *command,
+	int *piped_input,
+	int *piped_output
+)
 {
 	pid_t	pid;
 	int		stat;
@@ -36,7 +44,7 @@ t_err	ms_execute_command_compound(t_ms_command_compound *command)
 		return (true);
 	if (pid == 0)
 	{
-		if (setup_redirections(command)
+		if (setup_redirections(command, piped_input, piped_output)
 			|| ms_execute_and_or_list(&command->and_or_list))
 			ft_exit(EXIT_FAILURE);
 		ft_exit(ms_execute_globals()->exit_status);

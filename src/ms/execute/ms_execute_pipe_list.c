@@ -10,39 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_EXECUTE_H
-# define MS_EXECUTE_H
+#include "ms_execute.h"
 
-# include "ms.h"
+#include <stdbool.h>
 
-# include "ft_types.h"
+#include "ft_types.h"
+#include "ft_os_pipe.h"
+#include "ms.h"
 
-# define FAIL -1
-
-typedef struct s_ms_execute_globals
+typedef struct s_locals
 {
-	int	exit_status;
-}	t_ms_execute_globals;
+	t_ms_pipe_list_node	*node;
+	bool				is_first;
+	int					previous_pipe_read;
+	int					pipe_write;
+	int					pipe_read;
+	int					*piped_input;
+	int					*piped_output;
+}	t_locals;
 
-t_ms_execute_globals	*ms_execute_globals(void);
+t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
+{
+	t_locals	l;
 
-t_err					ms_execute_program(
-							t_ms_program *program);
-t_err					ms_execute_and_or_list(
-							t_ms_and_or_list *and_or_list);
-t_err					ms_execute_pipe_list(
-							t_ms_pipe_list *pipe_list);
-t_err					ms_execute_command(
-							t_ms_command *command,
-							int *piped_input,
-							int *piped_output);
-t_err					ms_execute_command_simple(
-							t_ms_command_simple *command,
-							int *piped_input,
-							int *piped_output);
-t_err					ms_execute_command_compound(
-							t_ms_command_compound *command,
-							int *piped_input,
-							int *piped_output);
-
-#endif
+	l.node = pipe_list->head;
+	l.is_first = true;
+	while (l.node)
+	{
+		if (l.node->next)
+		{
+			if (ft_os_pipe(&l.pipe_write, &l.pipe_read))
+				return (true);
+		}
+		l.piped_input = NULL;
+		l.piped_output = NULL;
+		// TODO:
+		ms_execute_command(&l.node->command, l.piped_input, l.piped_output);
+		l.node = l.node->next;
+		l.is_first = false;
+	}
+	return (false);
+}
