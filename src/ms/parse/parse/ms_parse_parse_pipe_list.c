@@ -51,7 +51,8 @@ t_err	ms_parse_parse_pipe_list(
 	if (parse_pipe_list_node(mut_head, &node))
 		return (true);
 	*out = (t_ms_pipe_list){node, node};
-	while ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_OR)
+	while ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_OR
+		&& (*mut_head)->next->value.type != MS_PARSE_TOKEN_TYPE_OR)
 	{
 		*mut_head = (*mut_head)->next;
 		if (parse_pipe_list_node(mut_head, &node))

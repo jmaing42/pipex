@@ -55,8 +55,8 @@ static bool	is_or(t_ms_parse_token_list_node **mut_head)
 {
 	ms_parse_parse_util_skip_space_if_any(mut_head);
 	return (
-		(*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_AND
-		&& (*mut_head)->next->value.type == MS_PARSE_TOKEN_TYPE_AND
+		(*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_OR
+		&& (*mut_head)->next->value.type == MS_PARSE_TOKEN_TYPE_OR
 	);
 }
 
