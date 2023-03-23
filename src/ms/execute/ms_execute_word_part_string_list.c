@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 22:08:49 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/23 22:38:58 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/23 22:51:28 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static t_err	ms_execute_expansion(char *value)
 {
-	
+	return ((void)value, true);
 }
 
 t_err	ms_execute_word_part_string_list(t_ms_word_part_string_list *wps_list)
