@@ -168,6 +168,4 @@ t_err	ms_tmpname(char **out);
 t_err	ms_parse(const char *source, t_ms_program **out);
 void	ms_free(t_ms_program *program);
 
-int		ms_execute(t_ms_program *program);
-
 #endif
