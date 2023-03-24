@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 22:08:49 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/24 19:40:50 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:25:59 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static t_err	ms_execute_expansion(char *env_name, char **out)
 	return (false);
 }
 
-t_err	ms_execute_word_part_string_list(t_ms_word_part_string_list *wps_list)
+t_err	ms_execute_word_part_string_list(
+	t_ms_word_part_string_list *wps_list,
+	t_stringbuilder *str
+)
 {
 	t_ms_word_part_string_list_node	*node;
 	char							*value;
@@ -40,7 +43,8 @@ t_err	ms_execute_word_part_string_list(t_ms_word_part_string_list *wps_list)
 		}
 		else
 			value = node->value;
-		printf("%s\n", value);
+		printf("%s\n", value); //test_only
+		stringbuilder_append_string(str, value);
 		node = node->next;
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/23 22:14:06 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:47:46 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include "ms.h"
 
 # include "ft_types.h"
-
+# include "ft_stringbuilder.h"
 # define FAIL -1
+# define ALLOC_SIZE 1
 
 typedef struct s_ms_execute_globals
 {
@@ -46,10 +47,11 @@ t_err					ms_execute_command_compound(
 							int *piped_output);
 t_err					ms_execute_word_list(
 							t_ms_word_list *word_list,
-							int *piped_in,
-							int *piped_out);
+							char **out_args);
 t_err					ms_execute_word_part_list(
-							t_ms_word_part_list *wp_list);
+							t_ms_word_part_list *wp_list,
+							char **out_arg);
 t_err					ms_execute_word_part_string_list(
-							t_ms_word_part_string_list *wps_list);
+							t_ms_word_part_string_list *wps_list,
+							t_stringbuilder *str);
 #endif
