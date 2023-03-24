@@ -6,31 +6,41 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 22:08:49 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/23 22:51:28 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/24 19:36:47 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_execute.h"
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include "ms.h"
 #include <stdio.h> //test only!!
 
-static t_err	ms_execute_expansion(char *value)
+static t_err	ms_execute_expansion(char *env_name, char **out)
 {
-	return ((void)value, true);
+	*out = getenv(env_name);
+	if (*out == NULL)
+		return (true);
+	return (false);
 }
 
 t_err	ms_execute_word_part_string_list(t_ms_word_part_string_list *wps_list)
 {
 	t_ms_word_part_string_list_node	*node;
+	char							*value;
 
 	node = wps_list->head;
 	while (node)
 	{
 		if (node->type == MS_WORD_PART_STRING_EXPANSION)
-			return (ms_execute_expansion(node->value));
-		printf("%s\n", node->value);
+		{
+			if (ms_execute_expansion(node->value, &value))
+				return (true);
+		}
+		else
+			value = node->value;
+		printf("%s\n", value);
 		node = node->next;
 	}
 	return (false);
