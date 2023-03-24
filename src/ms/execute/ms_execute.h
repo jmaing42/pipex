@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/24 20:47:46 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/24 22:19:06 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ t_err					ms_execute_word_part_list(
 t_err					ms_execute_word_part_string_list(
 							t_ms_word_part_string_list *wps_list,
 							t_stringbuilder *str);
+t_err					ms_execute_redirections(
+							t_ms_redirections *redirections,
+							int *piped_input,
+							int *piped_output);
+char					**ms_execute_double_alloc(
+							char **out_arr,
+							int *capacity);
 #endif
