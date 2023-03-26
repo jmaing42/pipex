@@ -10,16 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ms_execute.h"
 
-#include "wrap.h"
+#include "ft_types.h"
+#include "ms.h"
 
-void	ft_cstring_split_free(char **null_terminated_strings)
+t_err	ms_execute_program(t_ms_program *program)
 {
-	char	**tmp;
-
-	tmp = null_terminated_strings;
-	while (*tmp)
-		wrap_free(*tmp++);
-	wrap_free(null_terminated_strings);
+	return (ms_execute_and_or_list(&program->and_or_list));
 }

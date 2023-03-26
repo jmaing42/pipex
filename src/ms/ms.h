@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/23 16:18:59 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:00:12 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,6 @@ t_err	ms_tmpname(char **out);
 t_err	ms_parse(const char *source, t_ms_program **out);
 void	ms_free(t_ms_program *program);
 
+int		ms_execute(t_ms_program *program);
 
-int test_program(t_ms_program *program); //only test
 #endif

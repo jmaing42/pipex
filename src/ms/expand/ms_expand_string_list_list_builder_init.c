@@ -10,16 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ms_expand.h"
 
-#include "wrap.h"
-
-void	ft_cstring_split_free(char **null_terminated_strings)
+void	ms_expand_string_list_list_builder_init(
+	t_ms_expand_string_list_list_builder *out
+)
 {
-	char	**tmp;
-
-	tmp = null_terminated_strings;
-	while (*tmp)
-		wrap_free(*tmp++);
-	wrap_free(null_terminated_strings);
+	out->list = (t_ms_expand_string_list_list){NULL, NULL};
+	out->append_to_tail = false;
+	out->builder = NULL;
 }

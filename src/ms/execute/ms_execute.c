@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ms.h"
 
-#include "wrap.h"
+#include <stdlib.h>
 
-void	ft_cstring_split_free(char **null_terminated_strings)
+#include "ft_exit.h"
+#include "ms_execute.h"
+
+int	ms_execute(t_ms_program *program)
 {
-	char	**tmp;
-
-	tmp = null_terminated_strings;
-	while (*tmp)
-		wrap_free(*tmp++);
-	wrap_free(null_terminated_strings);
+	if (ms_execute_program(program))
+		ft_exit(EXIT_FAILURE);
+	return (ms_execute_globals()->exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/23 16:37:54 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:00:36 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ int	pipex_main(int argc, char **argv)
 		ft_write(STDERR_FILENO, "Syntax error!\n", 14);
 		return (EXIT_SUCCESS);
 	}
-	// ms_execute(program, &result);
-	result = test_program(program);
+	result = ms_execute(program);
 	wrap_free(source);
 	ms_free(program);
 	return (result);
