@@ -10,16 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ms_expand.h"
 
-#include "wrap.h"
+#include "ms.h"
 
-void	ft_cstring_split_free(char **null_terminated_strings)
+t_err	ms_expand_string_list_list_builder_feed_word_list(
+	t_ms_expand_string_list_list_builder *self,
+	t_ms_word_list *list
+)
 {
-	char	**tmp;
+	t_ms_word_list_node	*node;
 
-	tmp = null_terminated_strings;
-	while (*tmp)
-		wrap_free(*tmp++);
-	wrap_free(null_terminated_strings);
+	node = list->head;
+	while (node)
+	{
+		if (ms_expand_string_list_list_builder_feed_word(self, node->word))
+			return (true);
+		if (ms_expand_string_list_list_builder_set_skip(self))
+			return (true);
+		node = node->next;
+	}
+	return (false);
 }

@@ -10,16 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ms_expand.h"
 
-#include "wrap.h"
+#include "ft_types.h"
+#include "ms.h"
 
-void	ft_cstring_split_free(char **null_terminated_strings)
+t_err	ms_expand_internal(
+	t_ms_word_list *list,
+	t_ms_expand_string_list *out
+)
 {
-	char	**tmp;
+	t_ms_expand_string_list_list			string_list_list;
+	t_ms_expand_string_list_list_builder	builder;
+	t_err									result;
 
-	tmp = null_terminated_strings;
-	while (*tmp)
-		wrap_free(*tmp++);
-	wrap_free(null_terminated_strings);
+	ms_expand_string_list_list_builder_init(&builder);
+	if (
+		ms_expand_string_list_list_builder_feed_word_list(
+			&builder, list)
+		|| ms_expand_string_list_list_builder_finalize(
+			&builder, &string_list_list)
+	)
+	{
+		ms_expand_string_list_list_builder_free(&builder);
+		return (true);
+	}
+	result = ms_expand_asterisk(string_list_list, out);
+	ms_expand_string_list_list_free(string_list_list);
+	return (result);
 }

@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ms_expand.h"
 
-#include "wrap.h"
+#include "ms.h"
 
-void	ft_cstring_split_free(char **null_terminated_strings)
+t_err	ms_expand_string_list_list_builder_feed_word(
+	t_ms_expand_string_list_list_builder *self,
+	t_ms_word *word
+)
 {
-	char	**tmp;
-
-	tmp = null_terminated_strings;
-	while (*tmp)
-		wrap_free(*tmp++);
-	wrap_free(null_terminated_strings);
+	return (
+		ms_expand_string_list_list_builder_feed_word_part_list(
+			self,
+			&word->part_list
+		)
+	);
 }
