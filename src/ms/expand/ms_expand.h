@@ -6,17 +6,19 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/27 21:09:50 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/27 21:31:16 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_EXPAND_H
 # define MS_EXPAND_H
 
-#include "ft_stringbuilder.h"
+# include "ft_stringbuilder.h"
 # include "ms.h"
 
 # include <stdbool.h>
+
+# define STRING_BUILDER_SIZE 32
 
 typedef struct s_ms_expand_string_list_node
 {
@@ -80,12 +82,12 @@ void		ms_expand_string_list_free(t_ms_expand_string_list *list);
 void		ms_expand_string_list_list_free(t_ms_expand_string_list_list *list);
 void		ms_expand_string_list_list_builder_free(
 				t_ms_expand_string_list_list_builder *self);
-//
-char		*ms_expand_word_part_string_list(
-				t_ms_word_part_string_list *input);
 t_err		ms_expand_string_list_list_builder_finalize(
 				t_ms_expand_string_list_list_builder *self,
 				t_ms_expand_string_list_list *out);
+//
+char		*ms_expand_word_part_string_list(
+				t_ms_word_part_string_list *input);
 t_err		ms_expand_asterisk(
 				t_ms_expand_string_list_list string_list_list,
 				t_ms_expand_string_list *out_string_list);
