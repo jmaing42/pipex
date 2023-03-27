@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_feed_wor        :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_feed_str        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Created: 2023/03/27 16:52:05 by seonlim           #+#    #+#             */
 /*   Updated: 2023/03/27 20:17:38 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_expand.h"
 
-#include "ms.h"
-
-t_err	ms_expand_string_list_list_builder_feed_word_list(
+t_err	ms_expand_string_list_list_builder_feed_string(
 	t_ms_expand_string_list_list_builder *self,
-	t_ms_word_list *list
+	const char *str,
+	t_ms_word_part_type type
 )
 {
-	t_ms_word_list_node	*node;
+	size_t	i;
 
-	node = list->head;
-	while (node)
+	i = 0;
+	while (str[i])
 	{
-		if (ms_expand_string_list_list_builder_feed_word(self, node->word))
+		if (ms_expand_string_list_list_builder_feed_char(
+			self, str[i], type))
 			return (true);
-		if (ms_expand_string_list_list_builder_add_node(self))
-			return (true);
-		node = node->next;
+		i++;
 	}
+	if (ms_expand_string_list_list_builder_add_node(self))
+		return (true);
 	return (false);
 }

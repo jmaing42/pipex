@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/24 22:19:06 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/27 18:18:54 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # include "ft_types.h"
 # include "ft_stringbuilder.h"
+# include "ms_expand.h"
+
 # define FAIL -1
 # define ALLOC_SIZE 1
 

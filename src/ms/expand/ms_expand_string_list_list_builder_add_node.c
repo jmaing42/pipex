@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_feed_wor        :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_set_skip        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Created: 2023/03/27 20:05:40 by seonlim           #+#    #+#             */
 /*   Updated: 2023/03/27 20:17:38 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#include "ft_memory.h"
+#include "ms_execute.h"
 
-#include "ms.h"
-
-t_err	ms_expand_string_list_list_builder_feed_word_list(
-	t_ms_expand_string_list_list_builder *self,
-	t_ms_word_list *list
+t_err	ms_expand_string_list_list_builder_add_node(
+	t_ms_expand_string_list_list_builder *self
 )
 {
-	t_ms_word_list_node	*node;
+	t_ms_expand_string_list_list_node	*new_node;
 
-	node = list->head;
-	while (node)
+	new_node = ft_memory_allocate(1,
+		sizeof(t_ms_expand_string_list_list_node));
+	if (new_node == NULL)
+		return (true);
+	if (self->list.head == NULL)
 	{
-		if (ms_expand_string_list_list_builder_feed_word(self, node->word))
-			return (true);
-		if (ms_expand_string_list_list_builder_add_node(self))
-			return (true);
-		node = node->next;
+		self->list.head = new_node;
+		self->list.tail = new_node;
+	}
+	else 
+	{
+		self->list.tail->next = new_node;
+		self->list.tail = new_node;
 	}
 	return (false);
 }

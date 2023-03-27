@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:23:21 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/24 22:37:37 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/27 18:18:54 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_err	ms_execute_command_simple(
 {
 	char	**args;
 
+	if (ms_expand(&command->word_list, &args))
+		return (true);
 	if (ms_execute_redirections(&command->redirections,
 			piped_input, piped_output))
 		return (true);
