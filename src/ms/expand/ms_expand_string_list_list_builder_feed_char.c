@@ -6,12 +6,13 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:55:37 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/27 21:30:16 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/28 22:54:23 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_stringbuilder.h"
+#include "ms.h"
 #include "ms_expand.h"
 
 static bool	is_space(char c)
@@ -34,7 +35,8 @@ t_err	ms_expand_string_list_list_builder_feed_char(
 		if (self->builder == NULL)
 			return (true);
 	}
-	if (type == MS_WORD_PART_UNQUOTED && is_space(ch))
+	if ((type == MS_WORD_PART_UNQUOTED && is_space(ch))
+		|| (type != MS_WORD_PART_SINGLE_QUOTED && ch == '*'))
 	{
 		if (ms_expand_string_list_list_builder_add_node(self))
 			return (true);

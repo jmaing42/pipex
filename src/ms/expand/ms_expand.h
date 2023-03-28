@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/28 20:59:28 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/28 21:02:00 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_err		ms_expand_putenv(const char *key, const char *value);
 const char	*ms_expand_getenv(const char *key);
 //
 t_err		ms_expand_asterisk(
-				t_ms_expand_string_list_list string_list_list,
+				t_ms_expand_string_list_list *string_list_list,
 				t_ms_expand_string_list *out_string_list);
 
 #endif
