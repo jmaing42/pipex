@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_putenv.c                                 :+:      :+:    :+:   */
+/*   ms_expand_getenv.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 20:05:37 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/28 20:55:26 by seonlim          ###   ########.fr       */
+/*   Created: 2023/03/28 20:55:55 by seonlim           #+#    #+#             */
+/*   Updated: 2023/03/28 20:59:20 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
+#include "ft_cstring.h"
 #include "ms_expand.h"
 
-#include <stdlib.h>
-
-t_err	ms_expand_putenv(const char *key, const char *value)
+const char	*ms_expand_getenv(const char *key)
 {
 	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
+	t_ms_expand_env_list_node	*node;
 
 	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	new_node->key = key;
-	new_node->value = value;
-	if (new_node == NULL)
-		return (true);
-	if (list->head == NULL)
+	node = list->head;
+	while (node)
 	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
+		if (!ft_cstring_compare(key, node->key))
+			return (node->value);
+		node = node->next;
 	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
+	return (NULL);
 }
