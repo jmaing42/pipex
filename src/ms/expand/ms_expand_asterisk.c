@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:00:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 17:26:11 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/29 19:49:15 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include "ft_types.h"
 #include "ms_expand.h"
 #include <dirent.h>
-#include <stdio.h> //test only
+#include <stdbool.h>
+#include <stdlib.h>
+
 static t_err	get_dir_name_list(t_ms_expand_string_list *list)
 {
 	DIR				*dp;
@@ -37,27 +39,75 @@ static t_err	get_dir_name_list(t_ms_expand_string_list *list)
 	return (false);
 }
 
+static bool	is_possible(
+	t_ms_expand_string_list *cmd_list,
+	char *name
+)
+{
+	t_ms_expand_string_list_node	*node;
+
+	node = cmd_list->head;
+	while (node)
+	{
+		name += ft_cstring_find_index(name, node->str[0]);
+		if (ft_cstring_compare_length(
+				name, node->str, ft_cstring_length(node->str)))
+			return (false);
+		node = node->next;
+	}
+	return (true);
+}
+
+static t_err	apply_wildcard(
+	t_ms_expand_string_list *cmd_list,
+	t_ms_expand_string_list *out_string_list
+)
+{
+	t_ms_expand_string_list				dir_name_list;
+	t_ms_expand_string_list_node		*name_node;
+
+	ft_memory_set(&dir_name_list, 0, sizeof(t_ms_expand_string_list));
+	if (get_dir_name_list(&dir_name_list))
+		return (true);
+	name_node = dir_name_list.head;
+	while (name_node)
+	{
+		if (is_possible(cmd_list, name_node->str))
+		{
+			if (ms_expand_string_list_node_add(out_string_list))
+				return (true);
+			if (ft_cstring_duplicate(
+					name_node->str, &out_string_list->tail->str))
+				return (true);
+		}
+		name_node = name_node->next;
+	}
+	ms_expand_string_list_free(&dir_name_list);
+	return (false);
+}
+
 t_err	ms_expand_asterisk(
 	t_ms_expand_string_list_list *string_list_list,
 	t_ms_expand_string_list *out_string_list
 )
 {
 	t_ms_expand_string_list_list_node	*node;
-	t_ms_expand_string_list				dir_name_list;
-	t_ms_expand_string_list_node		*dir_name_node;
 
-	ft_memory_set(&dir_name_list, 0, sizeof(t_ms_expand_string_list));
 	node = string_list_list->head;
-	if (get_dir_name_list(&dir_name_list))
-		return (true);
-	dir_name_node = dir_name_list.head;
-	while (dir_name_node)
+	while (node)
 	{
-		printf("%s\n", dir_name_node->str);
-		dir_name_node = dir_name_node->next;
+		if (node->list.head == node->list.tail)
+		{
+			if (ms_expand_string_list_node_add(out_string_list))
+				return (true);
+			if (ft_cstring_duplicate(
+					node->list.head->str, &out_string_list->tail->str))
+				return (true);
+		}
+		else
+			if (apply_wildcard(&node->list, out_string_list))
+				return (true);
+		node = node->next;
 	}
-	(void)node;
-	(void)out_string_list; //TODO
-	ms_expand_string_list_free(&dir_name_list);
 	return (false);
 }
