@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_feed_wor        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/03/29 17:05:10 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,16 @@ static t_err	single_quoted(
 	char *str
 )
 {
-	str--;
-	while (*++str)
-		if (
-			ms_expand_string_list_list_builder_feed_char(
-				self, *str++, MS_WORD_PART_SINGLE_QUOTED)
-		)
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ms_expand_string_list_list_builder_feed_char(
+				self, str[i], MS_WORD_PART_SINGLE_QUOTED))
 			return (true);
+		i++;
+	}
 	return (false);
 }
 

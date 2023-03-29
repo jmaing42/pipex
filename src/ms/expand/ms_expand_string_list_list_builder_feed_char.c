@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:55:37 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 14:25:41 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/29 16:04:53 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,22 @@ t_err	ms_expand_string_list_list_builder_feed_char(
 		if (self->builder == NULL)
 			return (true);
 	}
-	if (type == MS_WORD_PART_UNQUOTED && is_space(ch)
-		&& ms_expand_string_list_list_builder_add_list_list_node(self))
+	if (type == MS_WORD_PART_UNQUOTED && is_space(ch))
+	{
+		if (ms_expand_string_list_node_add(&self->list.tail->list)
+			&& ms_expand_string_list_list_builder_fill_node(
+				&self->builder, &self->list.tail->list)
+			&& ms_expand_string_list_list_node_add(&self->list))
+			return (true);
+		return (false);
+	}
+	else if (type != MS_WORD_PART_SINGLE_QUOTED
+		&& ch == '*'
+		&& ms_expand_string_list_node_add(&self->list.tail->list)
+		&& ms_expand_string_list_list_builder_fill_node(
+			&self->builder, &self->list.tail->list))
 		return (true);
-	if (type != MS_WORD_PART_SINGLE_QUOTED && ch == '*'
-		&& ms_expand_string_list_list_builder_add_list_node(self))
-		return (true);
-	else if (stringbuilder_append_char(self->builder, ch))
+	if (stringbuilder_append_char(self->builder, ch))
 		return (true);
 	return (false);
 }

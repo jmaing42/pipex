@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:58:08 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/24 22:19:26 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:35:44 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_err	ms_execute_word_list(
 	int					i;
 	int					args_capacity;
 
+	if (ms_expand(word_list, &out_args))
+		return (true);
 	out_args = (char **)malloc(sizeof(char *) * ARGS_SIZE);
 	args_capacity = ARGS_SIZE;
 	i = 0;

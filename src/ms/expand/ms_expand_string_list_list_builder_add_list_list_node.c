@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:18:18 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 14:25:29 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/29 16:18:12 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 #include <stdlib.h>
 
-t_err	ms_expand_string_list_list_builder_add_list_list_node(
-	t_ms_expand_string_list_list_builder *self
+t_err	ms_expand_string_list_list_node_add(
+	t_ms_expand_string_list_list *list
 )
 {
 	t_ms_expand_string_list_list_node	*new_node;
@@ -24,18 +24,13 @@ t_err	ms_expand_string_list_list_builder_add_list_list_node(
 	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_string_list_list_node));
 	if (new_node == NULL)
 		return (NULL);
-	if (self->list.head == NULL)
+	if (list->head == NULL)
 	{
-		self->list.head = new_node;
-		self->list.tail = new_node;
+		list->head = new_node;
+		list->tail = new_node;
 		return (false);
 	}
-	if (ms_expand_string_list_list_builder_add_list_node(self))
-	{
-		free(new_node);
-		return (true);
-	}
-	self->list.tail = new_node;
-	self->list.tail = self->list.tail->next;
+	list->tail->next = new_node;
+	list->tail = list->tail->next;
 	return (false);
 }

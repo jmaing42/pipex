@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/28 19:58:01 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/29 16:09:00 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ t_err	ms_expand_internal(
 	t_err									result;
 
 	ms_expand_string_list_list_builder_init(&builder);
-	if (
-		ms_expand_string_list_list_builder_feed_word_list(
-			&builder, list)
-		|| ms_expand_string_list_list_builder_finalize(
-			&builder, &string_list_list)
-	)
+	result = ms_expand_string_list_list_builder_feed_word_list(&builder, list);
+	result |= ms_expand_string_list_list_builder_finalize(
+			&builder, &string_list_list);
+	if (result)
 	{
 		ms_expand_string_list_list_builder_free(&builder);
 		return (true);
 	}
-	result = ms_expand_asterisk(string_list_list, out);
+	result = ms_expand_asterisk(&string_list_list, out);
 	ms_expand_string_list_list_builder_free(&builder);
 	return (result);
 }
