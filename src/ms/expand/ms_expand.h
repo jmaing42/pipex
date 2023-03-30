@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/30 15:57:53 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 20:02:27 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_ms_expand_env_list
 	t_ms_expand_env_list_node	*head;
 	t_ms_expand_env_list_node	*tail;
 }	t_ms_expand_env_list;
-//setup
+//builder
 void		ms_expand_string_list_list_builder_init(
 				t_ms_expand_string_list_list_builder *out);
 t_err		ms_expand_string_list_list_builder_feed_word_list(
@@ -86,37 +86,42 @@ t_err		ms_expand_string_list_list_builder_feed_char(
 				t_ms_expand_string_list_list_builder *self,
 				const char ch,
 				t_ms_word_part_type type);
-t_err		ms_expand(
-				t_ms_word_list *list,
-				char ***out_argv);
-t_err		ms_expand_string_list_node_add(
-				t_ms_expand_string_list *self);
-t_err		ms_expand_string_list_list_node_add(
-				t_ms_expand_string_list_list *self);
 t_err		ms_expand_string_list_list_builder_fill_node(
 				t_stringbuilder **builder,
 				t_ms_expand_string_list *list);
-void		ms_expand_string_list_free(t_ms_expand_string_list *list);
-void		ms_expand_string_list_list_free(t_ms_expand_string_list_list *list);
 void		ms_expand_string_list_list_builder_free(
 				t_ms_expand_string_list_list_builder *self);
 t_err		ms_expand_string_list_list_builder_finalize(
 				t_ms_expand_string_list_list_builder *self,
 				t_ms_expand_string_list_list *out);
+//expand
+t_err		ms_expand(
+				t_ms_word_list *list,
+				char ***out_argv);
 t_err		ms_expand_init(void);
 t_err		ms_expand_internal(
 				t_ms_word_list *list,
 				t_ms_expand_string_list *out);
+//string_list_list
+t_err		ms_expand_string_list_list_node_add(
+				t_ms_expand_string_list_list *self);
+void		ms_expand_string_list_list_free(t_ms_expand_string_list_list *list);
+//string_list
+t_err		ms_expand_string_list_node_add(
+				t_ms_expand_string_list *self);
+void		ms_expand_string_list_free(t_ms_expand_string_list *list);
+//env
 void		*ms_expand_env_list_get(void);
 t_err		ms_expand_putenv(const char *key, const char *value);
 const char	*ms_expand_getenv(const char *key);
+//strnstr
 char		*ms_expand_strnstr(
 				const char *haystack,
 				const char *needle,
 				size_t len);
+//asterisk
 t_err		ms_expand_asterisk(
 				t_ms_expand_string_list_list *string_list_list,
 				t_ms_expand_string_list *out_string_list);
-//
 
 #endif
