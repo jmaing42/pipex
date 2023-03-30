@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:00:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 19:49:15 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:54:57 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ static bool	is_possible(
 	node = cmd_list->head;
 	while (node)
 	{
-		name += ft_cstring_find_index(name, node->str[0]);
-		if (ft_cstring_compare_length(
-				name, node->str, ft_cstring_length(node->str)))
+		name = ms_expand_strnstr(name, node->str, -1);
+		if (name == NULL)
 			return (false);
 		node = node->next;
 	}

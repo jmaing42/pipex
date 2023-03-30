@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:52:05 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 22:18:53 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:49:10 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ t_err	ms_expand_string_list_list_builder_feed_string(
 				return (true);
 			if (ms_expand_string_list_node_add(&self->list.tail->list)
 				|| ms_expand_string_list_list_builder_fill_node(
-					&self->builder, &self->list.tail->list)
-				|| ms_expand_string_list_list_node_add(&self->list))
+					&self->builder, &self->list.tail->list))
 				return (true);
 		}
 		i++;
