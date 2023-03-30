@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:00:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/30 19:56:58 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:50:05 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_err	get_dir_name_list(t_ms_expand_string_list *list)
 	return (false);
 }
 
-static bool	is_possible(
+static bool	is_possible_name(
 	t_ms_expand_string_list *cmd_list,
 	char *name
 )
@@ -82,7 +82,7 @@ static t_err	apply_wildcard(
 	name_node = dir_name_list.head;
 	while (name_node)
 	{
-		if (is_possible(cmd_list, name_node->str))
+		if (is_possible_name(cmd_list, name_node->str))
 		{
 			if (ms_expand_string_list_node_add(out_string_list))
 				return (true);
