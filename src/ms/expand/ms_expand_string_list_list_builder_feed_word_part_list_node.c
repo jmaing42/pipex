@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/29 17:05:10 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:24:31 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static const char	*get_string(t_ms_word_part_string_list_node *node)
 
 	if (node->type == MS_WORD_PART_STRING_NO_EXPANSION)
 		return (node->value);
-	result = ms_expand_getenv(node->value);
+	result = ms_expand_env_get(node->value);
 	if (result)
 		return (result);
 	return ("");

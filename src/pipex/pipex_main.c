@@ -6,13 +6,14 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/24 16:00:36 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:25:37 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 #include <stdlib.h>
+#include <sys/_types/_size_t.h>
 
 #include "wrap.h"
 #include "ft_types.h"
@@ -20,6 +21,7 @@
 #include "ft_stringbuilder.h"
 #include "ft_io.h"
 #include "ms.h"
+#include "ms_expand.h"
 // #include "ms_execute.h"
 
 typedef struct s_to_string
@@ -66,7 +68,7 @@ t_err	to_string(t_to_string v)
 	return (*v.out == NULL);
 }
 
-int	pipex_main(int argc, char **argv)
+int	pipex_main(int argc, char **argv, char **envp)
 {
 	const bool		hd = is_heredoc(argc, argv);
 	char			*source;
@@ -88,6 +90,8 @@ int	pipex_main(int argc, char **argv)
 		ft_write(STDERR_FILENO, "Syntax error!\n", 14);
 		return (EXIT_SUCCESS);
 	}
+	if (ms_expand_env_init(envp))
+		return (EXIT_FAILURE);
 	result = ms_execute(program);
 	wrap_free(source);
 	ms_free(program);

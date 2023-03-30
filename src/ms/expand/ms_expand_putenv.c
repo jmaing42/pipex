@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:05:37 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/28 20:55:26 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:24:19 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-t_err	ms_expand_putenv(const char *key, const char *value)
+t_err	ms_expand_env_put(const char *key, const char *value)
 {
 	t_ms_expand_env_list		*list;
 	t_ms_expand_env_list_node	*new_node;

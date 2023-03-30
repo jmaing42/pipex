@@ -6,14 +6,14 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:55:55 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 15:33:18 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:24:31 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cstring.h"
 #include "ms_expand.h"
 
-const char	*ms_expand_getenv(const char *key)
+const char	*ms_expand_env_get(const char *key)
 {
 	t_ms_expand_env_list		*list;
 	t_ms_expand_env_list_node	*node;

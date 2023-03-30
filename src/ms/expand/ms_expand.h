@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/30 20:02:27 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:24:33 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ t_err		ms_expand_string_list_list_builder_finalize(
 t_err		ms_expand(
 				t_ms_word_list *list,
 				char ***out_argv);
-t_err		ms_expand_init(void);
 t_err		ms_expand_internal(
 				t_ms_word_list *list,
 				t_ms_expand_string_list *out);
@@ -111,9 +110,10 @@ t_err		ms_expand_string_list_node_add(
 				t_ms_expand_string_list *self);
 void		ms_expand_string_list_free(t_ms_expand_string_list *list);
 //env
+t_err		ms_expand_env_init(char **envp);
 void		*ms_expand_env_list_get(void);
-t_err		ms_expand_putenv(const char *key, const char *value);
-const char	*ms_expand_getenv(const char *key);
+t_err		ms_expand_env_put(const char *key, const char *value);
+const char	*ms_expand_env_get(const char *key);
 //strnstr
 char		*ms_expand_strnstr(
 				const char *haystack,
