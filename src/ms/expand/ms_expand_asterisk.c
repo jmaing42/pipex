@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:00:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/30 16:43:44 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/03/30 19:56:58 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_err	get_dir_name_list(t_ms_expand_string_list *list)
 			|| ft_cstring_equals(dirp->d_name, ".."))
 		{
 			dirp = readdir(dp);
-			continue;
+			continue ;
 		}
 		if (ms_expand_string_list_node_add(list))
 			return (true);
@@ -53,8 +53,11 @@ static bool	is_possible(
 	t_ms_expand_string_list_node	*node;
 
 	node = cmd_list->head;
-	if (name[0] == '.' && !ft_cstring_equals(node->str, "."))
-		return (false);
+	if (ft_cstring_equals(node->str, "."))
+	{
+		if (name[0] != '.')
+			return (false);
+	}
 	while (node)
 	{
 		name = ms_expand_strnstr(name, node->str, -1);
@@ -86,7 +89,6 @@ static t_err	apply_wildcard(
 			if (ft_cstring_duplicate(
 					name_node->str, &out_string_list->tail->str))
 				return (true);
-			return (true);
 		}
 		name_node = name_node->next;
 	}
