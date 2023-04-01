@@ -16,7 +16,7 @@ test_word_list.c
 ../ms_expand_internal.c
 ../ms_expand_string_list_free.c
 ../ms_expand.c
-../ms_expand_init.c
+../ms_expand_env_init.c
 ../ms_expand_env_get.c
 ../string_list_list_builder/ms_expand_string_list_list_builder_fill_node.c
 ../string_list_list_builder/ms_expand_string_list_list_builder_init.c
@@ -68,6 +68,7 @@ test_word_list.c
 ../../parse/parse/ms_parse_parse_util_skip_space_if_any.c
 ../../../ft/types/char/ft_types_char_alpha.c
 ../../../ft/types/char/ft_types_char_alnum.c
+../../../ft/types/char/ft_types_char_space.c
 ../../../ft/memory/ft_memory_zero.c
 ../../../ft/memory/ft_memory_set.c
 ../../../ft/memory/ft_memory_allocate.c

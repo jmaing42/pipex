@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_add_list_list_n :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 14:18:18 by seonlim           #+#    #+#             */
-/*   Updated: 2023/04/01 10:20:12 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_err	ms_expand_string_list_list_node_add(
 
 	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_string_list_list_node));
 	if (new_node == NULL)
-		return (NULL);
+		return (true);
 	if (list->head == NULL)
 	{
 		list->head = new_node;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_asterisk.c                               :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 21:00:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/30 21:50:05 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ static t_err	apply_wildcard(
 
 	ft_memory_set(&dir_name_list, 0, sizeof(t_ms_expand_string_list));
 	if (get_dir_name_list(&dir_name_list))
+	{
+		ms_expand_string_list_free(&dir_name_list);
 		return (true);
+	}
 	name_node = dir_name_list.head;
 	while (name_node)
 	{
@@ -96,7 +99,7 @@ static t_err	apply_wildcard(
 	return (false);
 }
 
-t_err	ms_expand_asterisk(
+static t_err	ms_expand_asterisk_internal(
 	t_ms_expand_string_list_list *string_list_list,
 	t_ms_expand_string_list *out_string_list
 )
@@ -120,4 +123,17 @@ t_err	ms_expand_asterisk(
 		node = node->next;
 	}
 	return (false);
+}
+
+t_err	ms_expand_asterisk(
+	t_ms_expand_string_list_list *string_list_list,
+	t_ms_expand_string_list *out_string_list
+)
+{
+	const t_err	result
+		= ms_expand_asterisk_internal(string_list_list, out_string_list);
+
+	if (result)
+		ms_expand_string_list_free(out_string_list);
+	return (result);
 }

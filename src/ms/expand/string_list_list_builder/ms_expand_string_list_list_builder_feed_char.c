@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_feed_cha        :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 16:55:37 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 21:54:03 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ms_expand.h"
 
 #include "ft_memory.h"
 #include "ft_stringbuilder.h"
 #include "ft_types.h"
+#include "ft_types_char.h"
 #include "ms.h"
-#include "ms_expand.h"
-
-static bool	is_space(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r')
-		return (true);
-	return (false);
-}
 
 static t_err	push_asterisk_node(t_ms_expand_string_list_list_builder *self)
 {
-	if (ms_expand_string_list_node_add(&self->list.tail->list)
+	return (
+		ms_expand_string_list_node_add(&self->list.tail->list)
 		|| ms_expand_string_list_list_builder_fill_node(
-			&self->builder, &self->list.tail->list))
-		return (true);
-	return (false);
+			&self->builder, &self->list.tail->list)
+	);
 }
 
 static t_err	push_space_node(t_ms_expand_string_list_list_builder *self)
 {
-	if (ms_expand_string_list_node_add(&self->list.tail->list)
+	return (
+		ms_expand_string_list_node_add(&self->list.tail->list)
 		|| ms_expand_string_list_list_builder_fill_node(
 			&self->builder, &self->list.tail->list)
-		|| ms_expand_string_list_list_node_add(&self->list))
-		return (true);
-	return (false);
+		|| ms_expand_string_list_list_node_add(&self->list)
+	);
 }
 
 t_err	ms_expand_string_list_list_builder_feed_char(
@@ -55,7 +49,7 @@ t_err	ms_expand_string_list_list_builder_feed_char(
 		if (self->builder == NULL)
 			return (true);
 	}
-	if (type == MS_WORD_PART_UNQUOTED && is_space(ch))
+	if (type == MS_WORD_PART_UNQUOTED && ft_types_char_space(ch))
 		return (push_space_node(self));
 	else if (type != MS_WORD_PART_SINGLE_QUOTED && ch == '*')
 		return (push_asterisk_node(self));
