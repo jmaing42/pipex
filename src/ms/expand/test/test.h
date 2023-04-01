@@ -10,21 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
-#include "ms_expand.h"
+#ifndef TEST_H
+# define TEST_H
 
-const char	*ms_expand_env_get(const char *key)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
+# include "ft_types.h"
+# include "ms.h"
 
-	list = ms_expand_env_list_get();
-	node = list->head;
-	while (node)
-	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
-		node = node->next;
-	}
-	return (NULL);
-}
+t_err	print_program(t_ms_program *program);
+t_err	test_program(t_ms_program *program);
+
+t_err	print_and_or_list(t_ms_and_or_list *and_or_list);
+t_err	print_pipe_list(t_ms_pipe_list *pipe_list);
+t_err	print_command(t_ms_command *command);
+t_err	print_word_list(t_ms_word_list *word_list);
+
+t_err	test_and_or_list(t_ms_and_or_list *and_or_list);
+t_err	test_pipe_list(t_ms_pipe_list *pipe_list);
+t_err	test_command(t_ms_command *command);
+t_err	test_word_list(t_ms_word_list *word_list);
+
+
+#endif

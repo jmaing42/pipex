@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
-#include "ms_expand.h"
+#include "test.h"
 
-const char	*ms_expand_env_get(const char *key)
+#include <stdio.h>
+
+t_err	print_and_or_list(t_ms_and_or_list *and_or_list)
 {
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
+	t_ms_and_or_list_node	*node;
 
-	list = ms_expand_env_list_get();
-	node = list->head;
+	node = and_or_list->head;
 	while (node)
 	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
+		if (print_pipe_list(&node->pipe_list))
+			return (true);
 		node = node->next;
 	}
-	return (NULL);
+	return (false);
 }

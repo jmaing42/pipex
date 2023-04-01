@@ -10,21 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
-#include "ms_expand.h"
+#include "ms.h"
+#include "test.h"
 
-const char	*ms_expand_env_get(const char *key)
+#include <stdio.h>
+
+static t_err	print_command_simple(t_ms_command_simple *command_simple)
 {
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
+	if (print_word_list(&command_simple->word_list))
+		return (true);
+	return (false);
+}
 
-	list = ms_expand_env_list_get();
-	node = list->head;
-	while (node)
-	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
-		node = node->next;
-	}
-	return (NULL);
+static t_err	print_command_compound(t_ms_command_compound *command_compound)
+{
+	if (print_and_or_list(&command_compound->and_or_list))
+		return (true);
+	return (false);
+}
+
+t_err	print_command(t_ms_command *command)
+{
+	if (command->type == MS_COMMAND_TYPE_SIMPLE)
+		return (print_command_simple(command->value.simple));
+	if (command->type == MS_COMMAND_TYPE_COMPOUND)
+		return (print_command_compound(command->value.compound));
+	return (true);
 }

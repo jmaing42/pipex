@@ -10,21 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
-#include "ms_expand.h"
+#include "test.h"
 
-const char	*ms_expand_env_get(const char *key)
+#include <stdio.h>
+
+t_err	print_program(t_ms_program *program)
 {
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
-
-	list = ms_expand_env_list_get();
-	node = list->head;
-	while (node)
-	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
-		node = node->next;
-	}
-	return (NULL);
+	if (!program)
+		return (puts("INVALID PROGRAM") < 0);
+	return (print_and_or_list(&program->and_or_list));
 }

@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "test.h"
+
+#include <stdio.h>
+
 #include "ms_expand.h"
+#include "ft_cstring_split.h"
 
-const char	*ms_expand_env_get(const char *key)
+t_err	test_word_list(t_ms_word_list *word_list)
 {
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
+	char	**argv;
 
-	list = ms_expand_env_list_get();
-	node = list->head;
-	while (node)
-	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
-		node = node->next;
-	}
-	return (NULL);
+	if (ms_expand(word_list, &argv))
+		return (true);
+	ft_cstring_split_free(argv);
+	return (false);
 }
