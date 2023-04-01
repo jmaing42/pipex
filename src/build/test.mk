@@ -20,9 +20,9 @@ build:
 	$(Q2)$(MAKE) COMMON_FLAGS=$(COMMON_FLAGS) -C .cache
 
 launch.part.json:
-	$(Q2)printf '    {\n      "type": "lldb",\n      "request": "launch",\n      "name": "Debug unit test %s",\n      "program": "%s/.cache/test.exe",\n      "cwd": "%s",\n      "preLaunchTask": "build unit test %s",\n    },\n' "$$(basename "$$(pwd)")" "$$(pwd)" "$$(pwd)" "$$(basename "$$(pwd)")" > $@
+	$(Q2)printf '    {\n      "type": "lldb",\n      "request": "launch",\n      "name": "Debug unit test %s (%s)",\n      "program": "%s/.cache/test.exe",\n      "cwd": "%s",\n      "preLaunchTask": "build unit test %s (%s)",\n    },\n' "$$(basename "$$(pwd)")" "$$(pwd)" "$$(pwd)" "$$(pwd)" "$$(basename "$$(pwd)")" "$$(pwd)" > $@
 
 tasks.part.json:
-	$(Q2)printf '    {\n      "label": "build unit test %s",\n      "type": "shell",\n      "command": "$(MAKE) build",\n      "options": {\n        "cwd": "%s",\n      },\n      "problemMatcher": ["$$gcc"]\n    },\n' "$$(basename "$$(pwd)")" "$$(pwd)" > $@
+	$(Q2)printf '    {\n      "label": "build unit test %s (%s)",\n      "type": "shell",\n      "command": "$(MAKE) build",\n      "options": {\n        "cwd": "%s",\n      },\n      "problemMatcher": ["$$gcc"]\n    },\n' "$$(basename "$$(pwd)")" "$$(pwd)" "$$(pwd)" > $@
 
 dev: launch.part.json tasks.part.json
