@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_add_list        :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_add_list_list_n :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:18:18 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 16:18:12 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/04/01 10:20:12 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
