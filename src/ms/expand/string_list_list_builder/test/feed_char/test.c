@@ -10,37 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "test.h"
+
+#include <stdio.h>
+
+#include "ft_types.h"
 #include "ft_stringbuilder.h"
-#include "ms.h"
 #include "ms_expand.h"
 
-t_err	ms_expand_string_list_list_builder_feed_string(
-	t_ms_expand_string_list_list_builder *self,
-	const char *str,
-	t_ms_word_part_type type
-)
+t_err	print_builder(t_ms_expand_string_list_list_builder *builder)
 {
-	size_t	i;
+	t_ms_expand_string_list_list_node	*ll_node;
+	t_ms_expand_string_list_node		*node;
 
-	i = 0;
-	while (str[i])
+	ll_node = builder->list.head;
+	while (ll_node)
 	{
-		if (ms_expand_string_list_list_builder_feed_char(
-				self, str[i], type))
+		node = ll_node->list.head;
+		if (puts("* * *") == EOF)
 			return (true);
-		if (str[i] == '*' && str[i + 1] == '\0')
+		while (node)
 		{
-			if (self->builder == NULL)
-				self->builder = new_stringbuilder(STRING_BUILDER_SIZE);
-			if (self->builder == NULL)
+			if (printf("\t%s\n", node->str) < 0)
 				return (true);
-			if (ms_expand_string_list_list_builder_add_list_node(
-					&self->list.tail->list)
-				|| ms_expand_string_list_list_builder_fill_node(
-					&self->builder, &self->list.tail->list))
-				return (true);
+			node = node->next;
 		}
-		i++;
+		ll_node = ll_node->next;
 	}
+	printf("%s\n", stringbuilder_to_string(builder->builder, 0));
 	return (false);
 }
