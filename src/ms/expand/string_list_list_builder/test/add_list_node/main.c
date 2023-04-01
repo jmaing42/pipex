@@ -1,36 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_add_list_list_n :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/04/01 12:38:44 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2023/04/01 12:42:20 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
-#include "ft_memory.h"
-
+#include <stdio.h>
 #include <stdlib.h>
 
-t_err	ms_expand_string_list_list_builder_add_list_node(
-	t_ms_expand_string_list_list *list
-)
-{
-	t_ms_expand_string_list_list_node	*new_node;
+#include "ft_types.h"
+#include "ms_expand.h"
+#include "ft/leak_test.h"
 
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_string_list_list_node));
-	if (new_node == NULL)
-		return (true);
-	if (list->head == NULL)
-	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
-	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
+static bool	test_leak(const void *context)
+{
+	t_ms_expand_string_list	list;
+
+	(void)context;
+	leak_test_start();
+	list = (t_ms_expand_string_list){NULL, NULL};
+	ms_expand_string_list_node_add(&list);
+	ms_expand_string_list_free(&list);
 	return (false);
+}
+
+int	main(void)
+{
+	int				errno;
+	t_err			error;
+
+	errno = leak_test(test_leak, NULL, NULL);
+	if (errno && printf("leak_test: %s\n", leak_test_error(errno)) < 0)
+		return (EXIT_FAILURE);
+	error = !!errno;
+	if (error)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

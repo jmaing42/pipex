@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expand.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/30 21:24:33 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/04/01 12:38:44 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_err		ms_expand_internal(
 				t_ms_word_list *list,
 				t_ms_expand_string_list *out);
 //string_list_list
-t_err		ms_expand_string_list_list_node_add(
+t_err		ms_expand_string_list_list_builder_add_list_node(
 				t_ms_expand_string_list_list *self);
 void		ms_expand_string_list_list_free(t_ms_expand_string_list_list *list);
 //string_list

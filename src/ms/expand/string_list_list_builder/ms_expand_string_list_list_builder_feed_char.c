@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_feed_char.c     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/04/01 12:38:44 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_err	push_space_node(t_ms_expand_string_list_list_builder *self)
 		ms_expand_string_list_node_add(&self->list.tail->list)
 		|| ms_expand_string_list_list_builder_fill_node(
 			&self->builder, &self->list.tail->list)
-		|| ms_expand_string_list_list_node_add(&self->list)
+		|| ms_expand_string_list_list_builder_add_list_node(&self->list)
 	);
 }
 
