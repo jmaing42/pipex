@@ -1,0 +1,29 @@
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - echo
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        Expansion - $HELLO_WORLD
+        NoExpansion - !
+       }
+      }
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ }
+}
