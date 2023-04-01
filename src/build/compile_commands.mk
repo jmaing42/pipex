@@ -1,6 +1,6 @@
 .PHONY: compile_commands.json
 compile_commands.json:
-	$(Q2)$(MAKE) -k build ; (printf "[" && find . -name "*.compile_commands.part.json" | xargs cat && printf "]") > $@
+	$(Q2)$(MAKE) -k build ; (printf "[" && find . -name "*.compile_commands.part.json" | sort | xargs cat && printf "]") > $@
 
 .PHONY: clean_compile_commands.json
 clean_compile_commands.json:
