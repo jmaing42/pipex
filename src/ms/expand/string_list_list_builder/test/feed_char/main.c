@@ -68,6 +68,8 @@ static bool	test_leak(const void *context)
 
 	leak_test_start();
 	ms_expand_string_list_list_builder_init(&builder);
+	if (ms_expand_string_list_list_builder_add_list_list_node(&builder.list))
+		return (false);
 	i = 0;
 	while (contents[i] && contents[i + 1])
 	{
@@ -90,6 +92,8 @@ static t_err	test_func(char *contents)
 
 	ms_expand_string_list_list_builder_init(&builder);
 	i = 0;
+	if (ms_expand_string_list_list_builder_add_list_list_node(&builder.list))
+		return (false);
 	while (contents[i] && contents[i + 1])
 	{
 		if (ms_expand_string_list_list_builder_feed_char(
