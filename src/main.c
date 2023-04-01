@@ -12,7 +12,9 @@
 
 #include "pipex.h"
 
+extern char	**environ;
+
 int	main(int argc, char **argv)
 {
-	return (pipex_main(argc, argv));
+	return (pipex_main(argc, argv, environ));
 }

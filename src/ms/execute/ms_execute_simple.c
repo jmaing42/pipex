@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_execute_simple.c                                :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 21:23:21 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/31 16:56:21 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,40 @@
 #include "ft_os_pipe.h"
 #include "ms.h"
 
-static t_err	find_path(char **path, char *cmd_name, char **out_name)
-{
-	char	*slash_cmd;
-	size_t	index;
+// static t_err	find_path(char **path, char *cmd_name, char **out_name)
+// {
+// 	char	*slash_cmd;
+// 	size_t	index;
 
-	if (ft_cstring_contains_char(cmd_name, '/'))
-	{
-		if (ft_cstring_duplicate(cmd_name, out_name))
-			return (true);
-		return (false);
-	}
-	if (ft_cstring_concat("/", cmd_name, &slash_cmd))
-		return (true);
-	*out_name = NULL;
-	index = 0;
-	while (path && path[index])
-	{
-		if (ft_cstring_concat(path[index], slash_cmd, out_name))
-			return (true);
-		if (access(*out_name, F_OK) != FAIL)
-			break ;
-		free(*out_name);
-		*out_name = NULL;
-	}
-	free(slash_cmd);
-	return (false);
-}
+// 	if (ft_cstring_contains_char(cmd_name, '/'))
+// 	{
+// 		if (ft_cstring_duplicate(cmd_name, out_name))
+// 			return (true);
+// 		return (false);
+// 	}
+// 	if (ft_cstring_concat("/", cmd_name, &slash_cmd))
+// 		return (true);
+// 	*out_name = NULL;
+// 	index = 0;
+// 	while (path && path[index])
+// 	{
+// 		if (ft_cstring_concat(path[index], slash_cmd, out_name))
+// 			return (true);
+// 		if (access(*out_name, F_OK) != FAIL)
+// 			break ;
+// 		free(*out_name);
+// 		*out_name = NULL;
+// 	}
+// 	free(slash_cmd);
+// 	return (false);
+// }
 
-static t_err	parse_path(char *path, char **out_parsed_path)
-{
-	
-}
+// static t_err	parse_path(char *path, char **out_parsed_path)
+// {
+// 	(void)path;
+// 	(void)out_parsed_path;
+// 	return (false);
+// }
 
 t_err	ms_execute_command_simple(
 	t_ms_command_simple *command,
@@ -61,11 +63,13 @@ t_err	ms_execute_command_simple(
 )
 {
 	char	**args;
-	char	*cmd_path;
+	// char	*cmd_path;
 
 	if (ms_expand(&command->word_list, &args))
 		return (true);
 	//TO DO: redirection
-	if (find_path(, args[0], &cmd_path))
+	// if (find_path(&args[0], &cmd_path))
+	(void)piped_input;
+	(void)piped_output;
 	return (false);
 }

@@ -58,8 +58,9 @@ static bool	test_leak(const void *context)
 
 	leak_test_start();
 	if (ms_parse(contents, &program))
-		return (true);
-	test_program(program);
+		return (false);
+	if (test_program(program))
+		return (false);
 	ms_free(program);
 	return (false);
 }
