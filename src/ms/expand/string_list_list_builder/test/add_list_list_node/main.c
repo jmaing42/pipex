@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/04/01 13:31:16 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2023/04/01 13:35:27 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "ft_types.h"
 #include "ms_expand.h"
+#include "ft_cstring.h"
 #include "ft/leak_test.h"
 
 static bool	test_leak(const void *context)
@@ -26,7 +27,12 @@ static bool	test_leak(const void *context)
 	list = (t_ms_expand_string_list_list){NULL, NULL};
 	if (ms_expand_string_list_list_builder_add_list_list_node(&list))
 		return (false);
-	ms_expand_string_list_list_builder_add_list_node(&list.tail->list);
+	if (ms_expand_string_list_list_builder_add_list_node(&list.tail->list)
+		|| ft_cstring_duplicate("Hello world!", &list.tail->list.tail->str))
+	{
+		ms_expand_string_list_list_free(&list);
+		return (false);
+	}
 	ms_expand_string_list_list_builder_add_list_node(&list.tail->list);
 	ms_expand_string_list_list_builder_add_list_node(&list.tail->list);
 	ms_expand_string_list_list_builder_add_list_list_node(&list);

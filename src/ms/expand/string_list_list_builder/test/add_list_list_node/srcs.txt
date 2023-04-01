@@ -3,6 +3,8 @@ main.c
 ../../ms_expand_string_list_list_builder_add_list_node.c
 ../../../ms_expand_string_list_list_free.c
 ../../../ms_expand_string_list_free.c
+../../../../../ft/cstring/length/ft_cstring_length.c
+../../../../../ft/cstring/duplicate/ft_cstring_duplicate.c
 ../../../../../ft/memory/ft_memory_set.c
 ../../../../../ft/memory/ft_memory_zero.c
 ../../../../../ft/memory/ft_memory_allocate.c
