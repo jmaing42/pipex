@@ -56,9 +56,9 @@ compile_commands.json: pre_dev
 	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (printf "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && printf "]") > $@
 .PHONY: .vscode/launch.json
 .vscode/launch.json: pre_dev
-	$(Q2)(cat template/launch.json.before.txt && find src -name launch.part.json | xargs cat && cat template/launch.json.after.txt) > $@
+	$(Q2)(cat template/launch.json.before.txt && find src -name launch.part.json | sort | xargs cat && cat template/launch.json.after.txt) > $@
 .PHONY: .vscode/tasks.json
 .vscode/tasks.json: pre_dev
-	$(Q2)(cat template/tasks.json.before.txt && find src -name tasks.part.json | xargs cat && cat template/tasks.json.after.txt) > $@
+	$(Q2)(cat template/tasks.json.before.txt && find src -name tasks.part.json | sort | xargs cat && cat template/tasks.json.after.txt) > $@
 .PHONY: dev
 dev: compile_commands.json .vscode/launch.json .vscode/tasks.json
