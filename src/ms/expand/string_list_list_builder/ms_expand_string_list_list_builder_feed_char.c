@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/04/01 12:38:44 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2023/04/01 13:25:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static t_err	push_asterisk_node(t_ms_expand_string_list_list_builder *self)
 {
 	return (
-		ms_expand_string_list_node_add(&self->list.tail->list)
+		ms_expand_string_list_list_builder_add_list_node(&self->list.tail->list)
 		|| ms_expand_string_list_list_builder_fill_node(
 			&self->builder, &self->list.tail->list)
 	);
@@ -30,10 +30,10 @@ static t_err	push_asterisk_node(t_ms_expand_string_list_list_builder *self)
 static t_err	push_space_node(t_ms_expand_string_list_list_builder *self)
 {
 	return (
-		ms_expand_string_list_node_add(&self->list.tail->list)
+		ms_expand_string_list_list_builder_add_list_node(&self->list.tail->list)
 		|| ms_expand_string_list_list_builder_fill_node(
 			&self->builder, &self->list.tail->list)
-		|| ms_expand_string_list_list_builder_add_list_node(&self->list)
+		|| ms_expand_string_list_list_builder_add_list_list_node(&self->list)
 	);
 }
 

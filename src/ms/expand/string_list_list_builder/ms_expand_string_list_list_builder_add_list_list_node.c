@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/04/01 12:38:44 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2023/04/01 13:25:34 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-t_err	ms_expand_string_list_list_builder_add_list_node(
+t_err	ms_expand_string_list_list_builder_add_list_list_node(
 	t_ms_expand_string_list_list *list
 )
 {
