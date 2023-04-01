@@ -10,21 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
 #include "ms_expand.h"
 
-const char	*ms_expand_env_get(const char *key)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
+#include "ms.h"
 
-	list = ms_expand_env_list_get();
+t_err	ms_expand_string_list_list_builder_feed_word_list(
+	t_ms_expand_string_list_list_builder *self,
+	t_ms_word_list *list
+)
+{
+	t_ms_word_list_node	*node;
+
 	node = list->head;
 	while (node)
 	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
+		if (ms_expand_string_list_list_builder_feed_word(self, node->word))
+			return (true);
+// TODO: test
+		if (self->builder != NULL
+			&& ms_expand_string_list_list_builder_fill_node(
+				&self->builder, &self->list.tail->list))
+			return (true);
 		node = node->next;
 	}
-	return (NULL);
+	return (false);
 }

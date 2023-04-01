@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand.c                                        :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/30 19:44:24 by seonlim          ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_err	ms_expand(
 	t_ms_expand_string_list	string_list;
 	t_err					result;
 
-	ft_memory_set(&string_list, 0, sizeof(t_ms_expand_string_list));
+	ft_memory_zero(&string_list, sizeof(t_ms_expand_string_list));
 	if (ms_expand_internal(list, &string_list))
 		return (true);
 	result = allocate_and_fill(string_list, out_argv);

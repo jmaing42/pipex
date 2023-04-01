@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_feed_word.c     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/04/01 13:25:32 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
+#include "ft_memory.h"
 #include "ms_expand.h"
 
-const char	*ms_expand_env_get(const char *key)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*node;
+#include "ms.h"
 
-	list = ms_expand_env_list_get();
-	node = list->head;
-	while (node)
-	{
-		if (ft_cstring_equals(key, node->key))
-			return (node->value);
-		node = node->next;
-	}
-	return (NULL);
+t_err	ms_expand_string_list_list_builder_feed_word(
+	t_ms_expand_string_list_list_builder *self,
+	t_ms_word *word
+)
+{
+	if (ms_expand_string_list_list_builder_add_list_list_node(&self->list))
+		return (true);
+	if (ms_expand_string_list_list_builder_feed_word_part_list(
+			self, &word->part_list))
+		return (true);
+	return (false);
 }

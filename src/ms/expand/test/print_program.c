@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_feed_wor        :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/29 15:28:08 by seonlim          ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ms_expand.h"
+#include "test.h"
 
-#include "ms.h"
+#include <stdio.h>
 
-t_err	ms_expand_string_list_list_builder_feed_word(
-	t_ms_expand_string_list_list_builder *self,
-	t_ms_word *word
-)
+t_err	print_program(t_ms_program *program)
 {
-	if (ms_expand_string_list_list_node_add(&self->list))
-		return (true);
-	if (ms_expand_string_list_list_builder_feed_word_part_list(
-			self, &word->part_list))
-		return (true);
-	return (false);
+	if (!program)
+		return (puts("INVALID PROGRAM") < 0);
+	return (print_and_or_list(&program->and_or_list));
 }

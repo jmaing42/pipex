@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_feed_str        :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_feed_string.c   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:52:05 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/30 15:49:10 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/04/01 13:25:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_err	ms_expand_string_list_list_builder_feed_string(
 				self->builder = new_stringbuilder(STRING_BUILDER_SIZE);
 			if (self->builder == NULL)
 				return (true);
-			if (ms_expand_string_list_node_add(&self->list.tail->list)
+			if (ms_expand_string_list_list_builder_add_list_node(&self->list.tail->list)
 				|| ms_expand_string_list_list_builder_fill_node(
 					&self->builder, &self->list.tail->list))
 				return (true);

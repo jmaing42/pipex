@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expand_asterisk.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 21:00:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/30 21:50:05 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 2023/04/01 13:25:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_err	get_dir_name_list(t_ms_expand_string_list *list)
 			dirp = readdir(dp);
 			continue ;
 		}
-		if (ms_expand_string_list_node_add(list))
+		if (ms_expand_string_list_list_builder_add_list_node(list))
 			return (true);
 		if (ft_cstring_duplicate(dirp->d_name, &list->tail->str))
 			return (true);
@@ -78,13 +78,16 @@ static t_err	apply_wildcard(
 
 	ft_memory_set(&dir_name_list, 0, sizeof(t_ms_expand_string_list));
 	if (get_dir_name_list(&dir_name_list))
+	{
+		ms_expand_string_list_free(&dir_name_list);
 		return (true);
+	}
 	name_node = dir_name_list.head;
 	while (name_node)
 	{
 		if (is_possible_name(cmd_list, name_node->str))
 		{
-			if (ms_expand_string_list_node_add(out_string_list))
+			if (ms_expand_string_list_list_builder_add_list_node(out_string_list))
 				return (true);
 			if (ft_cstring_duplicate(
 					name_node->str, &out_string_list->tail->str))
@@ -96,7 +99,7 @@ static t_err	apply_wildcard(
 	return (false);
 }
 
-t_err	ms_expand_asterisk(
+static t_err	ms_expand_asterisk_internal(
 	t_ms_expand_string_list_list *string_list_list,
 	t_ms_expand_string_list *out_string_list
 )
@@ -108,7 +111,7 @@ t_err	ms_expand_asterisk(
 	{
 		if (node->list.head == node->list.tail)
 		{
-			if (ms_expand_string_list_node_add(out_string_list))
+			if (ms_expand_string_list_list_builder_add_list_node(out_string_list))
 				return (true);
 			if (ft_cstring_duplicate(
 					node->list.head->str, &out_string_list->tail->str))
@@ -120,4 +123,17 @@ t_err	ms_expand_asterisk(
 		node = node->next;
 	}
 	return (false);
+}
+
+t_err	ms_expand_asterisk(
+	t_ms_expand_string_list_list *string_list_list,
+	t_ms_expand_string_list *out_string_list
+)
+{
+	const t_err	result
+		= ms_expand_asterisk_internal(string_list_list, out_string_list);
+
+	if (result)
+		ms_expand_string_list_free(out_string_list);
+	return (result);
 }

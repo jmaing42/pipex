@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_add_list        :+:      :+:    :+:   */
+/*   ms_expand_string_list_list_builder_add_list_node.c :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 14:18:18 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/29 16:18:12 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 2023/04/01 13:25:43 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
 #include "ft_memory.h"
+#include "ft_types.h"
+#include "ms_expand.h"
 
-#include <stdlib.h>
-
-t_err	ms_expand_string_list_list_node_add(
-	t_ms_expand_string_list_list *list
+t_err	ms_expand_string_list_list_builder_add_list_node(
+	t_ms_expand_string_list *list
 )
 {
-	t_ms_expand_string_list_list_node	*new_node;
+	t_ms_expand_string_list_node	*new_node;
 
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_string_list_list_node));
+	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_string_list_node));
 	if (new_node == NULL)
-		return (NULL);
+		return (true);
 	if (list->head == NULL)
 	{
 		list->head = new_node;
 		list->tail = new_node;
-		return (false);
 	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
+	else
+	{
+		list->tail->next = new_node;
+		list->tail = list->tail->next;
+	}
 	return (false);
 }

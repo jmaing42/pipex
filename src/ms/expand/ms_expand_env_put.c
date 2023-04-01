@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_putenv.c                                 :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 20:05:37 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/30 21:24:19 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <stdlib.h>
 
+// TODO: 이미 있었으면 삭제
+
 t_err	ms_expand_env_put(const char *key, const char *value)
 {
 	t_ms_expand_env_list		*list;
@@ -22,10 +24,10 @@ t_err	ms_expand_env_put(const char *key, const char *value)
 
 	list = ms_expand_env_list_get();
 	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	new_node->key = key;
-	new_node->value = value;
 	if (new_node == NULL)
 		return (true);
+	new_node->key = key;
+	new_node->value = value;
 	if (list->head == NULL)
 	{
 		list->head = new_node;
