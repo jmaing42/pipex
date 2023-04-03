@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "ms_expand.h"
+
 #include "ft_stringbuilder.h"
+#include "wrap.h"
 
 t_err	ms_expand_string_list_list_builder_fill_node(
 	t_stringbuilder **builder,
@@ -30,7 +32,10 @@ t_err	ms_expand_string_list_list_builder_fill_node(
 	if (str == NULL)
 		return (true);
 	if (ms_expand_string_list_list_builder_add_list_node(list))
+	{
+		wrap_free(str);
 		return (true);
+	}
 	list->tail->str = str;
 	stringbuilder_free(*builder);
 	*builder = NULL;
