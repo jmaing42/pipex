@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_feed_wor        :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/30 21:24:31 by seonlim          ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,23 @@ static t_err	other(
 	return (false);
 }
 
-static t_err	single_quoted(
-	t_ms_expand_string_list_list_builder *self,
-	char *str
-)
-{
-	size_t	i;
+// static t_err	single_quoted(
+// 	t_ms_expand_string_list_list_builder *self,
+// 	char *str
+// )
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (ms_expand_string_list_list_builder_feed_char(
-				self, str[i], MS_WORD_PART_SINGLE_QUOTED))
-			return (true);
-		i++;
-	}
-	return (false);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (ms_expand_string_list_list_builder_feed_char(
+// 				self, str[i], MS_WORD_PART_SINGLE_QUOTED))
+// 			return (true);
+// 		i++;
+// 	}
+// 	return (false);
+// }
 
 t_err	ms_expand_string_list_list_builder_feed_word_part_list_node(
 	t_ms_expand_string_list_list_builder *self,
@@ -83,6 +83,7 @@ t_err	ms_expand_string_list_list_builder_feed_word_part_list_node(
 )
 {
 	if (node->type == MS_WORD_PART_SINGLE_QUOTED)
-		return (single_quoted(self, node->value.single_quoted));
+		return (ms_expand_string_list_list_builder_feed_string(
+				self, node->value.single_quoted, node->type));
 	return (other(self, node->value.any, node->type));
 }

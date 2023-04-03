@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_asterisk.c                               :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/04/01 13:25:41 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ static t_err	ms_expand_asterisk_internal(
 	{
 		if (node->list.head == node->list.tail)
 		{
-			if (ms_expand_string_list_list_builder_add_list_node(out_string_list))
+			if (ms_expand_string_list_list_builder_add_list_node(
+					out_string_list))
 				return (true);
 			if (ft_cstring_duplicate(
 					node->list.head->str, &out_string_list->tail->str))

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_string_list_list_builder_fill_node.c     :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 15:12:29 by seonlim           #+#    #+#             */
-/*   Updated: 2023/04/01 13:25:41 by Juyeong Maing    ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@ t_err	ms_expand_string_list_list_builder_fill_node(
 {
 	char							*str;
 
+	if (*builder == NULL)
+	{
+		*builder = new_stringbuilder(STRING_BUILDER_SIZE);
+		if (*builder == NULL)
+			return (true);
+	}
 	str = stringbuilder_to_string(*builder, 0);
 	if (str == NULL)
 		return (true);
-	if (list->head == NULL && ms_expand_string_list_list_builder_add_list_node(list))
+	if (ms_expand_string_list_list_builder_add_list_node(list))
 		return (true);
 	list->tail->str = str;
 	stringbuilder_free(*builder);

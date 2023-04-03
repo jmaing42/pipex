@@ -32,6 +32,7 @@ t_err	ms_expand_string_list_list_builder_feed_word_list(
 				&self->builder, &self->list.tail->list))
 			return (true);
 		node = node->next;
+		self->need_new_list_list = true;
 	}
 	return (false);
 }
