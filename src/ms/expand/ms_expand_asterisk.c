@@ -53,11 +53,8 @@ static bool	is_possible_name(
 	t_ms_expand_string_list_node	*node;
 
 	node = cmd_list->head;
-	if (ft_cstring_equals(node->str, "."))
-	{
-		if (name[0] != '.')
-			return (false);
-	}
+	if (name[0] == '.' && !ft_cstring_equals(node->str, "."))
+		return (false);
 	while (node)
 	{
 		name = ms_expand_strnstr(name, node->str, -1);
@@ -87,7 +84,8 @@ static t_err	apply_wildcard(
 	{
 		if (is_possible_name(cmd_list, name_node->str))
 		{
-			if (ms_expand_string_list_list_builder_add_list_node(out_string_list))
+			if (ms_expand_string_list_list_builder_add_list_node(
+					out_string_list))
 				return (true);
 			if (ft_cstring_duplicate(
 					name_node->str, &out_string_list->tail->str))
