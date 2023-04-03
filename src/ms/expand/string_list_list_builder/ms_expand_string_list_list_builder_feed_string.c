@@ -28,19 +28,14 @@ static t_err	wildcard_case(t_ms_expand_string_list_list_builder *self)
 	return (false);
 }
 
-static t_err	add_new_node(
-	t_ms_expand_string_list_list_builder *self,
-	char ch,
-	t_ms_word_part_type type)
+static t_err	add_new_node(t_ms_expand_string_list_list_builder *self)
 {
-	if (self->need_new_list_list
-		&& !(ft_types_char_space(ch) && type == MS_WORD_PART_UNQUOTED))
-	{
-		if (ms_expand_string_list_list_builder_add_list_list_node(
-				&self->list))
-			return (true);
-		self->need_new_list_list = false;
-	}
+	if (!self->need_new_list_list)
+		return (false);
+	if (ms_expand_string_list_list_builder_add_list_list_node(
+			&self->list))
+		return (true);
+	self->need_new_list_list = false;
 	return (false);
 }
 
@@ -52,10 +47,14 @@ t_err	ms_expand_string_list_list_builder_feed_string(
 {
 	size_t	i;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
-		if (add_new_node(self, str[i], type))
+		if (self->need_new_list_list
+			&& type == MS_WORD_PART_UNQUOTED
+			&& ft_types_char_space(str[i]))
+			continue ;
+		if (add_new_node(self))
 			return (true);
 		if (ms_expand_string_list_list_builder_feed_char(
 				self, str[i], type))
@@ -66,7 +65,6 @@ t_err	ms_expand_string_list_list_builder_feed_string(
 			if (wildcard_case(self))
 				return (true);
 		}
-		i++;
 	}
 	return (false);
 }

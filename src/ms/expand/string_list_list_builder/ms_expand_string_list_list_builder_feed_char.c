@@ -28,12 +28,8 @@ static t_err	push_asterisk_node(t_ms_expand_string_list_list_builder *self)
 static t_err	push_space_node(t_ms_expand_string_list_list_builder *self)
 {
 	self->need_new_list_list = true;
-	return (
-		ms_expand_string_list_list_builder_add_list_node(&self->list.tail->list)
-		|| ms_expand_string_list_list_builder_fill_node(
-			&self->builder, &self->list.tail->list)
-		|| ms_expand_string_list_list_builder_add_list_list_node(&self->list)
-	);
+	return (ms_expand_string_list_list_builder_fill_node(
+			&self->builder, &self->list.tail->list));
 }
 
 t_err	ms_expand_string_list_list_builder_feed_char(
