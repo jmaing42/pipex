@@ -29,7 +29,7 @@ t_err	ms_execute_and_or_list(t_ms_and_or_list *and_or_list)
 	node = and_or_list->head->next;
 	while (node)
 	{
-		if (!!node->is_and == succeed)
+		if (node->is_and == succeed)
 		{
 			if (ms_execute_pipe_list(&node->pipe_list))
 				return (true);
