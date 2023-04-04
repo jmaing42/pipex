@@ -89,6 +89,7 @@ t_err	ms_execute_command_simple(
 		ft_cstring_split_free(args);
 		return (true);
 	}
+	execve(cmd_name, args, NULL); //test only
 	//TO DO: redirection
 	// if (find_path(&args[0], &cmd_path))
 	(void)piped_input;
