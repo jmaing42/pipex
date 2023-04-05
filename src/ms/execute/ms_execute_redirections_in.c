@@ -50,6 +50,8 @@ static t_err	read_file(int fd)
 	return (false);
 }
 
+//TODO: make internal function, make here_doc proccess
+
 t_err	ms_execute_redirecion_in(
 	t_ms_redirection_list *rd_list,
 	t_ms_execute_pipe_info *info

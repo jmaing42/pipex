@@ -69,15 +69,32 @@ static t_err	write_file(int fd, const char *file_contents)
 	return (false);
 }
 
-static t_err	write_stdout(int fd, char *path, char *file_contents)
+static t_err	internal(
+	t_ms_redirection_list_node	*node,
+	char *file_contents
+)
 {
-	t_err	result;
+	char	*path;
+	int		fd;
 
-	result = write_file(STDOUT_FILENO, file_contents);
-	wrap_free(file_contents);
+	while (node)
+	{
+		if (ms_execute_redirections_word_to_str(node->target, &path))
+			return (true);
+		if (node->is_special)
+			fd = wrap_open(path, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		else
+			fd = wrap_open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (fd < 0 || write_file(fd, file_contents))
+		{
+			wrap_free(path);
+			return (true);
+		}
+		node = node->next;
+	}
 	wrap_free(path);
 	wrap_close(fd);
-	return (result);
+	return (write_file(STDOUT_FILENO, file_contents));
 }
 
 t_err	ms_execute_redirections_out(
@@ -85,27 +102,16 @@ t_err	ms_execute_redirections_out(
 	t_ms_execute_pipe_info *info
 )
 {
-	t_ms_redirection_list_node	*node;
-	int							fd;
-	char						*path;
-	char						*file_contents;
+	char	*file_contents;
 
 	if (ms_execute_redirections_control_files(info)
 		|| get_file_contents(&file_contents))
 		return (true);
-	node = rd_list->head;
-	while (node)
+	if (internal(rd_list->head, file_contents))
 	{
-		if (ms_execute_redirections_word_to_str(node->target, &path))
-			return (true);
-		fd = wrap_open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		if (fd < 0 || write_file(fd, file_contents))
-		{
-			wrap_free(path);
-			wrap_free(file_contents);
-			return (true);
-		}
-		node = node->next;
+		wrap_free(file_contents);
+		return (true);
 	}
-	return (write_stdout(fd, path, file_contents));
+	wrap_free(file_contents);
+	return (false);
 }
