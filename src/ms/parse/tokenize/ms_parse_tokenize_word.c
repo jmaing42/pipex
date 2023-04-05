@@ -30,9 +30,9 @@ t_err	ms_parse_tokenize_state_word(
 			return (true);
 		return (ms_parse_tokenize_state_default(c, list, NULL, out_next_state));
 	}
-	if (stringbuilder_append_char(data, c))
+	if (ft_stringbuilder_append_char(data, c))
 	{
-		stringbuilder_free(data);
+		ft_stringbuilder_free(data);
 		return (true);
 	}
 	*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_WORD, data};

@@ -49,9 +49,9 @@ static t_err	transition_to_word(
 
 	if (!next_state_data)
 		return (true);
-	if (stringbuilder_append_char(next_state_data, c))
+	if (ft_stringbuilder_append_char(next_state_data, c))
 	{
-		stringbuilder_free(next_state_data);
+		ft_stringbuilder_free(next_state_data);
 		return (true);
 	}
 	out_next_state->data = next_state_data;

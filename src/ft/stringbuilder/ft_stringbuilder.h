@@ -35,19 +35,19 @@ typedef struct s_stringbuilder
 
 t_stringbuilder	*ft_stringbuilder_new(
 					size_t buffer_size);
-void			stringbuilder_free(
+void			ft_stringbuilder_free(
 					t_stringbuilder *self);
-t_err			stringbuilder_append(
+t_err			ft_stringbuilder_append(
 					t_stringbuilder *self,
 					size_t length,
 					const char *buf);
-t_err			stringbuilder_append_char(
+t_err			ft_stringbuilder_append_char(
 					t_stringbuilder *self,
 					char c);
-t_err			stringbuilder_append_string(
+t_err			ft_stringbuilder_append_string(
 					t_stringbuilder *self,
 					const char *str);
-char			*stringbuilder_to_string(
+char			*ft_stringbuilder_to_string(
 					t_stringbuilder *self,
 					size_t offset);
 

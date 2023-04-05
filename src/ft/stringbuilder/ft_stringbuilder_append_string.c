@@ -14,7 +14,7 @@
 
 #include "ft_cstring.h"
 
-t_err	stringbuilder_append_string(t_stringbuilder *self, const char *str)
+t_err	ft_stringbuilder_append_string(t_stringbuilder *self, const char *str)
 {
-	return (stringbuilder_append(self, ft_cstring_length(str), str));
+	return (ft_stringbuilder_append(self, ft_cstring_length(str), str));
 }

@@ -19,5 +19,5 @@ char	*fto_stream_string_out_v_to_string(
 {
 	if (length)
 		*length = self->stringbuilder->length;
-	return (stringbuilder_to_string(self->stringbuilder, 0));
+	return (ft_stringbuilder_to_string(self->stringbuilder, 0));
 }

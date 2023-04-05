@@ -24,7 +24,7 @@ t_err	ms_parse_tokenize_state_quote(
 	(void)data;
 	if (!c)
 	{
-		stringbuilder_free(data);
+		ft_stringbuilder_free(data);
 		return (true);
 	}
 	if (c == '\'')
@@ -35,9 +35,9 @@ t_err	ms_parse_tokenize_state_quote(
 		*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_DEFAULT, NULL};
 		return (false);
 	}
-	if (stringbuilder_append_char(data, c))
+	if (ft_stringbuilder_append_char(data, c))
 	{
-		stringbuilder_free(data);
+		ft_stringbuilder_free(data);
 		return (true);
 	}
 	*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_QUOTE, data};

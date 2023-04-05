@@ -42,7 +42,7 @@ static t_stringbuilder_node	*internal(
 	return (node);
 }
 
-t_err	stringbuilder_append(
+t_err	ft_stringbuilder_append(
 	t_stringbuilder *self,
 	size_t len,
 	const char *buffer

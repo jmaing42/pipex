@@ -49,22 +49,22 @@ t_err	to_string(t_to_string v)
 		return (true);
 	error = false;
 	i = !!v.is_heredoc - 1;
-	error |= ((v.is_heredoc && stringbuilder_append_string(result, "<<"))
-			|| (!v.is_heredoc && stringbuilder_append_string(result, "<"))
-			|| stringbuilder_append_string(result, v.in_file));
+	error |= ((v.is_heredoc && ft_stringbuilder_append_string(result, "<<"))
+			|| (!v.is_heredoc && ft_stringbuilder_append_string(result, "<"))
+			|| ft_stringbuilder_append_string(result, v.in_file));
 	while (++i < v.length && !error)
-		error |= ((i != 0 && stringbuilder_append_string(result, " |"))
-				|| stringbuilder_append_string(result, " (")
-				|| stringbuilder_append_string(result, v.arr[i])
-				|| stringbuilder_append_string(result, ")"));
-	error |= stringbuilder_append_string(result, ">");
-	error |= stringbuilder_append_string(result, v.out_file);
+		error |= ((i != 0 && ft_stringbuilder_append_string(result, " |"))
+				|| ft_stringbuilder_append_string(result, " (")
+				|| ft_stringbuilder_append_string(result, v.arr[i])
+				|| ft_stringbuilder_append_string(result, ")"));
+	error |= ft_stringbuilder_append_string(result, ">");
+	error |= ft_stringbuilder_append_string(result, v.out_file);
 	if (error)
-		stringbuilder_free(result);
+		ft_stringbuilder_free(result);
 	if (error)
 		return (true);
-	*v.out = stringbuilder_to_string(result, 0);
-	stringbuilder_free(result);
+	*v.out = ft_stringbuilder_to_string(result, 0);
+	ft_stringbuilder_free(result);
 	return (*v.out == NULL);
 }
 

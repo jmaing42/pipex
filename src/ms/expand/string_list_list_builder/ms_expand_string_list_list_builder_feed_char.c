@@ -48,7 +48,7 @@ t_err	ms_expand_string_list_list_builder_feed_char(
 		return (push_space_node(self));
 	else if (type == MS_WORD_PART_UNQUOTED && ch == '*')
 		return (push_asterisk_node(self));
-	if (stringbuilder_append_char(self->builder, ch))
+	if (ft_stringbuilder_append_char(self->builder, ch))
 		return (true);
 	return (false);
 }

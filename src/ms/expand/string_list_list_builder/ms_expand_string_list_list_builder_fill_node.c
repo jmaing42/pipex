@@ -28,7 +28,7 @@ t_err	ms_expand_string_list_list_builder_fill_node(
 		if (*builder == NULL)
 			return (true);
 	}
-	str = stringbuilder_to_string(*builder, 0);
+	str = ft_stringbuilder_to_string(*builder, 0);
 	if (str == NULL)
 		return (true);
 	if (ms_expand_string_list_list_builder_add_list_node(list))
@@ -37,7 +37,7 @@ t_err	ms_expand_string_list_list_builder_fill_node(
 		return (true);
 	}
 	list->tail->str = str;
-	stringbuilder_free(*builder);
+	ft_stringbuilder_free(*builder);
 	*builder = NULL;
 	return (false);
 }

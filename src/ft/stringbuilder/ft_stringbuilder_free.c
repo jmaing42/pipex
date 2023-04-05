@@ -14,7 +14,7 @@
 
 #include "wrap.h"
 
-void	stringbuilder_free(t_stringbuilder *self)
+void	ft_stringbuilder_free(t_stringbuilder *self)
 {
 	t_stringbuilder_node	*current;
 	t_stringbuilder_node	*next;

@@ -16,7 +16,7 @@ void	ft_to_lines_free(t_ft_to_lines *context)
 {
 	if (context->current)
 	{
-		stringbuilder_free(context->current);
+		ft_stringbuilder_free(context->current);
 		context->current = NULL;
 	}
 	context->pending = NULL;

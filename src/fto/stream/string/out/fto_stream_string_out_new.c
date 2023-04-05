@@ -35,7 +35,7 @@ t_fto_stream_string_out	*new_fto_stream_string_out(size_t buffer_size)
 	{
 		wrap_free(result);
 		if (stringbuilder)
-			stringbuilder_free(stringbuilder);
+			ft_stringbuilder_free(stringbuilder);
 		return (NULL);
 	}
 	result->v.v = &g_v;

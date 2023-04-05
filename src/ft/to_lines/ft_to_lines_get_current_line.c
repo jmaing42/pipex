@@ -23,7 +23,7 @@ t_err	ft_to_lines_get_current_line(
 		*out_line = NULL;
 		return (false);
 	}
-	*out_line = stringbuilder_to_string(context->current, 0);
+	*out_line = ft_stringbuilder_to_string(context->current, 0);
 	if (!*out_line)
 		return (true);
 	*out_line_length = context->current->length;

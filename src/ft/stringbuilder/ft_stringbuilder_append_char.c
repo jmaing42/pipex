@@ -12,7 +12,7 @@
 
 #include "ft_stringbuilder.h"
 
-t_err	stringbuilder_append_char(t_stringbuilder *self, char c)
+t_err	ft_stringbuilder_append_char(t_stringbuilder *self, char c)
 {
-	return (stringbuilder_append(self, 1, &c));
+	return (ft_stringbuilder_append(self, 1, &c));
 }

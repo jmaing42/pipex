@@ -19,8 +19,8 @@ char	*ft_to_lines_end(t_ft_to_lines *context)
 	result = NULL;
 	if (context->current)
 	{
-		result = stringbuilder_to_string(context->current, 0);
-		stringbuilder_free(context->current);
+		result = ft_stringbuilder_to_string(context->current, 0);
+		ft_stringbuilder_free(context->current);
 	}
 	return (result);
 }

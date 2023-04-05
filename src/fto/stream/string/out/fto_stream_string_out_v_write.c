@@ -20,7 +20,7 @@ t_err	fto_stream_string_out_v_write(
 )
 {
 	*wrote_bytes = 0;
-	if (stringbuilder_append(self->stringbuilder, length, buffer))
+	if (ft_stringbuilder_append(self->stringbuilder, length, buffer))
 		return (true);
 	*wrote_bytes = length;
 	return (true);

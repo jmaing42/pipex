@@ -23,7 +23,7 @@ static t_err	ft_to_lines_internal_append(
 		context->current = ft_stringbuilder_new(context->buffer_size);
 	if (!context->current)
 		return (true);
-	if (stringbuilder_append(
+	if (ft_stringbuilder_append(
 			context->current,
 			context->pending_length - context->pending_offset,
 			&context->pending[context->pending_offset]))
@@ -43,7 +43,7 @@ static t_err	ft_to_lines_internal_final(
 		context->current = ft_stringbuilder_new(context->buffer_size);
 	if (!context->current)
 		return (true);
-	if (stringbuilder_append(
+	if (ft_stringbuilder_append(
 			context->current,
 			length,
 			&context->pending[context->pending_offset]))
@@ -55,10 +55,10 @@ static t_err	ft_to_lines_internal_final(
 		context->pending_length = 0;
 		context->pending_offset = 0;
 	}
-	*out_line = stringbuilder_to_string(context->current, 0);
+	*out_line = ft_stringbuilder_to_string(context->current, 0);
 	if (!*out_line)
 		return (true);
-	stringbuilder_free(context->current);
+	ft_stringbuilder_free(context->current);
 	context->current = NULL;
 	return (false);
 }

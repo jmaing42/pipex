@@ -15,7 +15,7 @@
 #include "wrap.h"
 #include "ft_memory.h"
 
-char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
+char	*ft_stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 {
 	char *const				result = wrap_malloc(self->length - offset + 1);
 	t_stringbuilder_node	*node;

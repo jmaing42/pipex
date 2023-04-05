@@ -18,6 +18,6 @@ void	fto_stream_string_out_v_free_without_flush(
 	t_fto_stream_string_out *self
 )
 {
-	stringbuilder_free(self->stringbuilder);
+	ft_stringbuilder_free(self->stringbuilder);
 	wrap_free(self);
 }
