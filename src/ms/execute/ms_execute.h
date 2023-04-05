@@ -21,6 +21,7 @@
 
 # define FAIL -1
 # define ALLOC_SIZE 1
+# define WRITE_FILE_BUF_SIZE 10
 
 typedef struct s_ms_execute_globals
 {
