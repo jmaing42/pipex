@@ -16,7 +16,7 @@
 
 #define MINIMUM_BUFFER_SIZE 1024
 
-t_stringbuilder	*new_stringbuilder(size_t buffer_size)
+t_stringbuilder	*ft_stringbuilder_new(size_t buffer_size)
 {
 	t_stringbuilder *const	result = wrap_malloc(sizeof(t_stringbuilder));
 

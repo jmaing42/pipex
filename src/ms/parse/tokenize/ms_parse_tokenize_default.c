@@ -45,7 +45,7 @@ static t_err	transition_to_word(
 	t_ms_parse_tokenize_state *out_next_state
 )
 {
-	t_stringbuilder *const	next_state_data = new_stringbuilder(1024);
+	t_stringbuilder *const	next_state_data = ft_stringbuilder_new(1024);
 
 	if (!next_state_data)
 		return (true);
@@ -64,7 +64,7 @@ static t_err	transition_to_quote(
 	bool is_double_quote
 )
 {
-	t_stringbuilder *const	next_state_data = new_stringbuilder(1024);
+	t_stringbuilder *const	next_state_data = ft_stringbuilder_new(1024);
 
 	if (!next_state_data)
 		return (true);

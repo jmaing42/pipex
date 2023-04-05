@@ -29,7 +29,7 @@ t_fto_stream_string_out	*new_fto_stream_string_out(size_t buffer_size)
 	t_fto_stream_string_out *const	result
 		= wrap_malloc(sizeof(t_fto_stream_string_out));
 	t_stringbuilder *const			stringbuilder
-		= new_stringbuilder(buffer_size);
+		= ft_stringbuilder_new(buffer_size);
 
 	if (!result || !stringbuilder)
 	{

@@ -10,45 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STRINGBUILDER_H
-# define FT_STRINGBUILDER_H
+#include "ms_execute.h"
+#include "wrap.h"
 
-# include <stddef.h>
-
-# include "ft_types.h"
-
-typedef struct s_stringbuilder_node
+t_err	ms_execute_redirections_control_files(t_ms_execute_pipe_info *info)
 {
-	struct s_stringbuilder_node	*next;
-	size_t						capacity;
-	size_t						length;
-	char						str[];
-}	t_stringbuilder_node;
-
-typedef struct s_stringbuilder
-{
-	size_t					length;
-	t_stringbuilder_node	*head;
-	t_stringbuilder_node	*tail;
-	size_t					buffer_size;
-}	t_stringbuilder;
-
-t_stringbuilder	*ft_stringbuilder_new(
-					size_t buffer_size);
-void			stringbuilder_free(
-					t_stringbuilder *self);
-t_err			stringbuilder_append(
-					t_stringbuilder *self,
-					size_t length,
-					const char *buf);
-t_err			stringbuilder_append_char(
-					t_stringbuilder *self,
-					char c);
-t_err			stringbuilder_append_string(
-					t_stringbuilder *self,
-					const char *str);
-char			*stringbuilder_to_string(
-					t_stringbuilder *self,
-					size_t offset);
-
-#endif
+	if (wrap_dup2(info->previous_pipe_read, STDIN_FILENO))
+		return (true);
+	if (wrap_dup2(info->pipe_write, STDOUT_FILENO))
+		return (true);
+	wrap_close(info->previous_pipe_read);
+	wrap_close(info->pipe_read);
+	wrap_close(info->pipe_write);
+	return (false);
+}

@@ -40,7 +40,7 @@ t_err	ms_expand_string_list_list_builder_feed_char(
 {
 	if (self->builder == NULL)
 	{
-		self->builder = new_stringbuilder(STRING_BUILDER_SIZE);
+		self->builder = ft_stringbuilder_new(STRING_BUILDER_SIZE);
 		if (self->builder == NULL)
 			return (true);
 	}

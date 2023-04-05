@@ -24,7 +24,7 @@ t_err	ms_expand_string_list_list_builder_fill_node(
 
 	if (*builder == NULL)
 	{
-		*builder = new_stringbuilder(STRING_BUILDER_SIZE);
+		*builder = ft_stringbuilder_new(STRING_BUILDER_SIZE);
 		if (*builder == NULL)
 			return (true);
 	}

@@ -42,7 +42,7 @@ static t_err	ft_to_lines_internal_append(
 )
 {
 	if (!context->current)
-		context->current = new_stringbuilder(context->buffer_size);
+		context->current = ft_stringbuilder_new(context->buffer_size);
 	if (!context->current)
 		return (true);
 	if (stringbuilder_append(
@@ -63,7 +63,7 @@ static t_err	ft_to_lines_internal_final(
 )
 {
 	if (!context->current)
-		context->current = new_stringbuilder(context->buffer_size);
+		context->current = ft_stringbuilder_new(context->buffer_size);
 	if (!context->current)
 		return (true);
 	if (stringbuilder_append(

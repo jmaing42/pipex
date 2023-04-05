@@ -20,8 +20,7 @@
 # include "ms_expand.h"
 
 # define FAIL -1
-# define ALLOC_SIZE 1
-# define WRITE_FILE_BUF_SIZE 10
+# define READ_BUF_SIZE 10
 
 typedef struct s_ms_execute_globals
 {
@@ -51,7 +50,13 @@ t_err					ms_execute_command_simple(
 							t_ms_command_simple *command);
 t_err					ms_execute_command_compound(
 							t_ms_command_compound *command);
-t_err					ms_execute_redirections(
-							t_ms_redirections *redirections,
+t_err					ms_execute_redirections_control_files(
 							t_ms_execute_pipe_info *info);
+t_err					ms_execute_redirections_word_to_str(
+							t_ms_word *word,
+							char **out_path);
+t_err					ms_execute_redirecion_in(
+							t_ms_redirection_list *rd_list,
+							t_ms_execute_pipe_info *info);
+
 #endif

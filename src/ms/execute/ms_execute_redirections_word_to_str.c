@@ -10,45 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STRINGBUILDER_H
-# define FT_STRINGBUILDER_H
+#include "ft_memory.h"
+#include "ms_execute.h"
+#include "wrap.h"
 
-# include <stddef.h>
-
-# include "ft_types.h"
-
-typedef struct s_stringbuilder_node
+t_err	ms_execute_redirections_word_to_str(
+	t_ms_word *word,
+	char **out_path
+)
 {
-	struct s_stringbuilder_node	*next;
-	size_t						capacity;
-	size_t						length;
-	char						str[];
-}	t_stringbuilder_node;
+	t_ms_word_list		list;
+	t_ms_word_list_node	*node;
+	char				**args;
 
-typedef struct s_stringbuilder
-{
-	size_t					length;
-	t_stringbuilder_node	*head;
-	t_stringbuilder_node	*tail;
-	size_t					buffer_size;
-}	t_stringbuilder;
-
-t_stringbuilder	*ft_stringbuilder_new(
-					size_t buffer_size);
-void			stringbuilder_free(
-					t_stringbuilder *self);
-t_err			stringbuilder_append(
-					t_stringbuilder *self,
-					size_t length,
-					const char *buf);
-t_err			stringbuilder_append_char(
-					t_stringbuilder *self,
-					char c);
-t_err			stringbuilder_append_string(
-					t_stringbuilder *self,
-					const char *str);
-char			*stringbuilder_to_string(
-					t_stringbuilder *self,
-					size_t offset);
-
-#endif
+	node = ft_memory_allocate(1, sizeof(t_ms_word_list_node));
+	if (node == NULL)
+		return (true);
+	node->word = word;
+	list.head = node;
+	list.tail = node;
+	if (ms_expand(&list, &args))
+	{
+		wrap_free(node);
+		return (true);
+	}
+	*out_path = args[0];
+	wrap_free(node);
+	wrap_free(args);
+	return (false);
+}
