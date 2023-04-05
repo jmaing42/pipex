@@ -13,6 +13,7 @@
 #include "ft_cstring.h"
 #include "ft_cstring_split.h"
 #include "ft_exit.h"
+#include "ft_os_file.h"
 #include "ms_execute.h"
 
 #include <stdbool.h>
@@ -28,10 +29,27 @@
 #include "wrap.h"
 #include "ft_os_fork.h"
 
-static t_err	find_path(char **path, char *cmd_name, char **out_name)
+static t_err	check_path(char **path, char *slash_cmd, char **out_name)
+{
+	size_t	index;
+
+	*out_name = NULL;
+	index = -1;
+	while (path && path[++index])
+	{
+		if (ft_cstring_concat(path[index], slash_cmd, out_name))
+			return (true);
+		if (ft_os_file_is_executable((const char *)out_name))
+			break ;
+		free(*out_name);
+		*out_name = NULL;
+	}
+	return (false);
+}
+
+static t_err	find_cmd_path(char **path, char *cmd_name, char **out_name)
 {
 	char	*slash_cmd;
-	size_t	index;
 
 	if (ft_cstring_contains_char(cmd_name, '/'))
 	{
@@ -41,16 +59,10 @@ static t_err	find_path(char **path, char *cmd_name, char **out_name)
 	}
 	if (ft_cstring_concat("/", cmd_name, &slash_cmd))
 		return (true);
-	*out_name = NULL;
-	index = -1;
-	while (path && path[++index])
+	if (check_path(path, slash_cmd, out_name))
 	{
-		if (ft_cstring_concat(path[index], slash_cmd, out_name))
-			return (true);
-		if (access(*out_name, F_OK) != FAIL)
-			break ;
-		free(*out_name);
-		*out_name = NULL;
+		free(slash_cmd);
+		return (true);
 	}
 	free(slash_cmd);
 	return (false);
@@ -89,9 +101,7 @@ static t_err	execute(char *cmd_name, char **args)
 }
 
 t_err	ms_execute_command_simple(
-	t_ms_command_simple *command,
-	int *piped_input,
-	int *piped_output
+	t_ms_command_simple *command
 )
 {
 	char	**args;
@@ -105,7 +115,7 @@ t_err	ms_execute_command_simple(
 		ft_cstring_split_free(args);
 		return (true);
 	}
-	if (find_path(parsed_path, args[0], &cmd_name))
+	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 	{
 		ft_cstring_split_free(parsed_path);
 		ft_cstring_split_free(args);
@@ -121,9 +131,5 @@ t_err	ms_execute_command_simple(
 	ft_cstring_split_free(parsed_path);
 	ft_cstring_split_free(args);
 	wrap_free(cmd_name);
-	//TO DO: redirection
-	// if (find_path(&args[0], &cmd_path))
-	(void)piped_input;
-	(void)piped_output;
 	return (false);
 }
