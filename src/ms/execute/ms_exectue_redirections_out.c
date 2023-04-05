@@ -12,6 +12,7 @@
 
 #include "ms_execute.h"
 
+#include <sys/_types/_size_t.h>
 #include <sys/_types/_ssize_t.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
@@ -20,51 +21,63 @@
 #include "ms_expand.h"
 #include "wrap.h"
 #include "ft_stringbuilder.h"
+#include "ft_cstring.h"
 
 static t_err	get_file_contents(char **out_file_contents)
 {
 	t_stringbuilder	*builder;
 	char			buf[READ_BUF_SIZE + 1];
 	ssize_t			read_size;
-	ssize_t			left_size;
 
 	builder = ft_stringbuilder_new(STRING_BUILDER_SIZE);
+	if (builder == NULL)
+		return (true);
 	read_size = wrap_read(STDIN_FILENO, buf, READ_BUF_SIZE);
 	while (read_size)
 	{
 		if (read_size < 0)
 			return (true);
 		buf[READ_BUF_SIZE] = '\0';
-		//TODO: read -> stringbuilder_append_string
-		if (write_size < 0)
-			return (true);
-		left_size = read_size - write_size;
-		while (left_size)
+		if (ft_stringbuilder_append_string(builder, buf))
 		{
-			write_size = wrap_write(STDOUT_FILENO, buf, read_size);
-			if (write_size < 0)
-				return (true);
-			left_size -= write_size;
+			ft_stringbuilder_free(builder);
+			return (true);
 		}
-		read_size = wrap_read(fd, buf, READ_BUF_SIZE);
+		read_size = wrap_read(STDIN_FILENO, buf, READ_BUF_SIZE);
 	}
+	*out_file_contents = ft_stringbuilder_to_string(builder, 0);
+	ft_stringbuilder_free(builder);
+	if (*out_file_contents == NULL)
+		return (true);
 	return (false);
 }
 
-static t_err	write_file(int fd, const char *file_contents, ssize_t total_size)
+static t_err	write_file(int fd, const char *file_contents)
 {
-	ssize_t	left_size;
-	ssize_t	write_size;
+	const size_t	file_contents_len = ft_cstring_length(file_contents);
+	size_t			left_size;
+	ssize_t			write_size;
 
-	left_size = total_size;
+	left_size = file_contents_len;
 	while (left_size)
 	{
 		write_size = wrap_write(fd, file_contents, left_size);
 		if (write_size < 0)
 			return (true);
-		left_size -= write_size;
+		left_size -= (size_t)write_size;
 	}
 	return (false);
+}
+
+static t_err	write_stdout(int fd, char *path, char *file_contents)
+{
+	t_err	result;
+
+	result = write_file(STDOUT_FILENO, file_contents);
+	wrap_free(file_contents);
+	wrap_free(path);
+	wrap_close(fd);
+	return (result);
 }
 
 t_err	ms_execute_redirections_out(
@@ -75,8 +88,10 @@ t_err	ms_execute_redirections_out(
 	t_ms_redirection_list_node	*node;
 	int							fd;
 	char						*path;
+	char						*file_contents;
 
-	if (ms_execute_redirections_control_files(info))
+	if (ms_execute_redirections_control_files(info)
+		|| get_file_contents(&file_contents))
 		return (true);
 	node = rd_list->head;
 	while (node)
@@ -84,14 +99,13 @@ t_err	ms_execute_redirections_out(
 		if (ms_execute_redirections_word_to_str(node->target, &path))
 			return (true);
 		fd = wrap_open(path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		if (fd < 0 || copy_file(fd))
+		if (fd < 0 || write_file(fd, file_contents))
 		{
 			wrap_free(path);
+			wrap_free(file_contents);
 			return (true);
 		}
 		node = node->next;
 	}
-	wrap_free(path);
-	wrap_close(fd);
-	return (false);
+	return (write_stdout(fd, path, file_contents));
 }
