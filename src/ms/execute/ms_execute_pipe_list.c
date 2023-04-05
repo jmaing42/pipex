@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_execute_pipe_list.c                             :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/24 22:42:22 by seonlim          ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,14 @@
 #include "ft_memory.h"
 #include "ms.h"
 
-typedef struct s_locals
-{
-	t_ms_pipe_list_node	*node;
-	bool				is_first;
-	int					previous_pipe_read;
-	int					pipe_write;
-	int					pipe_read;
-	int					piped_input;
-	int					piped_output;
-}	t_locals;
-
 t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 {
-	t_locals	l;
+	t_ms_execute_pipe_info	info;
 
-	ft_memory_set(&l, 0, sizeof(t_locals));
-	l.node = pipe_list->head;
-	l.is_first = true;
-	while (l.node)
+	ft_memory_set(&info, 0, sizeof(t_ms_execute_pipe_info));
+	info.node = pipe_list->head;
+	info.is_first = true;
+	while (info.node)
 	{
 		if (l.node->next)
 		{
