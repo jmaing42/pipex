@@ -12,6 +12,7 @@
 
 #include "ms_execute.h"
 
+#include <sys/_types/_pid_t.h>
 #include <sys/_types/_ssize_t.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
@@ -22,6 +23,7 @@
 #include "wrap.h"
 #include "ft_types.h"
 #include "ft_stringbuilder.h"
+#include "ft_os_fork.h"
 
 static t_err	read_file(int fd)
 {
@@ -79,10 +81,6 @@ t_err	ms_execute_redirecion_in(
 	t_ms_execute_pipe_info *info
 )
 {
-	t_ms_redirection_list_node	*node;
-	int							fd;
-	char						*path;
-
 	if (ms_execute_redirections_control_files(info))
 		return (true);
 	if (internal(rd_list->head))
