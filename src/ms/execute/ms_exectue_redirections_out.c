@@ -90,9 +90,9 @@ static t_err	internal(
 			wrap_free(path);
 			return (true);
 		}
+		wrap_free(path);
 		node = node->next;
 	}
-	wrap_free(path);
 	wrap_close(fd);
 	return (write_file(STDOUT_FILENO, file_contents));
 }

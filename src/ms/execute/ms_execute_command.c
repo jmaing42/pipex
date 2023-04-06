@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_execute_command.c                               :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 21:18:51 by seonlim           #+#    #+#             */
-/*   Updated: 2023/03/23 21:30:12 by seonlim          ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@
 
 t_err	ms_execute_command(
 	t_ms_command *command,
-	int *piped_input,
-	int *piped_output
-)
+	t_ms_execute_pipe_info *info)
 {
 	if (command->type == MS_COMMAND_TYPE_SIMPLE)
-		return (ms_execute_command_simple(command->value.simple,
-				piped_input, piped_output));
+		return (ms_execute_command_simple(command->value.simple));
 	if (command->type == MS_COMMAND_TYPE_COMPOUND)
-		return (ms_execute_command_compound(command->value.compound,
-				piped_input, piped_output));
+		return (ms_execute_command_compound(command->value.compound));
 	return (true);
 }

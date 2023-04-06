@@ -21,6 +21,7 @@
 #include "ms_parse.h"
 #include "wrap.h"
 #include "ft_types.h"
+#include "ft_stringbuilder.h"
 
 static t_err	read_file(int fd)
 {
@@ -50,7 +51,28 @@ static t_err	read_file(int fd)
 	return (false);
 }
 
-//TODO: make internal function, make here_doc proccess
+static t_err	internal(t_ms_redirection_list_node	*node)
+{
+	int		fd;
+	char	*path;
+
+	while (node)
+	{
+		if (ms_execute_redirections_word_to_str(node->target, &path))
+			return (true);
+		fd = wrap_open(path, O_RDONLY);
+		//TODO: HERE_DOC
+		if (fd < 0 || read_file(fd))
+		{
+			wrap_free(path);
+			return (true);
+		}
+		wrap_free(path);
+		node = node->next;
+	}
+	wrap_close(fd);
+	return (false);
+}
 
 t_err	ms_execute_redirecion_in(
 	t_ms_redirection_list *rd_list,
@@ -63,20 +85,8 @@ t_err	ms_execute_redirecion_in(
 
 	if (ms_execute_redirections_control_files(info))
 		return (true);
-	node = rd_list->head;
-	while (node)
-	{
-		if (ms_execute_redirections_word_to_str(node->target, &path))
-			return (true);
-		fd = wrap_open(path, O_RDONLY);
-		if (fd < 0 || read_file(fd))
-		{
-			wrap_free(path);
-			return (true);
-		}
-		node = node->next;
-	}
-	wrap_free(path);
-	wrap_close(fd);
+	if (internal(rd_list->head))
+		return (true);
+	//exit
 	return (false);
 }
