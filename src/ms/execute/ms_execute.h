@@ -31,13 +31,6 @@ typedef struct s_ms_execute_globals
 	int	exit_status;
 }	t_ms_execute_globals;
 
-typedef enum e_ms_exectue_pid_type
-{
-	ms_fork_type_redirection_in,
-	ms_fork_type_redirection_out,
-	ms_fork_type_command
-}	t_ms_execute_pid_type;
-
 typedef struct s_ms_execute_pipe_info
 {
 	pid_t	redirection_in_pid;
@@ -75,5 +68,5 @@ void					ms_execute_redirections_out(
 							t_ms_redirection_list *rd_list);
 t_err					ms_execute_pipe_and_fork(
 							t_ms_execute_pipe_info *info,
-							t_ms_execute_pid_type type);
+							pid_t *pid);
 #endif

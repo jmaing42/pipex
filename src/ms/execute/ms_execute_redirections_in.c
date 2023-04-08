@@ -75,4 +75,3 @@ void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list)
 	}
 	wrap_exit(EXIT_SUCCESS);
 }
-//TODO: HERE_DOC

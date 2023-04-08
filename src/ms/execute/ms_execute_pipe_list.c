@@ -26,12 +26,12 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 	t_ms_pipe_list_node		*node;
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_pipe_info));
+	info.is_first = true;
 	node = pipe_list->head;
 	while (node)
 	{
-		if (ft_os_pipe(&info.pipe_write, &info.pipe_read))
+		if (ms_execute_command(&node->command, &info))
 			return (true);
-		ms_execute_command(&node->command, &info);
 		node = node->next;
 	}
 	return (false);

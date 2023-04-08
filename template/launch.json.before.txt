@@ -7,6 +7,7 @@
       "name": "Debug pipex",
       "program": "${workspaceFolder}/src/.cache/pipex.production.debug.address.exe",
       "cwd": "${workspaceFolder}/src",
-      "args": ["Makefile", "cat", "test.txt"],
+      "args": ["Makefile", "e'ch'\"o\" $HELLO_WORLD .* *.* '*'", "test.txt"],
+      "env": {"HELLO_WORLD":"hello       world"},
       "preLaunchTask": "build pipex (debug)",
     },

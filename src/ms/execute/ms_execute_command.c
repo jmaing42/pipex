@@ -22,13 +22,8 @@
 #include "wrap.h"
 
 
-static void	child_execute_redirection_in(
-	t_ms_command *command,
-	t_ms_execute_pipe_info *info
-)
+static void	child_execute_redirection_in(t_ms_command *command)
 {
-	if (ms_execute_redirect_in_out(info))
-		wrap_exit(EXIT_FAILURE);
 	if (command->type == ms_command_type_simple)
 		ms_execute_redirecions_in(&command->value.simple->redirections.in);
 	else if (command->type == ms_command_type_compound)
@@ -36,13 +31,8 @@ static void	child_execute_redirection_in(
 	wrap_exit(EXIT_FAILURE);
 }
 
-static void	child_execute_command(
-	t_ms_command *command,
-	t_ms_execute_pipe_info *info
-)
+static void	child_execute_command(t_ms_command *command)
 {
-	if (ms_execute_redirect_in_out(info))
-		wrap_exit(EXIT_FAILURE);
 	if (command->type == ms_command_type_simple)
 		ms_execute_command_simple(command->value.simple);
 	else if (command->type == ms_command_type_compound)
@@ -50,13 +40,8 @@ static void	child_execute_command(
 	wrap_exit(EXIT_FAILURE);
 }
 
-static void	child_exectue_redirection_out(
-	t_ms_command *command,
-	t_ms_execute_pipe_info *info
-)
+static void	child_exectue_redirection_out(t_ms_command *command)
 {
-	if (ms_execute_redirect_in_out(info))
-		wrap_exit(EXIT_FAILURE);
 	if (command->type == ms_command_type_simple)
 		ms_execute_redirections_out(&command->value.simple->redirections.out);
 	else if (command->type == ms_command_type_compound)
@@ -84,17 +69,20 @@ t_err	ms_execute_command(
 	t_ms_execute_pipe_info *info
 )
 {
-	if (ms_execute_pipe_and_fork(info, ms_fork_type_redirection_in))
+	if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
+		return (true);
+	info->redirection_in_pid = CHILD_PID; //test only
+	if (info->redirection_in_pid == CHILD_PID)
+		child_execute_redirection_in(command);
+	if (info->is_first)
+		info->is_first = false;
+	if (ms_execute_pipe_and_fork(info, &info->command_pid))
 		return (true);
 	if (info->command_pid == CHILD_PID)
-		child_execute_redirection_in(command, info);
-	if (ms_execute_pipe_and_fork(info, ms_fork_type_command))
+		child_execute_command(command);
+	if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))
 		return (true);
-	if (info->command_pid == CHILD_PID)
-		child_execute_command(command, info);
-	if (ms_execute_pipe_and_fork(info, ms_fork_type_redirection_out))
-		return (true);
-	if (info->command_pid == CHILD_PID)
-		child_exectue_redirection_out(command, info);
+	if (info->redirection_out_pid == CHILD_PID)
+		child_exectue_redirection_out(command);
 	return (wait_all(info));
 }
