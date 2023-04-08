@@ -54,13 +54,13 @@ static t_err	read_file(int fd)
 	return (false);
 }
 
-void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list)
+void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list, bool is_first)
 {
 	int							fd;
 	char						*path;
 	t_ms_redirection_list_node	*node;
 
-	if (read_file(STDIN_FILENO))
+	if (!is_first && read_file(STDIN_FILENO))
 		wrap_exit(EXIT_FAILURE);
 	node = rd_list->head;
 	while (node)

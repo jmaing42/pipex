@@ -12,6 +12,7 @@
 
 #include "ms_execute.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/_types/_pid_t.h>
 
@@ -32,8 +33,8 @@ t_err	ms_execute_pipe_and_fork(
 	}
 	if (ft_os_pipe(&info->pipe_write, &info->pipe_read))
 		return (true);
-	if (ft_os_fork(out_pid))
-		return (true);
+	// if (ft_os_fork(out_pid))
+	// 	return (true);
 	if (*out_pid == CHILD_PID)
 	{
 		if (ms_execute_redirect_in_out(info))

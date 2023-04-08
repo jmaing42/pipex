@@ -25,4 +25,5 @@ void	ms_execute_command_compound(t_ms_command_compound *command)
 {
 	if (ms_execute_and_or_list(&command->and_or_list))
 		wrap_exit(EXIT_FAILURE);
+	wrap_exit(EXIT_SUCCESS);
 }

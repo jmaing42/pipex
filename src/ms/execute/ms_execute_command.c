@@ -21,13 +21,16 @@
 #include "ms.h"
 #include "wrap.h"
 
+#include <stdio.h> //test only
 
-static void	child_execute_redirection_in(t_ms_command *command)
+static void	child_execute_redirection_in(t_ms_command *command, bool is_first)
 {
 	if (command->type == ms_command_type_simple)
-		ms_execute_redirecions_in(&command->value.simple->redirections.in);
+		ms_execute_redirecions_in(
+			&command->value.simple->redirections.in, is_first);
 	else if (command->type == ms_command_type_compound)
-		ms_execute_redirecions_in(&command->value.compound->redirections.in);
+		ms_execute_redirecions_in(
+			&command->value.compound->redirections.in, is_first);
 	wrap_exit(EXIT_FAILURE);
 }
 
@@ -53,12 +56,12 @@ static t_err	wait_all(t_ms_execute_pipe_info *info)
 {
 	int	status;
 
-	wrap_waitpid(info->command_pid, &status, 0);
+	wrap_waitpid(info->redirection_in_pid, &status, 0);
 	if (WEXITSTATUS(status))
 		return (true);
 	wrap_waitpid(info->command_pid, &status, 0);
 	ms_execute_globals()->exit_status = WEXITSTATUS(status);
-	wrap_waitpid(info->command_pid, &status, 0);
+	wrap_waitpid(info->redirection_out_pid, &status, 0);
 	if (WEXITSTATUS(status))
 		return (true);
 	return (false);
@@ -71,13 +74,15 @@ t_err	ms_execute_command(
 {
 	if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
 		return (true);
+	printf("pid: %d\n", info->redirection_in_pid);
+	// info->redirection_in_pid = CHILD_PID; //test only
 	if (info->redirection_in_pid == CHILD_PID)
-		child_execute_redirection_in(command);
+		child_execute_redirection_in(command, info->is_first);
 	if (info->is_first)
 		info->is_first = false;
 	if (ms_execute_pipe_and_fork(info, &info->command_pid))
 		return (true);
-	info->command_pid = CHILD_PID; //test only
+	// info->command_pid = CHILD_PID; //test only
 	if (info->command_pid == CHILD_PID)
 		child_execute_command(command);
 	if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))

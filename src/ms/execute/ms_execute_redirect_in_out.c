@@ -13,15 +13,16 @@
 #include "ms_execute.h"
 #include "wrap.h"
 
+#include <stdio.h> //test only
 t_err	ms_execute_redirect_in_out(t_ms_execute_pipe_info *info)
 {
 	if (!info->is_first)
 	{
-		if (wrap_dup2(info->previous_pipe_read, STDIN_FILENO))
+		if (wrap_dup2(info->previous_pipe_read, STDIN_FILENO) < 0)
 			return (true);
 		wrap_close(info->previous_pipe_read);
 	}
-	if (wrap_dup2(info->pipe_write, STDOUT_FILENO))
+	if (wrap_dup2(info->pipe_write, STDOUT_FILENO) < 0)
 		return (true);
 	wrap_close(info->pipe_read);
 	wrap_close(info->pipe_write);
