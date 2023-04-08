@@ -12,6 +12,7 @@
 
 #include "ms_execute.h"
 
+#include <stdlib.h>
 #include <sys/_types/_pid_t.h>
 #include <sys/_types/_ssize_t.h>
 #include <sys/fcntl.h>
@@ -53,38 +54,25 @@ static t_err	read_file(int fd)
 	return (false);
 }
 
-static t_err	internal(t_ms_redirection_list_node	*node)
+void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list)
 {
-	int		fd;
-	char	*path;
+	int							fd;
+	char						*path;
+	t_ms_redirection_list_node	*node;
 
+	if (read_file(STDIN_FILENO))
+		wrap_exit(EXIT_FAILURE);
+	node = rd_list->head;
 	while (node)
 	{
 		if (ms_execute_redirections_word_to_str(node->target, &path))
-			return (true);
+			wrap_exit(EXIT_FAILURE);
 		fd = wrap_open(path, O_RDONLY);
-		//TODO: HERE_DOC
 		if (fd < 0 || read_file(fd))
-		{
-			wrap_free(path);
-			return (true);
-		}
+			wrap_exit(EXIT_FAILURE);
 		wrap_free(path);
 		node = node->next;
 	}
-	wrap_close(fd);
-	return (false);
+	wrap_exit(EXIT_SUCCESS);
 }
-
-t_err	ms_execute_redirecions_in(
-	t_ms_redirection_list *rd_list,
-	t_ms_execute_pipe_info *info
-)
-{
-	if (ms_execute_redirections_control_files(info))
-		return (true);
-	if (internal(rd_list->head))
-		return (true);
-	//exit
-	return (false);
-}
+//TODO: HERE_DOC

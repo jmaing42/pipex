@@ -23,26 +23,11 @@
 
 t_err	ms_execute_command_compound(
 	t_ms_command_compound *command,
-	int *piped_input,
-	int *piped_output
+	t_ms_execute_pipe_info *info
 )
 {
-	pid_t	pid;
-	int		stat;
-
 	if (ms_execute_and_or_list(&command->and_or_list))
 		return (true);
-	if (ft_os_fork(&pid))
-		return (true);
-	if (pid == 0)
-	{
-		if (ms_execute_redirections(
-				&command->redirections, piped_input, piped_output)
-			|| ms_execute_and_or_list(&command->and_or_list))
-			ft_exit(EXIT_FAILURE);
-		ft_exit(ms_execute_globals()->exit_status);
-	}
-	wrap_waitpid(pid, &stat, 0);
-	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+	wrap_exit(ms_execute_globals()->exit_status);
 	return (false);
 }

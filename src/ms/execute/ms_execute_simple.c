@@ -100,7 +100,7 @@ static t_err	execute(char *cmd_name, char **args)
 	return (false);
 }
 
-t_err	ms_execute_command_simple(
+void	ms_execute_command_simple(
 	t_ms_command_simple *command
 )
 {
@@ -109,27 +109,12 @@ t_err	ms_execute_command_simple(
 	char	*cmd_name;
 
 	if (ms_expand(&command->word_list, &args))
-		return (true);
+		wrap_exit(EXIT_FAILURE);
 	if (get_parsed_path(&parsed_path))
-	{
-		ft_cstring_split_free(args);
-		return (true);
-	}
+		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
-	{
-		ft_cstring_split_free(parsed_path);
-		ft_cstring_split_free(args);
-		return (true);
-	}
+		wrap_exit(EXIT_FAILURE);
 	if (execute(cmd_name, args))
-	{
-		ft_cstring_split_free(parsed_path);
-		ft_cstring_split_free(args);
-		wrap_free(cmd_name);
-		return (true);
-	}
-	ft_cstring_split_free(parsed_path);
-	ft_cstring_split_free(args);
-	wrap_free(cmd_name);
-	return (false);
+		wrap_exit(EXIT_FAILURE);
+	wrap_exit(EXIT_FAILURE);
 }
