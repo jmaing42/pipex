@@ -18,7 +18,7 @@ static const char	*get_string(t_ms_word_part_string_list_node *node)
 {
 	const char	*result;
 
-	if (node->type == MS_WORD_PART_STRING_NO_EXPANSION)
+	if (node->type == ms_word_part_string_no_expansion)
 		return (node->value);
 	result = ms_expand_env_get(node->value);
 	if (result)
@@ -70,7 +70,7 @@ static t_err	other(
 // 	while (str[i])
 // 	{
 // 		if (ms_expand_string_list_list_builder_feed_char(
-// 				self, str[i], MS_WORD_PART_SINGLE_QUOTED))
+// 				self, str[i], ms_word_part_single_quoted))
 // 			return (true);
 // 		i++;
 // 	}
@@ -82,7 +82,7 @@ t_err	ms_expand_string_list_list_builder_feed_word_part_list_node(
 	t_ms_word_part_list_node *node
 )
 {
-	if (node->type == MS_WORD_PART_SINGLE_QUOTED)
+	if (node->type == ms_word_part_single_quoted)
 		return (ms_expand_string_list_list_builder_feed_string(
 				self, node->value.single_quoted, node->type));
 	return (other(self, node->value.any, node->type));

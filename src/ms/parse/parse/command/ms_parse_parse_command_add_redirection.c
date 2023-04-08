@@ -65,7 +65,7 @@ t_err	ms_parse_parse_command_add_redirection(
 	bool		is_special;
 	t_ms_word	*word;
 
-	is_output = (*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON;
+	is_output = (*mut_head)->value.type == ms_parse_token_type_right_chevron;
 	is_special = ((*mut_head)->value.type == (*mut_head)->next->value.type);
 	*mut_head = (*mut_head)->next;
 	if (is_special)

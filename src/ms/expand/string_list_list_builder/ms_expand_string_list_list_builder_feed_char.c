@@ -44,9 +44,9 @@ t_err	ms_expand_string_list_list_builder_feed_char(
 		if (self->builder == NULL)
 			return (true);
 	}
-	if (type == MS_WORD_PART_UNQUOTED && ft_types_char_space(ch))
+	if (type == ms_word_part_unquoted && ft_types_char_space(ch))
 		return (push_space_node(self));
-	else if (type == MS_WORD_PART_UNQUOTED && ch == '*')
+	else if (type == ms_word_part_unquoted && ch == '*')
 		return (push_asterisk_node(self));
 	if (ft_stringbuilder_append_char(self->builder, ch))
 		return (true);

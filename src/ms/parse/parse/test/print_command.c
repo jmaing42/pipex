@@ -49,9 +49,9 @@ static t_err	print_command_compound(
 
 t_err	print_command(int depth, t_ms_command *command)
 {
-	if (command->type == MS_COMMAND_TYPE_SIMPLE)
+	if (command->type == ms_command_type_simple)
 		return (print_command_simple(depth, command->value.simple));
-	if (command->type == MS_COMMAND_TYPE_COMPOUND)
+	if (command->type == ms_command_type_compound)
 		return (print_command_compound(depth, command->value.compound));
 	return (true);
 }

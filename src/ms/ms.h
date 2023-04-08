@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms.h                                               :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/24 16:00:12 by seonlim          ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef enum e_ms_word_part_string_type
 {
-	MS_WORD_PART_STRING_NO_EXPANSION,
-	MS_WORD_PART_STRING_EXPANSION,
+	ms_word_part_string_no_expansion,
+	ms_word_part_string_expansion,
 }	t_ms_word_part_string_type;
 
 typedef struct s_ms_word_part_string_list_node
@@ -39,9 +39,9 @@ typedef struct s_ms_word_part_string_list
 
 typedef enum e_ms_word_part_type
 {
-	MS_WORD_PART_UNQUOTED,
-	MS_WORD_PART_SINGLE_QUOTED,
-	MS_WORD_PART_DOUBLE_QUOTED,
+	ms_word_part_unquoted,
+	ms_word_part_single_quoted,
+	ms_word_part_double_quoted,
 }	t_ms_word_part_type;
 
 typedef union u_ms_word_part_value
@@ -134,9 +134,9 @@ typedef struct s_ms_command_compound
 
 typedef enum e_ms_command_type
 {
-	MS_COMMAND_TYPE_INVALID,
-	MS_COMMAND_TYPE_SIMPLE,
-	MS_COMMAND_TYPE_COMPOUND,
+	ms_command_type_invalid,
+	ms_command_type_simple,
+	ms_command_type_compound,
 }	t_ms_command_type;
 
 typedef union u_ms_command_value

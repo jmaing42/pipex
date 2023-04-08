@@ -78,7 +78,7 @@ t_err	ms_parse_parse_command_simple(
 		return (true);
 	}
 	*result = (t_ms_command_simple){{NULL, NULL}, redirections};
-	*out = (t_ms_command){MS_COMMAND_TYPE_SIMPLE, {.simple = result}};
+	*out = (t_ms_command){ms_command_type_simple, {.simple = result}};
 	while (ms_parse_parse_command_is_redirection(mut_head)
 		|| ms_parse_parse_command_is_word(*mut_head))
 	{
@@ -86,7 +86,7 @@ t_err	ms_parse_parse_command_simple(
 		if (add(mut_head, out, &syntax_error) || syntax_error)
 		{
 			ms_parse_free_command(out);
-			*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
+			*out = (t_ms_command){ms_command_type_invalid, {NULL}};
 			return (!syntax_error);
 		}
 	}

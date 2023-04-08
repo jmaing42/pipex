@@ -51,7 +51,7 @@ t_err	ms_expand_string_list_list_builder_feed_string(
 	while (str[++i])
 	{
 		if (self->need_new_list_list
-			&& type == MS_WORD_PART_UNQUOTED
+			&& type == ms_word_part_unquoted
 			&& ft_types_char_space(str[i]))
 			continue ;
 		if (add_new_node(self))
@@ -59,7 +59,7 @@ t_err	ms_expand_string_list_list_builder_feed_string(
 		if (ms_expand_string_list_list_builder_feed_char(
 				self, str[i], type))
 			return (true);
-		if (type == MS_WORD_PART_UNQUOTED
+		if (type == ms_word_part_unquoted
 			&& str[i] == '*' && str[i + 1] == '\0')
 		{
 			if (wildcard_case(self))

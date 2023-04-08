@@ -48,8 +48,8 @@ static void	free_compound(t_ms_command_compound *command_compound)
 
 void	ms_parse_free_command(t_ms_command *command)
 {
-	if (command->type == MS_COMMAND_TYPE_SIMPLE)
+	if (command->type == ms_command_type_simple)
 		free_simple(command->value.simple);
-	if (command->type == MS_COMMAND_TYPE_COMPOUND)
+	if (command->type == ms_command_type_compound)
 		free_compound(command->value.compound);
 }

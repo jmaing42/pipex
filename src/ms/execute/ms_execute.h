@@ -33,9 +33,9 @@ typedef struct s_ms_execute_globals
 
 typedef enum e_ms_exectue_pid_type
 {
-	MS_FORK_TYPE_REDIRECTION_IN,
-	MS_FORK_TYPE_REDIRECTION_OUT,
-	MS_FORK_TYPE_COMMAND
+	ms_fork_type_redirection_in,
+	ms_fork_type_redirection_out,
+	ms_fork_type_command
 }	t_ms_execute_pid_type;
 
 typedef struct s_ms_execute_pipe_info
@@ -63,8 +63,7 @@ t_err					ms_execute_command(
 void					ms_execute_command_simple(
 							t_ms_command_simple *command);
 void					ms_execute_command_compound(
-							t_ms_command_compound *command,
-							t_ms_execute_pipe_info *info);
+							t_ms_command_compound *command);
 t_err					ms_execute_redirect_in_out(
 							t_ms_execute_pipe_info *info);
 t_err					ms_execute_redirections_word_to_str(
@@ -74,5 +73,7 @@ void					ms_execute_redirecions_in(
 							t_ms_redirection_list *rd_list);
 void					ms_execute_redirections_out(
 							t_ms_redirection_list *rd_list);
-
+t_err					ms_execute_pipe_and_fork(
+							t_ms_execute_pipe_info *info,
+							t_ms_execute_pid_type type);
 #endif

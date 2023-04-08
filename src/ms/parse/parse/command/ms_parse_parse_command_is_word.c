@@ -14,14 +14,14 @@
 
 bool	ms_parse_parse_command_is_word(t_ms_parse_token_list_node *head)
 {
-	return (head->value.type == MS_PARSE_TOKEN_TYPE_WORD
-		|| (head->value.type == MS_PARSE_TOKEN_TYPE_SPACE
-			&& head->next->value.type == MS_PARSE_TOKEN_TYPE_WORD)
-		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
-		|| (head->value.type == MS_PARSE_TOKEN_TYPE_SPACE
-			&& head->next->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED)
-		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED
-		|| (head->value.type == MS_PARSE_TOKEN_TYPE_SPACE
-			&& head->next->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
+	return (head->value.type == ms_parse_token_type_word
+		|| (head->value.type == ms_parse_token_type_space
+			&& head->next->value.type == ms_parse_token_type_word)
+		|| head->value.type == ms_parse_token_type_word_quoted
+		|| (head->value.type == ms_parse_token_type_space
+			&& head->next->value.type == ms_parse_token_type_word_quoted)
+		|| head->value.type == ms_parse_token_type_word_double_quoted
+		|| (head->value.type == ms_parse_token_type_space
+			&& head->next->value.type == ms_parse_token_type_word_double_quoted)
 	);
 }

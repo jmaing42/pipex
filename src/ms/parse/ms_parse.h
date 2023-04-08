@@ -19,17 +19,17 @@
 
 typedef enum e_ms_parse_token_type
 {
-	MS_PARSE_TOKEN_TYPE_EOF,
-	MS_PARSE_TOKEN_TYPE_AND,
-	MS_PARSE_TOKEN_TYPE_OR,
-	MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON,
-	MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON,
-	MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS,
-	MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS,
-	MS_PARSE_TOKEN_TYPE_SPACE,
-	MS_PARSE_TOKEN_TYPE_WORD,
-	MS_PARSE_TOKEN_TYPE_WORD_QUOTED,
-	MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED,
+	ms_parse_token_type_eof,
+	ms_parse_token_type_and,
+	ms_parse_token_type_or,
+	ms_parse_token_type_left_chevron,
+	ms_parse_token_type_right_chevron,
+	ms_parse_token_type_left_parenthesis,
+	ms_parse_token_type_right_parenthesis,
+	ms_parse_token_type_space,
+	ms_parse_token_type_word,
+	ms_parse_token_type_word_quoted,
+	ms_parse_token_type_word_double_quoted,
 }	t_ms_parse_token_type;
 
 typedef struct s_ms_parse_token

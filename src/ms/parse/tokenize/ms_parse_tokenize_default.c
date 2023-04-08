@@ -24,19 +24,19 @@ static t_err	special_token(
 	*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_DEFAULT, NULL};
 	return (
 		(!c && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_EOF))
+				list, ms_parse_token_type_eof))
 		|| (c == '&' && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_AND))
+				list, ms_parse_token_type_and))
 		|| (c == '|' && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_OR))
+				list, ms_parse_token_type_or))
 		|| (c == '<' && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON))
+				list, ms_parse_token_type_left_chevron))
 		|| (c == '>' && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON))
+				list, ms_parse_token_type_right_chevron))
 		|| (c == '(' && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS))
+				list, ms_parse_token_type_left_parenthesis))
 		|| (c == ')' && ms_parse_tokenize_add_simple_token(
-				list, MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS))
+				list, ms_parse_token_type_right_parenthesis))
 	);
 }
 

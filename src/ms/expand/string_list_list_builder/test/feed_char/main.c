@@ -54,10 +54,10 @@ static t_err	read_file_contents(const char *filename, char **out)
 static t_ms_word_part_type	type(char c)
 {
 	if (c == 's')
-		return (MS_WORD_PART_SINGLE_QUOTED);
+		return (ms_word_part_single_quoted);
 	if (c == 'd')
-		return (MS_WORD_PART_DOUBLE_QUOTED);
-	return (MS_WORD_PART_UNQUOTED);
+		return (ms_word_part_double_quoted);
+	return (ms_word_part_unquoted);
 }
 
 static bool	test_leak(const void *context)

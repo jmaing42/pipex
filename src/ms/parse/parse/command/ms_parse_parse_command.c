@@ -28,15 +28,15 @@ t_err	ms_parse_parse_command(
 			return (true);
 		if (!redirections.in.head && !redirections.out.head)
 		{
-			*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
+			*out = (t_ms_command){ms_command_type_invalid, {NULL}};
 			return (false);
 		}
 	}
-	if ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS)
+	if ((*mut_head)->value.type == ms_parse_token_type_left_parenthesis)
 		return (ms_parse_parse_command_compound(mut_head, redirections, out));
 	if (ms_parse_parse_command_is_word(*mut_head))
 		return (ms_parse_parse_command_simple(mut_head, redirections, out));
 	ms_parse_free_redirections(&redirections);
-	*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
+	*out = (t_ms_command){ms_command_type_invalid, {NULL}};
 	return (false);
 }

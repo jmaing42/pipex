@@ -83,23 +83,6 @@ static t_err	get_parsed_path(char ***out_parsed_path)
 	return (false);
 }
 
-static t_err	execute(char *cmd_name, char **args)
-{
-	pid_t	pid;
-	int		stat;
-
-	if (ft_os_fork(&pid))
-		return (true);
-	if (pid == 0)
-	{
-		if (execve(cmd_name, args, NULL))
-			ft_exit(EXIT_FAILURE);
-	}
-	wrap_waitpid(pid, &stat, 0);
-	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
-	return (false);
-}
-
 void	ms_execute_command_simple(
 	t_ms_command_simple *command
 )
@@ -107,6 +90,7 @@ void	ms_execute_command_simple(
 	char	**args;
 	char	**parsed_path;
 	char	*cmd_name;
+	int		stat;
 
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
@@ -114,7 +98,8 @@ void	ms_execute_command_simple(
 		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
-	if (execute(cmd_name, args))
+	if (execve(cmd_name, args, NULL))
 		wrap_exit(EXIT_FAILURE);
-	wrap_exit(EXIT_FAILURE);
+	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+	wrap_exit(ms_execute_globals()->exit_status);
 }

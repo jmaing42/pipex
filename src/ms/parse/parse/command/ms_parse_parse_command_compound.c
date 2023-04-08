@@ -32,7 +32,7 @@ static t_err	fill_remain_redirections(
 		if (!redirections->in.head && !redirections->out.head)
 		{
 			ms_parse_free_command(out);
-			*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
+			*out = (t_ms_command){ms_command_type_invalid, {NULL}};
 			return (false);
 		}
 	}
@@ -57,16 +57,16 @@ t_err	ms_parse_parse_command_compound(
 	}
 	ms_parse_parse_util_skip_space_if_any(mut_head);
 	if (!result->and_or_list.head
-		|| (*mut_head)->value.type != MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS)
+		|| (*mut_head)->value.type != ms_parse_token_type_right_parenthesis)
 	{
 		ms_parse_free_redirections(&redirections);
 		wrap_free(result);
-		*out = (t_ms_command){MS_COMMAND_TYPE_INVALID, {NULL}};
+		*out = (t_ms_command){ms_command_type_invalid, {NULL}};
 		return (false);
 	}
 	*mut_head = (*mut_head)->next;
 	result->redirections = redirections;
-	out->type = MS_COMMAND_TYPE_COMPOUND;
+	out->type = ms_command_type_compound;
 	out->value.compound = result;
 	return (fill_remain_redirections(mut_head, out));
 }

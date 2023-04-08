@@ -19,10 +19,10 @@ void	ms_parse_free_word_part(
 	t_ms_word_part_value value
 )
 {
-	if (type == MS_WORD_PART_UNQUOTED)
+	if (type == ms_word_part_unquoted)
 		ms_parse_free_word_part_string_list(value.unquoted);
-	if (type == MS_WORD_PART_SINGLE_QUOTED)
+	if (type == ms_word_part_single_quoted)
 		wrap_free(value.single_quoted);
-	if (type == MS_WORD_PART_DOUBLE_QUOTED)
+	if (type == ms_word_part_double_quoted)
 		ms_parse_free_word_part_string_list(value.double_quoted);
 }

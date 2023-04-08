@@ -27,7 +27,7 @@ t_err	ms_parse_tokenize_state_space(
 		*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_SPACE, NULL};
 		return (false);
 	}
-	if (ms_parse_tokenize_add_simple_token(list, MS_PARSE_TOKEN_TYPE_SPACE))
+	if (ms_parse_tokenize_add_simple_token(list, ms_parse_token_type_space))
 		return (true);
 	return (ms_parse_tokenize_state_default(c, list, NULL, out_next_state));
 }

@@ -30,7 +30,7 @@ t_err	ms_parse_tokenize_state_double_quote(
 	if (c == '"')
 	{
 		if (ms_parse_tokenize_add_string_token(
-				list, MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED, data))
+				list, ms_parse_token_type_word_double_quoted, data))
 			return (true);
 		*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_DEFAULT, NULL};
 		return (false);

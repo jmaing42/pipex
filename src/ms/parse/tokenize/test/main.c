@@ -48,27 +48,27 @@ static t_err	read_file_contents(const char *filename, char **out)
 
 static t_err	print_token_type(t_ms_parse_token_type type)
 {
-	if (type == MS_PARSE_TOKEN_TYPE_EOF)
+	if (type == ms_parse_token_type_eof)
 		return (printf("EOF") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_AND)
+	if (type == ms_parse_token_type_and)
 		return (printf("AND") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_OR)
+	if (type == ms_parse_token_type_or)
 		return (printf("OR") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON)
+	if (type == ms_parse_token_type_left_chevron)
 		return (printf("LEFT_CHEVRON") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON)
+	if (type == ms_parse_token_type_right_chevron)
 		return (printf("RIGHT_CHEVRON") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_LEFT_PARENTHESIS)
+	if (type == ms_parse_token_type_left_parenthesis)
 		return (printf("LEFT_PARENTHESIS") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_RIGHT_PARENTHESIS)
+	if (type == ms_parse_token_type_right_parenthesis)
 		return (printf("RIGHT_PARENTHESIS") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_SPACE)
+	if (type == ms_parse_token_type_space)
 		return (printf("SPACE") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_WORD)
+	if (type == ms_parse_token_type_word)
 		return (printf("WORD") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED)
+	if (type == ms_parse_token_type_word_quoted)
 		return (printf("WORD_QUOTED") < 0);
-	if (type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
+	if (type == ms_parse_token_type_word_double_quoted)
 		return (printf("WORD_DOUBLE_QUOTED") < 0);
 	return (true);
 }
@@ -84,9 +84,9 @@ static t_err	print_token_list(t_ms_parse_token_list list)
 		token = node->value;
 		if (print_token_type(token.type))
 			return (true);
-		if (token.type == MS_PARSE_TOKEN_TYPE_WORD
-			|| token.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
-			|| token.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
+		if (token.type == ms_parse_token_type_word
+			|| token.type == ms_parse_token_type_word_quoted
+			|| token.type == ms_parse_token_type_word_double_quoted)
 		{
 			if (printf(" - %s\n", token.data) < 0)
 				return (true);

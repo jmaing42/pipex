@@ -21,13 +21,9 @@
 #include "ft_exit.h"
 #include "ms.h"
 
-t_err	ms_execute_command_compound(
-	t_ms_command_compound *command,
-	t_ms_execute_pipe_info *info
-)
+void	ms_execute_command_compound(t_ms_command_compound *command)
 {
 	if (ms_execute_and_or_list(&command->and_or_list))
-		return (true);
+		wrap_exit(EXIT_FAILURE);
 	wrap_exit(ms_execute_globals()->exit_status);
-	return (false);
 }

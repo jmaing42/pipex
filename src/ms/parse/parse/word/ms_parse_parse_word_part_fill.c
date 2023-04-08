@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parse_parse_word_part_fill.c                    :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/04/01 12:22:45 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_err	add_expansion(
 		return (true);
 	}
 	node->next = NULL;
-	node->type = MS_WORD_PART_STRING_EXPANSION;
+	node->type = ms_word_part_string_expansion;
 	if (mut_list->head)
 		mut_list->tail->next = node;
 	else
@@ -87,7 +87,7 @@ static t_err	add_no_expansion(
 		return (true);
 	}
 	node->next = NULL;
-	node->type = MS_WORD_PART_STRING_NO_EXPANSION;
+	node->type = ms_word_part_string_no_expansion;
 	if (mut_list->head)
 		mut_list->tail->next = node;
 	else

@@ -16,6 +16,7 @@
 #include <sys/_types/_ssize_t.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "ft_types.h"
 #include "ms_expand.h"
@@ -97,21 +98,13 @@ static t_err	internal(
 	return (write_file(STDOUT_FILENO, file_contents));
 }
 
-t_err	ms_execute_redirections_out(
-	t_ms_redirection_list *rd_list,
-	t_ms_execute_pipe_info *info
-)
+void	ms_execute_redirections_out(t_ms_redirection_list *rd_list)
 {
 	char	*file_contents;
 
-	if (ms_execute_redirections_control_files(info)
-		|| get_file_contents(&file_contents))
-		return (true);
+	if (get_file_contents(&file_contents))
+		wrap_exit(EXIT_FAILURE);
 	if (internal(rd_list->head, file_contents))
-	{
-		wrap_free(file_contents);
-		return (true);
-	}
-	wrap_free(file_contents);
-	return (false);
+		wrap_exit(EXIT_FAILURE);
+	wrap_exit(EXIT_SUCCESS);
 }

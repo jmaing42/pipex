@@ -35,7 +35,7 @@ t_err	ms_parse_parse_program(
 		return (false);
 	}
 	ms_parse_parse_util_skip_space_if_any(mut_head);
-	if ((*mut_head)->value.type != MS_PARSE_TOKEN_TYPE_EOF)
+	if ((*mut_head)->value.type != ms_parse_token_type_eof)
 	{
 		ms_parse_free_program(result);
 		*out = NULL;

@@ -43,19 +43,19 @@ static t_err	add_part(
 static bool	is_word(t_ms_parse_token_list_node *head)
 {
 	return (
-		head->value.type == MS_PARSE_TOKEN_TYPE_WORD
-		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED
-		|| head->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED
+		head->value.type == ms_parse_token_type_word
+		|| head->value.type == ms_parse_token_type_word_quoted
+		|| head->value.type == ms_parse_token_type_word_double_quoted
 	);
 }
 
 static t_ms_word_part_type	type(t_ms_parse_token_list_node *head)
 {
-	if (head->value.type == MS_PARSE_TOKEN_TYPE_WORD)
-		return (MS_WORD_PART_UNQUOTED);
-	if (head->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED)
-		return (MS_WORD_PART_SINGLE_QUOTED);
-	return (MS_WORD_PART_DOUBLE_QUOTED);
+	if (head->value.type == ms_parse_token_type_word)
+		return (ms_word_part_unquoted);
+	if (head->value.type == ms_parse_token_type_word_quoted)
+		return (ms_word_part_single_quoted);
+	return (ms_word_part_double_quoted);
 }
 
 static t_err	fill_list(
@@ -68,13 +68,13 @@ static t_err	fill_list(
 
 	while (is_word(*mut_head))
 	{
-		if ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_WORD)
+		if ((*mut_head)->value.type == ms_parse_token_type_word)
 			error = ms_parse_parse_word_part_unquoted(
 					(*mut_head)->value.data, &value.unquoted);
-		if ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_WORD_QUOTED)
+		if ((*mut_head)->value.type == ms_parse_token_type_word_quoted)
 			error = ms_parse_parse_word_part_single_quoted(
 					(*mut_head)->value.data, &value.single_quoted);
-		if ((*mut_head)->value.type == MS_PARSE_TOKEN_TYPE_WORD_DOUBLE_QUOTED)
+		if ((*mut_head)->value.type == ms_parse_token_type_word_double_quoted)
 			error = ms_parse_parse_word_part_double_quoted(
 					(*mut_head)->value.data, &value.double_quoted);
 		if (error || !value.any || add_part(mut_word, type(*mut_head), value))

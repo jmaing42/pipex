@@ -26,10 +26,10 @@ static t_err	print_word_string_list(
 	node = list->head;
 	while (node)
 	{
-		if (node->type == MS_WORD_PART_STRING_EXPANSION
+		if (node->type == ms_word_part_string_expansion
 			&& printf("%*sExpansion - $%s\n", depth + 1, "", node->value) < 0)
 			return (true);
-		if (node->type == MS_WORD_PART_STRING_NO_EXPANSION
+		if (node->type == ms_word_part_string_no_expansion
 			&& printf("%*sNoExpansion - %s\n", depth + 1, "", node->value) < 0)
 			return (true);
 		node = node->next;
@@ -45,21 +45,21 @@ static t_err	print_word_part(
 	t_ms_word_part_value value
 )
 {
-	if (type == MS_WORD_PART_UNQUOTED)
+	if (type == ms_word_part_unquoted)
 	{
 		if (printf("%*sUnquoted {\n", depth, "") < 0
 			|| print_word_string_list(depth + 1, value.unquoted)
 			|| printf("%*s}\n", depth, "") < 0)
 			return (true);
 	}
-	else if (type == MS_WORD_PART_SINGLE_QUOTED)
+	else if (type == ms_word_part_single_quoted)
 	{
 		if (printf("%*sSingleQuoted - %s\n", depth, "", value.single_quoted)
 			< 0)
 			return (true);
 		return (false);
 	}
-	else if (type == MS_WORD_PART_DOUBLE_QUOTED)
+	else if (type == ms_word_part_double_quoted)
 	{
 		if (printf("%*sDoubleQuoted {\n", depth, "") < 0
 			|| print_word_string_list(depth + 1, value.double_quoted)

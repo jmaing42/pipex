@@ -37,6 +37,6 @@ t_err	print_builder(t_ms_expand_string_list_list_builder *builder)
 		}
 		ll_node = ll_node->next;
 	}
-	printf("%s\n", stringbuilder_to_string(builder->builder, 0));
+	printf("%s\n", ft_stringbuilder_to_string(builder->builder, 0));
 	return (false);
 }

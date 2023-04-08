@@ -26,7 +26,7 @@ t_err	ms_parse_tokenize_state_word(
 		|| c == '&' || c == '|' || c == '<' || c == '>' || c == '(' || c == ')')
 	{
 		if (ms_parse_tokenize_add_string_token(
-				list, MS_PARSE_TOKEN_TYPE_WORD, data))
+				list, ms_parse_token_type_word, data))
 			return (true);
 		return (ms_parse_tokenize_state_default(c, list, NULL, out_next_state));
 	}

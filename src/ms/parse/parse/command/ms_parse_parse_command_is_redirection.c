@@ -18,20 +18,20 @@ bool	ms_parse_parse_command_is_redirection(
 {
 	ms_parse_parse_util_skip_space_if_any(mut_head);
 	return (((*mut_head)->value.type
-			== MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON
+			== ms_parse_token_type_left_chevron
 			&& ms_parse_parse_command_is_word((*mut_head)->next))
 		|| ((*mut_head)->value.type
-			== MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON
+			== ms_parse_token_type_left_chevron
 			&& (*mut_head)->next->value.type
-			== MS_PARSE_TOKEN_TYPE_LEFT_CHEVRON
+			== ms_parse_token_type_left_chevron
 			&& ms_parse_parse_command_is_word((*mut_head)->next->next))
 		|| ((*mut_head)->value.type
-			== MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON
+			== ms_parse_token_type_right_chevron
 			&& ms_parse_parse_command_is_word((*mut_head)->next))
 		|| ((*mut_head)->value.type
-			== MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON
+			== ms_parse_token_type_right_chevron
 			&& (*mut_head)->next->value.type
-			== MS_PARSE_TOKEN_TYPE_RIGHT_CHEVRON
+			== ms_parse_token_type_right_chevron
 			&& ms_parse_parse_command_is_word((*mut_head)->next->next))
 	);
 }
