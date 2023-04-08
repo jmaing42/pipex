@@ -76,7 +76,7 @@ static t_err	internal(t_ms_redirection_list_node	*node)
 	return (false);
 }
 
-t_err	ms_execute_redirecion_in(
+t_err	ms_execute_redirecions_in(
 	t_ms_redirection_list *rd_list,
 	t_ms_execute_pipe_info *info
 )

@@ -60,7 +60,10 @@ t_err					ms_execute_redirections_control_files(
 t_err					ms_execute_redirections_word_to_str(
 							t_ms_word *word,
 							char **out_path);
-t_err					ms_execute_redirecion_in(
+t_err					ms_execute_redirecions_in(
+							t_ms_redirection_list *rd_list,
+							t_ms_execute_pipe_info *info);
+t_err					ms_execute_redirections_out(
 							t_ms_redirection_list *rd_list,
 							t_ms_execute_pipe_info *info);
 
