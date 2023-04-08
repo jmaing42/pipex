@@ -90,7 +90,6 @@ void	ms_execute_command_simple(
 	char	**args;
 	char	**parsed_path;
 	char	*cmd_name;
-	int		stat;
 
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
@@ -100,6 +99,4 @@ void	ms_execute_command_simple(
 		wrap_exit(EXIT_FAILURE);
 	if (execve(cmd_name, args, NULL))
 		wrap_exit(EXIT_FAILURE);
-	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
-	wrap_exit(ms_execute_globals()->exit_status);
 }

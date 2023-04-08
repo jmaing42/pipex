@@ -84,5 +84,6 @@ t_err	ms_execute_command(
 		return (true);
 	if (info->redirection_out_pid == CHILD_PID)
 		child_exectue_redirection_out(command);
+	wrap_close(info->pipe_read);
 	return (wait_all(info));
 }

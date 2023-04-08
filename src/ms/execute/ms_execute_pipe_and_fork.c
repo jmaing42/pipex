@@ -27,7 +27,8 @@ t_err	ms_execute_pipe_and_fork(
 	if (!info->is_first)
 	{
 		info->previous_pipe_read = wrap_dup(info->pipe_read);
-		return (true);
+		if (info->previous_pipe_read < 0)
+			return (true);
 	}
 	if (ft_os_pipe(&info->pipe_write, &info->pipe_read))
 		return (true);
@@ -42,7 +43,6 @@ t_err	ms_execute_pipe_and_fork(
 	{
 		if (!info->is_first)
 			wrap_close(info->previous_pipe_read);
-		wrap_close(info->pipe_read);
 		wrap_close(info->pipe_write);
 	}
 	return (false);
