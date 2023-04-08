@@ -53,8 +53,16 @@ static bool	is_possible_name(
 	t_ms_expand_string_list_node	*node;
 
 	node = cmd_list->head;
-	if (name[0] == '.' && !ft_cstring_equals(node->str, "."))
-		return (false);
+	if (ft_cstring_equals(node->str, "."))
+	{
+		if (name[0] != '.')
+			return (false);
+	}
+	if (name[0] == '.')
+	{
+		if (ft_cstring_equals(node->str, "."))
+			return (false);
+	}
 	while (node)
 	{
 		name = ms_expand_strnstr(name, node->str, -1);

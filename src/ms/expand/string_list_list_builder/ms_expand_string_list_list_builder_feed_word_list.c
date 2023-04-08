@@ -26,7 +26,6 @@ t_err	ms_expand_string_list_list_builder_feed_word_list(
 	{
 		if (ms_expand_string_list_list_builder_feed_word(self, node->word))
 			return (true);
-// TODO: test
 		if (self->builder != NULL
 			&& ms_expand_string_list_list_builder_fill_node(
 				&self->builder, &self->list.tail->list))
