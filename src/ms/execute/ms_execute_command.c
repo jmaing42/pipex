@@ -71,13 +71,13 @@ t_err	ms_execute_command(
 {
 	if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
 		return (true);
-	info->redirection_in_pid = CHILD_PID; //test only
 	if (info->redirection_in_pid == CHILD_PID)
 		child_execute_redirection_in(command);
 	if (info->is_first)
 		info->is_first = false;
 	if (ms_execute_pipe_and_fork(info, &info->command_pid))
 		return (true);
+	info->command_pid = CHILD_PID; //test only
 	if (info->command_pid == CHILD_PID)
 		child_execute_command(command);
 	if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))

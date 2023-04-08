@@ -39,7 +39,7 @@ static t_err	check_path(char **path, char *slash_cmd, char **out_name)
 	{
 		if (ft_cstring_concat(path[index], slash_cmd, out_name))
 			return (true);
-		if (ft_os_file_is_executable((const char *)out_name))
+		if (ft_os_file_is_executable((const char *)*out_name))
 			break ;
 		free(*out_name);
 		*out_name = NULL;
