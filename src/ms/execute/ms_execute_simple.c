@@ -16,6 +16,7 @@
 #include "ft_os_file.h"
 #include "ms_execute.h"
 
+#include <_stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <sys/_types/_pid_t.h>
@@ -83,6 +84,20 @@ static t_err	get_parsed_path(char ***out_parsed_path)
 	return (false);
 }
 
+#include <stdio.h> //test only
+static void test_only(char **args, char *cmd_name)
+{
+	int	i = 0;
+	FILE	*fp = fopen("log.test", "a");
+
+	fprintf(fp, "%d, cmd_name: %s\n", getpid(), cmd_name);
+	while (args[i])
+	{
+		fprintf(fp, "args[%d]: %s\n", i, args[i]);
+		i++;
+	}
+}
+
 void	ms_execute_command_simple(
 	t_ms_command_simple *command
 )
@@ -97,6 +112,7 @@ void	ms_execute_command_simple(
 		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
+	test_only(args, cmd_name);
 	if (execve(cmd_name, args, NULL))
 		wrap_exit(EXIT_FAILURE);
 }

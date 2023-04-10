@@ -13,7 +13,6 @@
 #include "ms_execute.h"
 #include "wrap.h"
 
-#include <stdio.h> //test only
 t_err	ms_execute_redirect_in_out(t_ms_execute_pipe_info *info)
 {
 	if (!info->is_first)

@@ -63,8 +63,7 @@ t_err					ms_execute_redirections_word_to_str(
 							t_ms_word *word,
 							char **out_path);
 void					ms_execute_redirecions_in(
-							t_ms_redirection_list *rd_list,
-							bool is_first);
+							t_ms_redirection_list *rd_list);
 void					ms_execute_redirections_out(
 							t_ms_redirection_list *rd_list);
 t_err					ms_execute_pipe_and_fork(
