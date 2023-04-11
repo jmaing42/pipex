@@ -55,7 +55,7 @@ static void	child_exectue_redirection_out(t_ms_command *command)
 	wrap_exit(EXIT_FAILURE);
 }
 
-static t_err	wait_all(t_ms_execute_pipe_info *info, t_err result)
+static t_err	wait_all(t_ms_command_pipe_info *info, t_err result)
 {
 	int	status;
 
@@ -81,31 +81,28 @@ static t_err	wait_all(t_ms_execute_pipe_info *info, t_err result)
 
 t_err	ms_execute_command(
 	t_ms_command *command,
-	t_ms_execute_pipe_info *info
+	t_ms_command_pipe_info *info
 )
 {
-	if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
-		return (wait_all(info, true));
-	if (info->redirection_in_pid == CHILD_PID)
+	if ((command->type == ms_command_type_compound && command->value.compound->redirections.in.head != NULL)
+		|| (command->type == ms_command_type_simple && command->value.simple->redirections.in.head != NULL))
 	{
-		printf("@@@@@@red_in@@@@@@@\n");
-		child_execute_redirection_in(command);
+		if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
+			return (wait_all(info, true));
+		if (info->redirection_in_pid == CHILD_PID)
+			child_execute_redirection_in(command);
 	}
 	if (ms_execute_pipe_and_fork(info, &info->command_pid))
 		return (wait_all(info, true));
 	if (info->command_pid == CHILD_PID)
-	{
-		printf("@@@@@@command@@@@@@@\n");
 		child_execute_command(command);
-	}
-	// info->command_pid = CHILD_PID; //test only
-	if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))
-		return (wait_all(info, true));
-	info->redirection_out_pid = CHILD_PID;
-	if (info->redirection_out_pid == CHILD_PID)
+	if ((command->type == ms_command_type_compound && command->value.compound->redirections.out.head != NULL)
+		|| (command->type == ms_command_type_simple && command->value.simple->redirections.out.head != NULL))
 	{
-		printf("@@@@@@red_out@@@@@@@\n");
-		child_exectue_redirection_out(command);
+		if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))
+			return (wait_all(info, true));
+		if (info->redirection_out_pid == CHILD_PID)
+			child_exectue_redirection_out(command);
 	}
 	wrap_close(info->pipe_read);
 	return (wait_all(info, false));

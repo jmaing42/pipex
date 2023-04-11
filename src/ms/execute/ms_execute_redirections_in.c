@@ -29,7 +29,6 @@
 static t_err	read_file(int fd)
 {
 	char	buf[READ_BUF_SIZE];
-	int test_fd = open("log.test", O_WRONLY | O_APPEND | O_CREAT, 644);
 	ssize_t	read_size;
 	ssize_t	left_size;
 	ssize_t	write_size;
@@ -46,14 +45,12 @@ static t_err	read_file(int fd)
 		while (left_size)
 		{
 			write_size = wrap_write(STDOUT_FILENO, buf, read_size);
-			write(test_fd, buf, read_size); //test only
 			if (write_size < 0)
 				return (true);
 			left_size -= write_size;
 		}
 		read_size = wrap_read(fd, buf, READ_BUF_SIZE);
 	}
-	close(test_fd); //test only
 	return (false);
 }
 

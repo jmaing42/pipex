@@ -54,9 +54,9 @@ t_err	to_string(t_to_string v)
 			|| ft_stringbuilder_append_string(result, v.in_file));
 	while (++i < v.length && !error)
 		error |= ((i != 0 && ft_stringbuilder_append_string(result, " |"))
-				|| ft_stringbuilder_append_string(result, " (")
-				|| ft_stringbuilder_append_string(result, v.arr[i])
-				|| ft_stringbuilder_append_string(result, ")"));
+				|| ft_stringbuilder_append_string(result, " ")
+				|| ft_stringbuilder_append_string(result, v.arr[i]));
+				// || ft_stringbuilder_append_string(result, ")"));
 	error |= ft_stringbuilder_append_string(result, ">");
 	error |= ft_stringbuilder_append_string(result, v.out_file);
 	if (error)

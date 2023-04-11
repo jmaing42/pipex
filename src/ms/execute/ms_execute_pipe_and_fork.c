@@ -21,7 +21,7 @@
 #include "wrap.h"
 
 t_err	ms_execute_pipe_and_fork(
-	t_ms_execute_pipe_info *info,
+	t_ms_execute_cmd_pipe_info *info,
 	pid_t *out_pid
 )
 {
