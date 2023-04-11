@@ -101,6 +101,7 @@ t_err	ms_execute_command(
 	// info->command_pid = CHILD_PID; //test only
 	if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))
 		return (wait_all(info, true));
+	info->redirection_out_pid = CHILD_PID;
 	if (info->redirection_out_pid == CHILD_PID)
 	{
 		printf("@@@@@@red_out@@@@@@@\n");

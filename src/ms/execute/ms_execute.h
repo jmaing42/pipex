@@ -42,6 +42,18 @@ typedef struct s_ms_execute_pipe_info
 	bool	is_first;
 }	t_ms_execute_pipe_info;
 
+typedef struct s_ms_execute_fd_list_node
+{
+	struct s_ms_execute_fd_list_node	*next;
+	int									fd;
+}	t_ms_execute_fd_list_node;
+
+typedef struct s_ms_execute_fd_list
+{
+	t_ms_execute_fd_list_node	*head;
+	t_ms_execute_fd_list_node	*tail;
+}	t_ms_execute_fd_list;
+
 t_ms_execute_globals	*ms_execute_globals(void);
 
 t_err					ms_execute_program(
