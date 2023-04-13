@@ -74,6 +74,7 @@ typedef struct s_ms_execute_pipe_info
 	int						previous_pipe_read;
 	int						pipe_write;
 	int						pipe_read;
+	bool					is_first;
 	bool					is_last;
 }	t_ms_execute_pipe_info;
 

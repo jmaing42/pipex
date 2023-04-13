@@ -76,6 +76,11 @@ static t_err	init_fd_list(
 	int		fd;
 
 	ft_memory_set(fd_list, 0, sizeof(t_ms_execute_fd_list));
+	if (!is_last)
+	{
+		if (add_node(fd_list, STDOUT_FILENO))
+			return (true);
+	}
 	while (node)
 	{
 		if (ms_execute_redirections_word_to_str(node->target, &path))
@@ -88,11 +93,6 @@ static t_err	init_fd_list(
 			return (true);
 		free(path);
 		node = node->next;
-	}
-	if (!is_last)
-	{
-		if (add_node(fd_list, STDOUT_FILENO))
-			return (true);
 	}
 	return (false);
 }

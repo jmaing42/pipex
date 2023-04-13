@@ -83,7 +83,7 @@ static t_err	get_parsed_path(char ***out_parsed_path)
 		return (true);
 	return (false);
 }
-#include <stdio.h>
+
 void	ms_execute_command_simple(
 	t_ms_command_simple *command
 )
@@ -98,7 +98,6 @@ void	ms_execute_command_simple(
 		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
-	printf("args[1]: %s\n", args[1]);
 	if (execve(cmd_name, args, NULL))
 		wrap_exit(EXIT_FAILURE);
 }

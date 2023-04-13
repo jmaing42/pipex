@@ -24,14 +24,17 @@
 
 static t_err	redirect_in_out(t_ms_execute_pipe_info *info)
 {
-	if (info->pid_list.head != info->pid_list.tail)
+	if (!info->is_first)
 	{
 		if (wrap_dup2(info->previous_pipe_read, STDIN_FILENO) < 0)
 			return (true);
 		wrap_close(info->previous_pipe_read);
 	}
-	if (!info->is_last && wrap_dup2(info->pipe_write, STDOUT_FILENO) < 0)
-		return (true);
+	if (!info->is_last)
+	{
+		if (wrap_dup2(info->pipe_write, STDOUT_FILENO) < 0)
+			return (true);
+	}
 	wrap_close(info->pipe_read);
 	wrap_close(info->pipe_write);
 	return (false);
@@ -73,13 +76,15 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 			wrap_exit(EXIT_FAILURE);
 		return (false);
 	}
-	if (info->pid_list.head == info->pid_list.tail)
+	if (!info->is_first)
 		wrap_close(info->previous_pipe_read);
 	wrap_close(info->pipe_write);
 	info->previous_pipe_read = wrap_dup(info->pipe_read);
 	if (info->previous_pipe_read < 0)
 		return (true);
 	wrap_close(info->pipe_read);
+	if (info->is_first)
+		info->is_first = false;
 	return (false);
 }
 
@@ -109,6 +114,7 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 	t_ms_pipe_list_node				*node;
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
+	info.is_first = true;
 	node = pipe_list->head;
 	while (node)
 	{

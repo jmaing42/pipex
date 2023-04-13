@@ -21,8 +21,11 @@ t_err	ms_execute_redirect_in_out(t_ms_execute_cmd_pipe_info *info)
 			return (true);
 		wrap_close(info->previous_pipe_read);
 	}
-	if (!info->is_last && wrap_dup2(info->pipe_write, STDOUT_FILENO) < 0)
-		return (true);
+	if (!info->is_last)
+	{
+		if (wrap_dup2(info->pipe_write, STDOUT_FILENO) < 0)
+			return (true);
+	}	
 	wrap_close(info->pipe_read);
 	wrap_close(info->pipe_write);
 	return (false);
