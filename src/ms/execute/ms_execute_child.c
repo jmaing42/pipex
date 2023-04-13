@@ -18,14 +18,14 @@
 #include "ms.h"
 #include "wrap.h"
 
-static void	child_execute_redirection_in(t_ms_command *command)
+static void	child_execute_redirection_in(t_ms_command *command, bool is_first)
 {
 	if (command->type == ms_command_type_simple)
 		ms_execute_redirecions_in(
-			&command->value.simple->redirections.in);
+			&command->value.simple->redirections.in, is_first);
 	else if (command->type == ms_command_type_compound)
 		ms_execute_redirecions_in(
-			&command->value.compound->redirections.in);
+			&command->value.compound->redirections.in, is_first);
 	wrap_exit(EXIT_FAILURE);
 }
 
@@ -52,11 +52,12 @@ static void	child_execute_redirection_out(t_ms_command *command, bool is_last)
 void	ms_execute_child(
 	t_ms_command *command,
 	t_ms_execute_child_type type,
+	bool is_first,
 	bool is_last
 )
 {
 	if (type == ms_execute_child_type_redirection_in)
-		child_execute_redirection_in(command);
+		child_execute_redirection_in(command, is_first);
 	else if (type == ms_execute_child_type_command)
 		child_execute_command(command);
 	else if (type == ms_execute_child_type_redirection_out)
