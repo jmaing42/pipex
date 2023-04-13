@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_memory.h"
 #include "ft_os_fork.h"
 #include "ft_os_pipe.h"
 #include "ms_execute.h"
@@ -79,13 +80,34 @@ static t_err	wait_all(t_ms_command_pipe_info *info, t_err result)
 	return (result);
 }
 
-t_err	ms_execute_command(
-	t_ms_command *command,
-	t_ms_command_pipe_info *info
+static void	init_redirections_info(
+	t_ms_redirections_info *info,
+	t_ms_command *command
 )
 {
-	if ((command->type == ms_command_type_compound && command->value.compound->redirections.in.head != NULL)
-		|| (command->type == ms_command_type_simple && command->value.simple->redirections.in.head != NULL))
+	ft_memory_set(&info, 0, sizeof(t_ms_redirections_info));
+	if ((command->type == ms_command_type_compound
+			&& command->value.compound->redirections.in.head != NULL)
+		|| (command->type == ms_command_type_simple
+			&& command->value.simple->redirections.in.head != NULL))
+		info.have_redirection_in = true;
+	if ((command->type == ms_command_type_compound
+			&& command->value.compound->redirections.out.head != NULL)
+		|| (command->type == ms_command_type_simple
+			&& command->value.simple->redirections.in.head != NULL))
+		info.have_redirection_in = true;
+}
+
+void	ms_execute_command(
+	t_ms_command *command,
+	bool is_last
+)
+{
+	t_ms_redirections_info	red_info;
+
+	init_redirections_info(&red_info, command);	
+	if (red_info.have_redirection_in)
+	//legacy
 	{
 		if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
 			return (wait_all(info, true));

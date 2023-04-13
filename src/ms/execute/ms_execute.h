@@ -26,6 +26,12 @@
 # define READ_BUF_SIZE 10
 # define CHILD_PID 0
 
+typedef struct s_ms_execute_redirections_info
+{
+	bool	have_redirection_in;
+	bool	have_redirection_out;
+}	t_ms_redirections_info;
+
 typedef struct s_ms_execute_globals
 {
 	int	exit_status;
@@ -83,9 +89,9 @@ t_err					ms_execute_and_or_list(
 							t_ms_and_or_list *and_or_list);
 t_err					ms_execute_pipe_list(
 							t_ms_pipe_list *pipe_list);
-t_err					ms_execute_command(
+void					ms_execute_command(
 							t_ms_command *command,
-							t_ms_execute_cmd_pipe_info *info);
+							bool is_last);
 void					ms_execute_command_simple(
 							t_ms_command_simple *command);
 void					ms_execute_command_compound(
