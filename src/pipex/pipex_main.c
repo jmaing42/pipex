@@ -34,10 +34,10 @@ typedef struct s_to_string
 	char		**out;
 }	t_to_string;
 
-static bool	is_heredoc(int argc, char **argv)
-{
-	return (argc >= 2 && ft_cstring_equals(argv[1], "here_doc"));
-}
+// static bool	is_heredoc(int argc, char **argv)
+// {
+// 	return (argc >= 2 && ft_cstring_equals(argv[1], "here_doc"));
+// }
 
 t_err	to_string(t_to_string v)
 {
@@ -70,19 +70,19 @@ t_err	to_string(t_to_string v)
 
 int	pipex_main(int argc, char **argv, char **envp)
 {
-	const bool		hd = is_heredoc(argc, argv);
-	char			*source;
+	// const bool		hd = is_heredoc(argc, argv);
+	// char			*source;
 	t_ms_program	*program;
 	int				result;
 
-	if (argc < 4)
+	if (argc < 2)
 		return (EXIT_FAILURE);
-	if (to_string((t_to_string){argv + 2 + !!hd, argc - (2 + !!hd) - 1,
-			hd, argv[1], argv[argc - 1], &source}))
-		return (EXIT_FAILURE);
-	if (ms_parse(source, &program))
+	// if (to_string((t_to_string){argv + 2 + !!hd, argc - (2 + !!hd) - 1,
+	// 		hd, argv[1], argv[argc - 1], &source}))
+	// 	return (EXIT_FAILURE);
+	if (ms_parse(argv[1], &program))
 	{
-		wrap_free(source);
+		// wrap_free(source);
 		return (EXIT_FAILURE);
 	}
 	if (!program)
@@ -93,7 +93,7 @@ int	pipex_main(int argc, char **argv, char **envp)
 	if (ms_expand_env_init(envp))
 		return (EXIT_FAILURE);
 	result = ms_execute(program);
-	wrap_free(source);
+	// wrap_free(source);
 	ms_free(program);
 	return (result);
 }

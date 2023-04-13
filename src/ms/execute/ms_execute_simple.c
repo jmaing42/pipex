@@ -83,21 +83,7 @@ static t_err	get_parsed_path(char ***out_parsed_path)
 		return (true);
 	return (false);
 }
-
-#include <stdio.h> //test only
-static void test_only(char **args, char *cmd_name)
-{
-	int	i = 0;
-	FILE	*fp = fopen("log.test", "a");
-
-	fprintf(fp, "%d, cmd_name: %s\n", getpid(), cmd_name);
-	while (args[i])
-	{
-		fprintf(fp, "args[%d]: %s\n", i, args[i]);
-		i++;
-	}
-}
-
+#include <stdio.h>
 void	ms_execute_command_simple(
 	t_ms_command_simple *command
 )
@@ -112,7 +98,7 @@ void	ms_execute_command_simple(
 		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
-	test_only(args, cmd_name);
+	printf("args[1]: %s\n", args[1]);
 	if (execve(cmd_name, args, NULL))
 		wrap_exit(EXIT_FAILURE);
 }

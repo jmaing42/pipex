@@ -68,7 +68,8 @@ static t_err	add_node(
 
 static t_err	init_fd_list(
 	t_ms_execute_fd_list *fd_list,
-	t_ms_redirection_list_node *node
+	t_ms_redirection_list_node *node,
+	bool is_last
 )
 {
 	char	*path;
@@ -88,16 +89,24 @@ static t_err	init_fd_list(
 		free(path);
 		node = node->next;
 	}
+	if (!is_last)
+	{
+		if (add_node(fd_list, STDOUT_FILENO))
+			return (true);
+	}
 	return (false);
 }
 
-void	ms_execute_redirections_out(t_ms_redirection_list *rd_list)
+void	ms_execute_redirections_out(
+	t_ms_redirection_list *rd_list,
+	bool is_last
+)
 {
 	t_ms_execute_fd_list	fd_list;
 	char					buf[READ_BUF_SIZE + 1];
 	ssize_t					read_size;
 
-	init_fd_list(&fd_list, rd_list->head);
+	init_fd_list(&fd_list, rd_list->head, is_last);
 	read_size = wrap_read(STDIN_FILENO, buf, READ_BUF_SIZE);
 	while (read_size)
 	{

@@ -27,36 +27,7 @@
 #include <stdio.h> //test only
 #include <unistd.h>
 
-static void	child_execute_redirection_in(t_ms_command *command)
-{
-	if (command->type == ms_command_type_simple)
-		ms_execute_redirecions_in(
-			&command->value.simple->redirections.in);
-	else if (command->type == ms_command_type_compound)
-		ms_execute_redirecions_in(
-			&command->value.compound->redirections.in);
-	wrap_exit(EXIT_FAILURE);
-}
-
-static void	child_execute_command(t_ms_command *command)
-{
-	if (command->type == ms_command_type_simple)
-		ms_execute_command_simple(command->value.simple);
-	else if (command->type == ms_command_type_compound)
-		ms_execute_command_compound(command->value.compound);
-	wrap_exit(EXIT_FAILURE);
-}
-
-static void	child_exectue_redirection_out(t_ms_command *command)
-{
-	if (command->type == ms_command_type_simple)
-		ms_execute_redirections_out(&command->value.simple->redirections.out);
-	else if (command->type == ms_command_type_compound)
-		ms_execute_redirections_out(&command->value.compound->redirections.out);
-	wrap_exit(EXIT_FAILURE);
-}
-
-static t_err	wait_all(t_ms_command_pipe_info *info, t_err result)
+static void	wait_all(t_ms_execute_cmd_pipe_info *info)
 {
 	int	status;
 
@@ -64,7 +35,7 @@ static t_err	wait_all(t_ms_command_pipe_info *info, t_err result)
 	{
 		wrap_waitpid(info->redirection_in_pid, &status, 0);
 		if (WEXITSTATUS(status))
-			return (true);
+			wrap_exit(EXIT_FAILURE);
 	}
 	if (info->command_pid)
 	{
@@ -75,16 +46,78 @@ static t_err	wait_all(t_ms_command_pipe_info *info, t_err result)
 	{
 		wrap_waitpid(info->redirection_out_pid, &status, 0);
 		if (WEXITSTATUS(status))
-			return (true);
+			wrap_exit(EXIT_FAILURE);
 	}
-	return (result);
 }
 
-static void	init_redirections_info(
-	t_ms_redirections_info *info,
-	t_ms_command *command
-)
+static void	in_out_execute(t_ms_command *command, bool is_last)
 {
+	t_ms_execute_cmd_pipe_info	info;
+
+	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
+	info.is_first = true;
+	if (ms_execute_pipe_and_fork(&info, &info.redirection_in_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.redirection_in_pid == CHILD_PID)
+		ms_execute_child(
+			command, ms_execute_child_type_redirection_in, is_last);
+	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.command_pid == CHILD_PID)
+		ms_execute_child(command, ms_execute_child_type_command, is_last);
+	info.is_last = true;
+	if (ms_execute_pipe_and_fork(&info, &info.redirection_out_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.redirection_out_pid == CHILD_PID)
+		ms_execute_child(
+			command, ms_execute_child_type_redirection_out, is_last);
+	wrap_close(info.previous_pipe_read);
+	wait_all(&info);
+}
+
+static void	in_execute(t_ms_command *command, bool is_last)
+{
+	t_ms_execute_cmd_pipe_info	info;
+
+	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
+	info.is_first = true;
+	if (ms_execute_pipe_and_fork(&info, &info.redirection_in_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.redirection_in_pid == CHILD_PID)
+		ms_execute_child(
+			command, ms_execute_child_type_redirection_in, is_last);
+	info.is_last = true;
+	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.command_pid == CHILD_PID)
+		ms_execute_child(command, ms_execute_child_type_command, is_last);
+	wrap_close(info.previous_pipe_read);
+	wait_all(&info);
+}
+
+static void	out_execute(t_ms_command *command, bool is_last)
+{
+	t_ms_execute_cmd_pipe_info	info;
+
+	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
+	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.command_pid == CHILD_PID)
+		ms_execute_child(command, ms_execute_child_type_command, is_last);
+	info.is_last = true;
+	if (ms_execute_pipe_and_fork(&info, &info.redirection_out_pid))
+		wrap_exit(EXIT_FAILURE);
+	if (info.redirection_out_pid == CHILD_PID)
+		ms_execute_child(
+			command, ms_execute_child_type_redirection_out, is_last);
+	wrap_close(info.previous_pipe_read);
+	wait_all(&info);
+}
+
+void	ms_execute_command(t_ms_command *command, bool is_last)
+{
+	t_ms_redirections_info	info;
+
 	ft_memory_set(&info, 0, sizeof(t_ms_redirections_info));
 	if ((command->type == ms_command_type_compound
 			&& command->value.compound->redirections.in.head != NULL)
@@ -94,38 +127,15 @@ static void	init_redirections_info(
 	if ((command->type == ms_command_type_compound
 			&& command->value.compound->redirections.out.head != NULL)
 		|| (command->type == ms_command_type_simple
-			&& command->value.simple->redirections.in.head != NULL))
-		info.have_redirection_in = true;
-}
-
-void	ms_execute_command(
-	t_ms_command *command,
-	bool is_last
-)
-{
-	t_ms_redirections_info	red_info;
-
-	init_redirections_info(&red_info, command);	
-	if (red_info.have_redirection_in)
-	//legacy
-	{
-		if (ms_execute_pipe_and_fork(info, &info->redirection_in_pid))
-			return (wait_all(info, true));
-		if (info->redirection_in_pid == CHILD_PID)
-			child_execute_redirection_in(command);
-	}
-	if (ms_execute_pipe_and_fork(info, &info->command_pid))
-		return (wait_all(info, true));
-	if (info->command_pid == CHILD_PID)
-		child_execute_command(command);
-	if ((command->type == ms_command_type_compound && command->value.compound->redirections.out.head != NULL)
-		|| (command->type == ms_command_type_simple && command->value.simple->redirections.out.head != NULL))
-	{
-		if (ms_execute_pipe_and_fork(info, &info->redirection_out_pid))
-			return (wait_all(info, true));
-		if (info->redirection_out_pid == CHILD_PID)
-			child_exectue_redirection_out(command);
-	}
-	wrap_close(info->pipe_read);
-	return (wait_all(info, false));
+			&& command->value.simple->redirections.out.head != NULL))
+		info.have_redirection_out = true;
+	if (info.have_redirection_in && info.have_redirection_out)
+		in_out_execute(command, is_last);
+	else if (info.have_redirection_in)
+		in_execute(command, is_last);
+	else if (info.have_redirection_out)
+		out_execute(command, is_last);
+	else
+		ms_execute_child(command, ms_execute_child_type_command, is_last);
+	wrap_exit(EXIT_SUCCESS);
 }

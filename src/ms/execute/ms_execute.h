@@ -26,6 +26,13 @@
 # define READ_BUF_SIZE 10
 # define CHILD_PID 0
 
+typedef enum e_ms_execute_child_type
+{
+	ms_execute_child_type_redirection_in,
+	ms_execute_child_type_redirection_out,
+	ms_execute_child_type_command
+}	t_ms_execute_child_type;
+
 typedef struct s_ms_execute_redirections_info
 {
 	bool	have_redirection_in;
@@ -46,6 +53,7 @@ typedef struct s_ms_execute_cmd_pipe_info
 	int		pipe_write;
 	int		pipe_read;
 	bool	is_first;
+	bool	is_last;
 }	t_ms_execute_cmd_pipe_info;
 
 typedef struct s_ms_exectue_pid_list_node
@@ -104,8 +112,13 @@ t_err					ms_execute_redirections_word_to_str(
 void					ms_execute_redirecions_in(
 							t_ms_redirection_list *rd_list);
 void					ms_execute_redirections_out(
-							t_ms_redirection_list *rd_list);
+							t_ms_redirection_list *rd_list,
+							bool is_last);
 t_err					ms_execute_pipe_and_fork(
 							t_ms_execute_cmd_pipe_info *info,
 							pid_t *pid);
+void					ms_execute_child(
+							t_ms_command *command,
+							t_ms_execute_child_type type,
+							bool is_last);
 #endif

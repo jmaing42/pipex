@@ -37,10 +37,11 @@ t_err	ms_execute_pipe_and_fork(
 	}
 	if (!info->is_first)
 		wrap_close(info->previous_pipe_read);
+	wrap_close(info->pipe_write);
 	info->previous_pipe_read = wrap_dup(info->pipe_read);
 	if (info->previous_pipe_read < 0)
 		return (true);
-	wrap_close(info->pipe_write);
+	wrap_close(info->pipe_read);
 	if (info->is_first)
 		info->is_first = false;
 	return (false);
