@@ -75,10 +75,11 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 	}
 	if (info->pid_list.head == info->pid_list.tail)
 		wrap_close(info->previous_pipe_read);
+	wrap_close(info->pipe_write);
 	info->previous_pipe_read = wrap_dup(info->pipe_read);
 	if (info->previous_pipe_read < 0)
 		return (true);
-	wrap_close(info->pipe_write);
+	wrap_close(info->pipe_read);
 	return (false);
 }
 
@@ -119,5 +120,6 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 			ms_execute_command(&node->command, info.is_last);
 		node = node->next;
 	}
+	wrap_close(info.previous_pipe_read);
 	return (wait_all(&info.pid_list));
 }
