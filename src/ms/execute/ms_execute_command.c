@@ -50,7 +50,7 @@ static void	wait_all(t_ms_execute_cmd_pipe_info *info)
 	}
 }
 
-static void	in_out_execute(t_ms_command *command, bool is_last)
+static void	in_out_execute(t_ms_command *command, bool is_first, bool is_last)
 {
 	t_ms_execute_cmd_pipe_info	info;
 
@@ -60,22 +60,23 @@ static void	in_out_execute(t_ms_command *command, bool is_last)
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_in_pid == CHILD_PID)
 		ms_execute_child(
-			command, ms_execute_child_type_redirection_in, is_last);
+			command, ms_execute_child_type_redirection_in, is_first, is_last);
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.command_pid == CHILD_PID)
-		ms_execute_child(command, ms_execute_child_type_command, is_last);
+		ms_execute_child(
+			command, ms_execute_child_type_command, is_first, is_last);
 	info.is_last = true;
 	if (ms_execute_pipe_and_fork(&info, &info.redirection_out_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_out_pid == CHILD_PID)
 		ms_execute_child(
-			command, ms_execute_child_type_redirection_out, is_last);
+			command, ms_execute_child_type_redirection_out, is_first, is_last);
 	wrap_close(info.previous_pipe_read);
 	wait_all(&info);
 }
 
-static void	in_execute(t_ms_command *command, bool is_last)
+static void	in_execute(t_ms_command *command, bool is_first, bool is_last)
 {
 	t_ms_execute_cmd_pipe_info	info;
 
@@ -85,36 +86,39 @@ static void	in_execute(t_ms_command *command, bool is_last)
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_in_pid == CHILD_PID)
 		ms_execute_child(
-			command, ms_execute_child_type_redirection_in, is_last);
+			command, ms_execute_child_type_redirection_in, is_first, is_last);
 	info.is_last = true;
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.command_pid == CHILD_PID)
-		ms_execute_child(command, ms_execute_child_type_command, is_last);
+		ms_execute_child(
+			command, ms_execute_child_type_command, is_first, is_last);
 	wrap_close(info.previous_pipe_read);
 	wait_all(&info);
 }
 
-static void	out_execute(t_ms_command *command, bool is_last)
+static void	out_execute(t_ms_command *command, bool is_first, bool is_last)
 {
 	t_ms_execute_cmd_pipe_info	info;
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
+	info.is_first = true;
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.command_pid == CHILD_PID)
-		ms_execute_child(command, ms_execute_child_type_command, is_last);
+		ms_execute_child(
+			command, ms_execute_child_type_command, is_first, is_last);
 	info.is_last = true;
 	if (ms_execute_pipe_and_fork(&info, &info.redirection_out_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_out_pid == CHILD_PID)
 		ms_execute_child(
-			command, ms_execute_child_type_redirection_out, is_last);
+			command, ms_execute_child_type_redirection_out, is_first, is_last);
 	wrap_close(info.previous_pipe_read);
 	wait_all(&info);
 }
 
-void	ms_execute_command(t_ms_command *command, bool is_last)
+void	ms_execute_command(t_ms_command *command, bool is_first, bool is_last)
 {
 	t_ms_redirections_info	info;
 
@@ -130,12 +134,13 @@ void	ms_execute_command(t_ms_command *command, bool is_last)
 			&& command->value.simple->redirections.out.head != NULL))
 		info.have_redirection_out = true;
 	if (info.have_redirection_in && info.have_redirection_out)
-		in_out_execute(command, is_last);
+		in_out_execute(command, is_first, is_last);
 	else if (info.have_redirection_in)
-		in_execute(command, is_last);
+		in_execute(command, is_first, is_last);
 	else if (info.have_redirection_out)
-		out_execute(command, is_last);
+		out_execute(command, is_first, is_last);
 	else
-		ms_execute_child(command, ms_execute_child_type_command, is_last);
+		ms_execute_child(
+			command, ms_execute_child_type_command, is_first, is_last);
 	wrap_exit(EXIT_SUCCESS);
 }

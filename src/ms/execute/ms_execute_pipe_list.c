@@ -123,7 +123,7 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 		if (pipe_and_fork(&info))
 			return (true);
 		if (info.pid_list.tail->pid == CHILD_PID)
-			ms_execute_command(&node->command, info.is_last);
+			ms_execute_command(&node->command, info.is_first, info.is_last);
 		node = node->next;
 	}
 	wrap_close(info.previous_pipe_read);

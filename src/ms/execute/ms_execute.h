@@ -100,6 +100,7 @@ t_err					ms_execute_pipe_list(
 							t_ms_pipe_list *pipe_list);
 void					ms_execute_command(
 							t_ms_command *command,
+							bool is_first,
 							bool is_last);
 void					ms_execute_command_simple(
 							t_ms_command_simple *command);
@@ -111,7 +112,8 @@ t_err					ms_execute_redirections_word_to_str(
 							t_ms_word *word,
 							char **out_path);
 void					ms_execute_redirecions_in(
-							t_ms_redirection_list *rd_list);
+							t_ms_redirection_list *rd_list,
+							bool is_first);
 void					ms_execute_redirections_out(
 							t_ms_redirection_list *rd_list,
 							bool is_last);
@@ -121,5 +123,6 @@ t_err					ms_execute_pipe_and_fork(
 void					ms_execute_child(
 							t_ms_command *command,
 							t_ms_execute_child_type type,
+							bool is_first,
 							bool is_last);
 #endif
