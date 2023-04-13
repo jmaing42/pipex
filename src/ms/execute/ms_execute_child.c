@@ -56,19 +56,10 @@ void	ms_execute_child(
 )
 {
 	if (type == ms_execute_child_type_redirection_in)
-	{
-		printf("red_in exe\n");
 		child_execute_redirection_in(command);
-	}
 	else if (type == ms_execute_child_type_command)
-	{
-		printf("cmd exe\n");
 		child_execute_command(command);
-	}
 	else if (type == ms_execute_child_type_redirection_out)
-	{
-		printf("red_out exe\n");
 		child_execute_redirection_out(command, is_last);
-	}
 	wrap_exit(EXIT_FAILURE);
 }
