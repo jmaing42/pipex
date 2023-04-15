@@ -77,5 +77,5 @@ void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list, bool is_first)
 		wrap_free(path);
 		node = node->next;
 	}
-	ms_execute_exit(EXIT_FAILURE, "minishell red_in");
+	wrap_exit(EXIT_SUCCESS);
 }
