@@ -34,6 +34,7 @@ static size_t	get_list_len(const t_ms_expand_env_list *list)
 static char	*env_to_str(const char *key, const char *value)
 {
 	t_stringbuilder	*builder;
+	char			*result;
 
 	builder = ft_stringbuilder_new(STRING_BUILDER_SIZE);
 	if (builder == NULL)
@@ -53,7 +54,9 @@ static char	*env_to_str(const char *key, const char *value)
 		ft_stringbuilder_free(builder);
 		return (NULL);
 	}
-	return (ft_stringbuilder_to_string(builder, 0));
+	result = ft_stringbuilder_to_string(builder, 0);
+	ft_stringbuilder_free(builder);
+	return (result);
 }
 
 t_err	ms_expand_env_get_environ(char ***out_envp)

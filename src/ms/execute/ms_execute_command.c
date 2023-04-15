@@ -35,7 +35,6 @@ static void	wait_all(t_ms_execute_cmd_pipe_info *info)
 		if (wrap_waitpid(info->redirection_in_pid, &status, 0) < 0
 			|| WEXITSTATUS(status))
 			wrap_exit(EXIT_FAILURE);
-		info->redirection_in_pid = 0;
 	}
 	if (info->command_pid)
 	{
@@ -61,7 +60,6 @@ static void	in_out_execute(t_ms_command *command, bool is_first, bool is_last)
 	if (info.redirection_in_pid == CHILD_PID)
 		ms_execute_child(
 			command, ms_execute_child_type_redirection_in, is_first, is_last);
-	wait_all(&info);
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.command_pid == CHILD_PID)
