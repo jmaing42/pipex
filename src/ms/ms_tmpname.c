@@ -17,7 +17,7 @@
 #include "ft_cstring.h"
 #include "wrap.h"
 
-const char *const	g_prefix = "/tmp/pipex_tmp";
+static const char *const	g_prefix = "/tmp/minishell_tmp";
 
 t_err	ms_tmpname(char **out)
 {

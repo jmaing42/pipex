@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ms_repl_install_signal_handlers.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/03/30 21:25:56 by seonlim          ###   ########.fr       */
+/*   Created: 2023/04/15 22:44:54 by Juyeong Maing     #+#    #+#             */
+/*   Updated: 2023/04/15 22:45:04 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "ms_repl.h"
 
-int		pipex_main(int argc, char **argv, char **envp);
-
-#endif
+void	ms_repl_install_signal_handlers(void)
+{
+}

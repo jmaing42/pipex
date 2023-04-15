@@ -6,19 +6,20 @@ MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory) $(if $(f
 CC := clang
 AR := ar
 ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
-CPPFLAGS += $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs)
+CPPFLAGS += $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -I../assets/readline/include
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
+LDFLAGS := -L../assets/readline/lib -lreadline
 
 SRC_DIR := .
 OBJ_DIR := .cache
 
-SRCS_PIPEX := ./main.c $(shell find . -name "pipex_*.c" | grep -v /test/ | xargs)
+SRCS_MINISHELL := ./main.c
 SRCS_LIBWRAP := $(shell find . -name "wrap_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFTO := $(shell find . -name "fto_*.c" | grep -v /test/ | xargs)
 SRCS_LIBMS := $(shell find . -name "ms_*.c" | grep -v /test/ | xargs)
 
-NAME := pipex
+NAME := minishell
 EXECUTABLE_TARGETS := $(NAME)
 
 all: $(NAME)
@@ -71,7 +72,7 @@ $(OBJ_DIR)/libwrap$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_L
 $(OBJ_DIR)/libft$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFT))
 $(OBJ_DIR)/libfto$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFTO))
 $(OBJ_DIR)/libms$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBMS))
-$(OBJ_DIR)/$(NAME)$(SUFFIX).exe: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_PIPEX))
+$(OBJ_DIR)/$(NAME)$(SUFFIX).exe: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_MINISHELL))
 $(EXECUTABLE_TARGETS): %: $(OBJ_DIR)/%$(SUFFIX).exe
 	$(Q1)cp $< $@.exe
 .PHONY: $(EXECUTABLE_TARGETS)

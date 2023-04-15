@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "ms_repl.h"
 
-int	main(void)
+#include "ft_types.h"
+
+void	ms_repl_die_if(t_err error)
 {
-	ms_repl_install_signal_handlers();
-	ms_repl_main();
-	return (EXIT_SUCCESS);
+	if (error)
+		ms_repl_die();
 }

@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #include "ms_repl.h"
 
-int	main(void)
+#include <stdbool.h>
+
+void	ms_repl_main(void)
 {
-	ms_repl_install_signal_handlers();
-	ms_repl_main();
-	return (EXIT_SUCCESS);
+	while (true)
+		ms_repl_line();
 }
