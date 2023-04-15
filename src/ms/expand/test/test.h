@@ -17,7 +17,7 @@
 # include "ms.h"
 
 t_err	print_program(t_ms_program *program);
-t_err	test_program(t_ms_program *program);
+t_err	test_program(const t_ms_program *program);
 
 t_err	print_and_or_list(t_ms_and_or_list *and_or_list);
 t_err	print_pipe_list(t_ms_pipe_list *pipe_list);

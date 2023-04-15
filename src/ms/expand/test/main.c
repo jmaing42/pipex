@@ -53,8 +53,10 @@ static t_err	read_file_contents(const char *filename, char **out)
 	return (error);
 }
 
-static bool	test_leak(t_ms_program *program)
+static bool	test_leak(const void *context)
 {
+	const t_ms_program *const	program = context;
+
 	leak_test_start();
 	if (test_program(program))
 		return (false);

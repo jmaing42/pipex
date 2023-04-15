@@ -14,7 +14,9 @@
 
 #include <stdio.h>
 
-t_err	test_program(t_ms_program *program)
+#include "ms.h"
+
+t_err	test_program(const t_ms_program *program)
 {
-	return (test_and_or_list(&program->and_or_list));
+	return (test_and_or_list((t_ms_and_or_list *)&program->and_or_list));
 }
