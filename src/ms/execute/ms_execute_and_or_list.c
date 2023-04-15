@@ -23,13 +23,16 @@ t_err	ms_execute_and_or_list(t_ms_and_or_list *and_or_list)
 	t_ms_and_or_list_node	*node;
 	bool					succeed;
 
-	if (ms_execute_pipe_list(&and_or_list->head->pipe_list))
-		return (true);
 	succeed = ms_execute_globals()->exit_status == 0;
-	node = and_or_list->head->next;
+	node = and_or_list->head;
 	while (node)
 	{
-		if (node->is_and == succeed)
+		if (node == and_or_list->head)
+		{
+			if (ms_execute_pipe_list(&node->pipe_list))
+				return (true);
+		}
+		else if (node->is_and == succeed)
 		{
 			if (ms_execute_pipe_list(&node->pipe_list))
 				return (true);

@@ -115,6 +115,7 @@ t_err		ms_expand_env_init(char **envp);
 void		*ms_expand_env_list_get(void);
 t_err		ms_expand_env_put(const char *key, const char *value);
 const char	*ms_expand_env_get(const char *key);
+t_err		ms_expand_env_get_environ(char ***out_envp);
 //strnstr
 char		*ms_expand_strnstr(
 				const char *haystack,

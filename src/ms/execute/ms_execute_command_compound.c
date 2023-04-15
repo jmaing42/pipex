@@ -12,6 +12,7 @@
 
 #include "ms_execute.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 

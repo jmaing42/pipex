@@ -13,11 +13,13 @@
 #include "ft_cstring.h"
 #include "ft_cstring_split.h"
 #include "ft_exit.h"
+#include "ft_memory.h"
 #include "ft_os_file.h"
 #include "ms_execute.h"
 
 #include <_stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/_types/_pid_t.h>
 #include <sys/wait.h>
@@ -89,15 +91,18 @@ void	ms_execute_command_simple(
 )
 {
 	char	**args;
+	char	**envp;
 	char	**parsed_path;
 	char	*cmd_name;
 
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
+	if (ms_expand_env_get_environ(&envp))
+		wrap_exit(EXIT_FAILURE);
 	if (get_parsed_path(&parsed_path))
 		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
-	if (execve(cmd_name, args, NULL))
+	if (execve(cmd_name, args, envp))
 		wrap_exit(EXIT_FAILURE);
 }

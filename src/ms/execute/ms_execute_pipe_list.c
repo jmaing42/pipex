@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 #include "ft_types.h"
 #include "ft_os_pipe.h"
@@ -47,6 +48,17 @@ static t_err	add_pid_node(t_ms_execute_pid_list *pid_list)
 
 	if (ft_os_fork(&pid))
 		return (true);
+	// if (pid == CHILD_PID)
+	// 	wrap_exit(EXIT_SUCCESS); //test only
+	// else
+	// {
+	// 	int stat = 0;
+	// 	int result = wrap_waitpid(pid, &stat, 0);
+	// 	if (result == -1)
+    //     	perror("waitpid");
+	// 	printf("result: %d, decoded_stat: %d\n", result, WEXITSTATUS(stat));
+	// 	wrap_exit(EXIT_SUCCESS);
+	// }
 	new_node = ft_memory_allocate(1, sizeof(t_ms_execute_pid_list_node));
 	if (new_node == NULL)
 		return (true);
@@ -88,7 +100,7 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 	return (false);
 }
 
-static t_err	wait_all(t_ms_execute_pid_list *list)
+static void	wait_all(t_ms_execute_pid_list *list)
 {
 	t_ms_execute_pid_list_node	*node;
 	t_ms_execute_pid_list_node	*next;
@@ -102,10 +114,11 @@ static t_err	wait_all(t_ms_execute_pid_list *list)
 		next = node->next;
 		if (wrap_waitpid(node->pid, &stat, 0) == FAIL)
 			result = true;
+		printf("pid: %d, decoded_stat: %d\n", node->pid, WEXITSTATUS(stat));
 		free(node);
 		node = next;
 	}
-	return (result);
+	ms_execute_globals()->exit_status = result;
 }
 
 t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
@@ -127,5 +140,6 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 		node = node->next;
 	}
 	wrap_close(info.previous_pipe_read);
-	return (wait_all(&info.pid_list));
+	wait_all(&info.pid_list);
+	return (false);
 }
