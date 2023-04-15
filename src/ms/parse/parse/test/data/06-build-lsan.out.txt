@@ -1,1 +1,77 @@
-INVALID PROGRAM
+Program {
+ AndOrList {
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - make
+       }
+      }
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - PROFILE=
+       }
+      }
+      SingleQuoted - release
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - TARGET=
+       }
+      }
+      SingleQuoted - production
+     }
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - SANITIZER=
+       }
+      }
+      SingleQuoted - leak
+     }
+    }
+    Input {
+    }
+    Output {
+    }
+   }
+  }
+ OR
+  PipeList {
+   SimpleCommand {
+    WordList {
+     Word {
+      Unquoted {
+       StringList {
+        NoExpansion - echo
+       }
+      }
+     }
+     Word {
+      SingleQuoted - Failed to build release/development/leak
+     }
+    }
+    Input {
+    }
+    Output {
+     OutputRedirections {
+      Append {
+       Word {
+        Unquoted {
+         StringList {
+          NoExpansion - warning.log
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
