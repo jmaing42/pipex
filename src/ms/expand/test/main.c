@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ms.h"
 #include "test.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -51,20 +53,11 @@ static t_err	read_file_contents(const char *filename, char **out)
 	return (error);
 }
 
-static bool	test_leak(const void *context)
+static bool	test_leak(t_ms_program *program)
 {
-	const char *const	contents = context;
-	t_ms_program		*program;
-
 	leak_test_start();
-	if (ms_parse(contents, &program))
+	if (test_program(program))
 		return (false);
-	// if (test_program(program))
-	// {
-	// 	ms_free(program);
-	// 	return (false);
-	// }
-	ms_free(program);
 	return (false);
 }
 
@@ -78,6 +71,7 @@ int	main(int argc, char **argv)
 	if (argc < 2 || ms_expand_env_init(environ)
 		|| read_file_contents(argv[1], &contents))
 		return (EXIT_FAILURE);
+	ms_parse(contents, &program);
 	errno = leak_test(test_leak, contents, NULL);
 	if (errno && printf("leak_test: %s\n", leak_test_error(errno)) < 0)
 	{

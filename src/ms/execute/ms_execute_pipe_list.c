@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/signal.h>
 #include <sys/wait.h>
 
 #include "ft_types.h"
@@ -95,6 +96,7 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 	t_ms_execute_pid_list_node	*next;
 	int							stat;
 
+	signal(SIGCHLD, SIG_DFL); //test only
 	stat = -1;
 	node = list->head;
 	while (node)
