@@ -21,9 +21,7 @@
 t_err	ms_execute_and_or_list(t_ms_and_or_list *and_or_list)
 {
 	t_ms_and_or_list_node	*node;
-	bool					succeed;
 
-	succeed = ms_execute_globals()->exit_status == 0;
 	node = and_or_list->head;
 	while (node)
 	{
@@ -32,15 +30,16 @@ t_err	ms_execute_and_or_list(t_ms_and_or_list *and_or_list)
 			if (ms_execute_pipe_list(&node->pipe_list))
 				return (true);
 		}
-		else if (node->is_and == succeed)
+		else if (node->is_and && !ms_execute_globals()->exit_status)
 		{
 			if (ms_execute_pipe_list(&node->pipe_list))
 				return (true);
 		}
-		if (node->is_and)
-			succeed = (succeed && ms_execute_globals()->exit_status == 0);
-		else
-			succeed = (succeed || ms_execute_globals()->exit_status == 0);
+		else if (!node->is_and && ms_execute_globals()->exit_status)
+		{
+			if (ms_execute_pipe_list(&node->pipe_list))
+				return (true);
+		}
 		node = node->next;
 	}
 	return (false);

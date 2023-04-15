@@ -12,9 +12,12 @@
 
 #include "wrap.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 void	wrap_exit(int status)
 {
+	if (status)
+		perror("minishell");
 	exit(status);
 }

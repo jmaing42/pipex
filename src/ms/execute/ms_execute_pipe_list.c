@@ -89,25 +89,25 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 	return (false);
 }
 
-static void	wait_all(t_ms_execute_pid_list *list)
+static t_err	wait_all(t_ms_execute_pid_list *list)
 {
 	t_ms_execute_pid_list_node	*node;
 	t_ms_execute_pid_list_node	*next;
-	t_err						result;
 	int							stat;
 
-	result = false;
+	stat = -1;
 	node = list->head;
 	while (node)
 	{
 		next = node->next;
 		if (wrap_waitpid(node->pid, &stat, 0) == FAIL)
-			result = true;
+			return (true);
 		printf("pid: %d, decoded_stat: %d\n", node->pid, WEXITSTATUS(stat));
 		free(node);
 		node = next;
 	}
-	ms_execute_globals()->exit_status = result;
+	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+	return (false);
 }
 
 t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
@@ -129,6 +129,5 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 		node = node->next;
 	}
 	wrap_close(info.previous_pipe_read);
-	wait_all(&info.pid_list);
-	return (false);
+	return (wait_all(&info.pid_list));
 }

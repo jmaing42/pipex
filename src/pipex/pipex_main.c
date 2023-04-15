@@ -70,22 +70,7 @@ t_err	to_string(t_to_string v)
 	ft_stringbuilder_free(result);
 	return (*v.out == NULL);
 }
-// #include <stdio.h>
-// static void test(void)
-// {
-// 	pid_t pid;
-// 	int result;
-// 	int stat = 0;
 
-// 	pid = fork();
-// 	if (pid == 0)
-// 		exit(EXIT_SUCCESS);
-// 	result = waitpid(pid, &stat, 0);
-// 	printf("result: %d, stat: %d\n", result, WEXITSTATUS(stat));
-// 	if (result == -1)
-// 		perror("waitpid");
-// 	exit(EXIT_SUCCESS);
-// }
 int	pipex_main(int argc, char **argv, char **envp)
 {
 	// const bool		hd = is_heredoc(argc, argv);
@@ -93,7 +78,6 @@ int	pipex_main(int argc, char **argv, char **envp)
 	t_ms_program	*program;
 	int				result;
 
-	// test();
 	if (argc < 2)
 		return (EXIT_FAILURE);
 	// if (to_string((t_to_string){argv + 2 + !!hd, argc - (2 + !!hd) - 1,
