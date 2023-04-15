@@ -89,7 +89,7 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 	return (false);
 }
 
-static t_err	wait_all(t_ms_execute_pid_list *list)
+static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 {
 	t_ms_execute_pid_list_node	*node;
 	t_ms_execute_pid_list_node	*next;
@@ -122,11 +122,11 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 		if (node->next == NULL)
 			info.is_last = true;
 		if (pipe_and_fork(&info))
-			return (true);
+			return (wait_all_and_free_pid_list(&info.pid_list));
 		if (info.pid_list.tail->pid == CHILD_PID)
 			ms_execute_command(&node->command, info.is_first, info.is_last);
 		node = node->next;
 	}
 	wrap_close(info.previous_pipe_read);
-	return (wait_all(&info.pid_list));
+	return (wait_all_and_free_pid_list(&info.pid_list));
 }
