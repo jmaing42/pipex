@@ -17,9 +17,7 @@
 #include "ft_exit.h"
 #include "ms_execute.h"
 
-int	ms_execute(t_ms_program *program)
+t_err	ms_execute(t_ms_program *program)
 {
-	if (ms_execute_program(program))
-		ft_exit(EXIT_FAILURE);
-	return (ms_execute_globals()->exit_status);
+	return (ms_execute_program(program));
 }

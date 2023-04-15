@@ -10,13 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
+#include "ft_io.h"
 #include "ms_repl.h"
 
-int	main(void)
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#include <unistd.h>
+
+#include <readline/readline.h>
+
+#include "ms.h"
+
+void	ms_repl_line(void)
 {
-	ms_repl_install_signal_handlers();
-	ms_repl_main();
-	return (EXIT_SUCCESS);
+	t_ms_program			*program;
+	t_ms_repl_string_list	*tmp_files;
+	char *const				line = readline("minishell> ");
+
+	ms_repl_die_if(ms_parse(line, &program));
+	if (!program)
+	{
+		ft_puts(STDERR_FILENO, "syntax error\n");
+		return ;
+	}
+	ms_repl_die_if(ms_repl_replace_heredoc(program, &tmp_files));
+	ms_repl_die_if(ms_execute(program));
 }

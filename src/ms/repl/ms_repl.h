@@ -10,13 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef MS_REPL_H
+# define MS_REPL_H
 
-#include "ms_repl.h"
+# include "ms.h"
 
-int	main(void)
+# include "ft_types.h"
+
+typedef struct s_ms_repl_string_list_node
 {
-	ms_repl_install_signal_handlers();
-	ms_repl_main();
-	return (EXIT_SUCCESS);
-}
+	struct s_ms_repl_string_list_node	*next;
+	char								*str;
+}	t_ms_repl_string_list_node;
+
+typedef struct s_ms_repl_string_list
+{
+	t_ms_repl_string_list_node	*head;
+	t_ms_repl_string_list_node	*tail;
+}	t_ms_repl_string_list;
+
+void	ms_repl_main(void);
+
+void	ms_repl_die(void);
+void	ms_repl_die_if(t_err error);
+void	ms_repl_install_signal_handlers(void);
+void	ms_repl_line(void);
+t_err	ms_repl_replace_heredoc(
+			t_ms_program *mut,
+			t_ms_repl_string_list **out_tmp_files);
+void	ms_repl_clear_tmp_files(t_ms_repl_string_list *list);
+void	ms_repl_string_list_free(t_ms_repl_string_list *list);
+
+#endif
