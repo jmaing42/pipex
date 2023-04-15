@@ -102,7 +102,6 @@ static t_err	wait_all(t_ms_execute_pid_list *list)
 		next = node->next;
 		if (wrap_waitpid(node->pid, &stat, 0) == FAIL)
 			return (true);
-		printf("pid: %d, decoded_stat: %d\n", node->pid, WEXITSTATUS(stat));
 		free(node);
 		node = next;
 	}

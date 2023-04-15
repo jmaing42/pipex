@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wrap.h"
+#include "ms_execute.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 
-void	wrap_exit(int status)
+#include "wrap.h"
+
+void	ms_execute_exit(int status, char *message)
 {
-	exit(status);
+	if (status)
+		perror(message);
+	wrap_exit(status);
 }

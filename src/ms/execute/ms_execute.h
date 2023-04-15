@@ -125,4 +125,5 @@ void					ms_execute_child(
 							t_ms_execute_child_type type,
 							bool is_first,
 							bool is_last);
+void					ms_execute_exit(int status, char *message);
 #endif

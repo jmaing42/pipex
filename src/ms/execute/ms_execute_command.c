@@ -10,22 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_os_fork.h"
-#include "ft_os_pipe.h"
 #include "ms_execute.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <sys/_types/_pid_t.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 #include "ft_types.h"
 #include "ms.h"
 #include "wrap.h"
-
-#include <stdio.h> //test only
-#include <unistd.h>
+#include "ft_memory.h"
+#include "ft_os_fork.h"
+#include "ft_os_pipe.h"
 
 static void	wait_all(t_ms_execute_cmd_pipe_info *info)
 {
@@ -33,9 +32,10 @@ static void	wait_all(t_ms_execute_cmd_pipe_info *info)
 
 	if (info->redirection_in_pid)
 	{
-		wrap_waitpid(info->redirection_in_pid, &status, 0);
-		if (WEXITSTATUS(status))
+		if (wrap_waitpid(info->redirection_in_pid, &status, 0) < 0
+			|| WEXITSTATUS(status))
 			wrap_exit(EXIT_FAILURE);
+		info->redirection_in_pid = 0;
 	}
 	if (info->command_pid)
 	{
@@ -44,8 +44,8 @@ static void	wait_all(t_ms_execute_cmd_pipe_info *info)
 	}
 	if (info->redirection_out_pid)
 	{
-		wrap_waitpid(info->redirection_out_pid, &status, 0);
-		if (WEXITSTATUS(status))
+		if (wrap_waitpid(info->redirection_out_pid, &status, 0) < 0
+			|| WEXITSTATUS(status))
 			wrap_exit(EXIT_FAILURE);
 	}
 }
@@ -61,6 +61,7 @@ static void	in_out_execute(t_ms_command *command, bool is_first, bool is_last)
 	if (info.redirection_in_pid == CHILD_PID)
 		ms_execute_child(
 			command, ms_execute_child_type_redirection_in, is_first, is_last);
+	wait_all(&info);
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.command_pid == CHILD_PID)
@@ -87,6 +88,7 @@ static void	in_execute(t_ms_command *command, bool is_first, bool is_last)
 	if (info.redirection_in_pid == CHILD_PID)
 		ms_execute_child(
 			command, ms_execute_child_type_redirection_in, is_first, is_last);
+	wait_all(&info);
 	info.is_last = true;
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);

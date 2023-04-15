@@ -12,6 +12,7 @@
 
 #include "ms_execute.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/_types/_pid_t.h>
 #include <sys/_types/_ssize_t.h>
@@ -63,18 +64,18 @@ void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list, bool is_first)
 	if (!is_first)
 	{
 		if (read_file(STDIN_FILENO))
-			wrap_exit(EXIT_FAILURE);
+			ms_execute_exit(EXIT_FAILURE, "minishell red_in");
 	}
 	node = rd_list->head;
 	while (node)
 	{
 		if (ms_execute_redirections_word_to_str(node->target, &path))
-			wrap_exit(EXIT_FAILURE);
+			ms_execute_exit(EXIT_FAILURE, "minishell red_in");
 		fd = wrap_open(path, O_RDONLY);
 		if (fd < 0 || read_file(fd))
-			wrap_exit(EXIT_FAILURE);
+			ms_execute_exit(EXIT_FAILURE, "minishell red_in");
 		wrap_free(path);
 		node = node->next;
 	}
-	wrap_exit(EXIT_SUCCESS);
+	ms_execute_exit(EXIT_FAILURE, "minishell red_in");
 }

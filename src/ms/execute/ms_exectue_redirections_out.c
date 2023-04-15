@@ -106,16 +106,17 @@ void	ms_execute_redirections_out(
 	char					buf[READ_BUF_SIZE + 1];
 	ssize_t					read_size;
 
-	init_fd_list(&fd_list, rd_list->head, is_last);
+	if (init_fd_list(&fd_list, rd_list->head, is_last))
+		ms_execute_exit(EXIT_FAILURE, "minishell red_out");
 	read_size = wrap_read(STDIN_FILENO, buf, READ_BUF_SIZE);
 	while (read_size)
 	{
 		if (read_size < 0)
-			wrap_exit(EXIT_FAILURE);
+			ms_execute_exit(EXIT_FAILURE, "minishell red_out");
 		buf[READ_BUF_SIZE] = '\0';
 		if (write_to_all_files(fd_list.head, buf, read_size))
-			wrap_exit(EXIT_FAILURE);
+			ms_execute_exit(EXIT_FAILURE, "minishell red_out");
 		read_size = wrap_read(STDIN_FILENO, buf, READ_BUF_SIZE);
 	}
-	wrap_exit(EXIT_SUCCESS);
+	ms_execute_exit(EXIT_SUCCESS, "minishell red_out");
 }
