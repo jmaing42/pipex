@@ -48,17 +48,6 @@ static t_err	add_pid_node(t_ms_execute_pid_list *pid_list)
 
 	if (ft_os_fork(&pid))
 		return (true);
-	// if (pid == CHILD_PID)
-	// 	wrap_exit(EXIT_SUCCESS); //test only
-	// else
-	// {
-	// 	int stat = 0;
-	// 	int result = wrap_waitpid(pid, &stat, 0);
-	// 	if (result == -1)
-    //     	perror("waitpid");
-	// 	printf("result: %d, decoded_stat: %d\n", result, WEXITSTATUS(stat));
-	// 	wrap_exit(EXIT_SUCCESS);
-	// }
 	new_node = ft_memory_allocate(1, sizeof(t_ms_execute_pid_list_node));
 	if (new_node == NULL)
 		return (true);
