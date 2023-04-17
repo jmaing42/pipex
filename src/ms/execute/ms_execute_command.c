@@ -56,6 +56,8 @@ static void	in_out_execute(t_ms_command *command, bool is_first, bool is_last)
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
 	info.is_first = true;
+	if (ms_execute_check_infiles(command))
+		wrap_exit(EXIT_FAILURE);
 	if (ms_execute_pipe_and_fork(&info, &info.redirection_in_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_in_pid == CHILD_PID)
@@ -82,6 +84,8 @@ static void	in_execute(t_ms_command *command, bool is_first, bool is_last)
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
 	info.is_first = true;
+	if (ms_execute_check_infiles(command))
+		wrap_exit(EXIT_FAILURE);
 	if (ms_execute_pipe_and_fork(&info, &info.redirection_in_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_in_pid == CHILD_PID)

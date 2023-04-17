@@ -86,8 +86,6 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 	if (info->previous_pipe_read < 0)
 		return (true);
 	wrap_close(info->pipe_read);
-	if (info->is_first)
-		info->is_first = false;
 	return (false);
 }
 
@@ -130,6 +128,8 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 			return (wait_all_and_free_pid_list(&info.pid_list));
 		if (info.pid_list.tail->pid == CHILD_PID)
 			ms_execute_command(&node->command, info.is_first, info.is_last);
+		if (info.is_first)
+			info.is_first = false;
 		node = node->next;
 	}
 	wrap_close(info.previous_pipe_read);
