@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_io.h"
 #include "ft_os_fork.h"
 #include "ms_execute.h"
 
@@ -96,6 +97,8 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 	t_ms_execute_pid_list_node	*next;
 	int							stat;
 
+	if (list->tail->pid == CHILD_PID)
+		wrap_exit(EXIT_FAILURE);
 	signal(SIGCHLD, SIG_DFL); //test only
 	stat = -1;
 	node = list->head;
