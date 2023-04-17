@@ -69,7 +69,7 @@ void	ms_execute_redirecions_in(t_ms_redirection_list *rd_list, bool is_first)
 	node = rd_list->head;
 	while (node)
 	{
-		if (ms_execute_redirections_word_to_str(node->target, &path))
+		if (ms_execute_word_to_str(node->target, &path))
 			ms_execute_exit(EXIT_FAILURE, "minishell red_in");
 		fd = wrap_open(path, O_RDONLY);
 		if (fd < 0 || read_file(fd))

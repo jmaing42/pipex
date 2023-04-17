@@ -31,7 +31,7 @@ t_err	ms_execute_check_infiles(t_ms_command *command)
 		node = command->value.compound->redirections.in.head;
 	while (node)
 	{
-		if (ms_execute_redirections_word_to_str(node->target, &path))
+		if (ms_execute_word_to_str(node->target, &path))
 			return (true);
 		if (wrap_access(path, R_OK) == FAIL)
 			return (true);

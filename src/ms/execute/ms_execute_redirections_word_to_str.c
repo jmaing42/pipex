@@ -14,7 +14,7 @@
 #include "ms_execute.h"
 #include "wrap.h"
 
-t_err	ms_execute_redirections_word_to_str(
+t_err	ms_execute_word_to_str(
 	t_ms_word *word,
 	char **out_path
 )

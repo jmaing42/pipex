@@ -12,9 +12,11 @@
 
 #include "ms_repl.h"
 
+#include "ms_execute.h"
+
 t_err	ms_repl_replace_heredoc(
-			t_ms_program *mut,
-			t_ms_repl_string_list **out_tmp_files
+	t_ms_program *mut,
+	t_ms_repl_string_list **out_tmp_files
 )
 {
 	(void)mut;

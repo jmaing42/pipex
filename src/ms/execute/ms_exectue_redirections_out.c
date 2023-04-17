@@ -83,7 +83,7 @@ static t_err	init_fd_list(
 	}
 	while (node)
 	{
-		if (ms_execute_redirections_word_to_str(node->target, &path))
+		if (ms_execute_word_to_str(node->target, &path))
 			return (true);
 		if (node->is_special)
 			fd = wrap_open(path, O_WRONLY | O_APPEND | O_CREAT, 0644);

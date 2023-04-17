@@ -108,7 +108,7 @@ void					ms_execute_command_compound(
 							t_ms_command_compound *command);
 t_err					ms_execute_redirect_in_out(
 							t_ms_execute_cmd_pipe_info *info);
-t_err					ms_execute_redirections_word_to_str(
+t_err					ms_execute_word_to_str(
 							t_ms_word *word,
 							char **out_path);
 void					ms_execute_redirecions_in(
