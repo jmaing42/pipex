@@ -91,7 +91,6 @@ static void	in_execute(t_ms_command *command, bool is_first, bool is_last)
 	if (info.redirection_in_pid == CHILD_PID)
 		ms_execute_child(
 			command, ms_execute_child_type_redirection_in, is_first, is_last);
-	wait_all(&info);
 	info.is_last = true;
 	if (ms_execute_pipe_and_fork(&info, &info.command_pid))
 		wrap_exit(EXIT_FAILURE);
@@ -147,4 +146,5 @@ void	ms_execute_command(t_ms_command *command, bool is_first, bool is_last)
 	else
 		ms_execute_child(
 			command, ms_execute_child_type_command, is_first, is_last);
+	wrap_exit(EXIT_SUCCESS);
 }

@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <sys/signal.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 #include "ft_types.h"
 #include "ft_os_pipe.h"
@@ -31,6 +32,7 @@ static t_err	redirect_in_out(t_ms_execute_pipe_info *info)
 	{
 		if (wrap_dup2(info->previous_pipe_read, STDIN_FILENO) < 0)
 			return (true);
+		printf("pid: %d, previous_pipe_read\n", getpid());
 		wrap_close(info->previous_pipe_read);
 	}
 	if (!info->is_last)
@@ -75,6 +77,7 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 		return (true);
 	if (info->pid_list.tail->pid == CHILD_PID)
 	{
+		printf("pid: %d\n", getpid());
 		if (redirect_in_out(info))
 			wrap_exit(EXIT_FAILURE);
 		return (false);
