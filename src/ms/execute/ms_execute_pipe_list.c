@@ -77,7 +77,6 @@ static t_err	pipe_and_fork(t_ms_execute_pipe_info *info)
 		return (true);
 	if (info->pid_list.tail->pid == CHILD_PID)
 	{
-		printf("pid: %d\n", getpid());
 		if (redirect_in_out(info))
 			wrap_exit(EXIT_FAILURE);
 		return (false);
@@ -96,23 +95,24 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 {
 	t_ms_execute_pid_list_node	*node;
 	t_ms_execute_pid_list_node	*next;
+	t_err						result;
 	int							stat;
 
 	if (list->tail->pid == CHILD_PID)
 		wrap_exit(EXIT_FAILURE);
-	signal(SIGCHLD, SIG_DFL); //test only
 	stat = -1;
+	result = false;
 	node = list->head;
 	while (node)
 	{
 		next = node->next;
 		if (wrap_waitpid(node->pid, &stat, 0) == FAIL)
-			return (true);
+			result = true;
 		free(node);
 		node = next;
 	}
 	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
-	return (false);
+	return (result);
 }
 
 t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
