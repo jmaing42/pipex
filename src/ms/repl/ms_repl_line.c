@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ms_execute.h"
 #include "ms_repl.h"
 
 #include <stdio.h>
@@ -21,6 +22,7 @@
 
 #include "ms.h"
 #include "ft_io.h"
+#include "wrap.h"
 
 void	ms_repl_line(void)
 {
@@ -28,6 +30,8 @@ void	ms_repl_line(void)
 	t_ms_repl_string_list	*tmp_files;
 	char *const				line = readline("minishell> ");
 
+	if (line == NULL)
+		ms_execute_exit(EXIT_FAILURE, "minishell line malloc");
 	add_history(line);
 	ms_repl_die_if(ms_parse(line, &program));
 	if (!program)
@@ -37,4 +41,5 @@ void	ms_repl_line(void)
 	}
 	ms_repl_die_if(ms_repl_replace_heredoc(program, &tmp_files));
 	ms_repl_die_if(ms_execute(program));
+	wrap_free(line);
 }
