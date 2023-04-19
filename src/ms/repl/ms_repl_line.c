@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 
 #include "ms.h"
 #include "ft_io.h"
@@ -27,6 +28,7 @@ void	ms_repl_line(void)
 	t_ms_repl_string_list	*tmp_files;
 	char *const				line = readline("minishell> ");
 
+	add_history(line);
 	ms_repl_die_if(ms_parse(line, &program));
 	if (!program)
 	{
