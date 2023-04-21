@@ -10,17 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-#include "ms_expand.h"
 #include "ms_repl.h"
 
-extern char	**environ;
+#include <stdio.h>
+#include <sys/signal.h>
+#include <stdlib.h>
+#include <sys/termios.h>
+#include <unistd.h>
 
-int	main(void)
+#include "ms_execute.h"
+#include "readline/readline.h"
+#include "wrap.h"
+
+void	sig_int_handler(int sig)
 {
-	ms_expand_env_init(environ);
-	ms_repl_set_termianl();
-	ms_repl_main();
-	return (EXIT_SUCCESS);
+	if (sig != SIGINT)
+		return ;
+	wrap_write(STDOUT_FILENO, "\n", 1);
+	if (rl_on_new_line() == FAIL)
+		wrap_exit(EXIT_FAILURE);
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
+
+void	ms_repl_set_signals(void)
+{
+	signal(SIGINT, sig_int_handler);
+	signal(SIGCHLD, SIG_DFL); //test only
 }

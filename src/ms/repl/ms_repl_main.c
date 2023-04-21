@@ -17,5 +17,8 @@
 void	ms_repl_main(void)
 {
 	while (true)
+	{
+		ms_repl_set_signals();
 		ms_repl_line();
+	}
 }

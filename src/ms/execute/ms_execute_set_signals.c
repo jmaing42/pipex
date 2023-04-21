@@ -10,17 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ms_execute.h"
+
 #include <stdlib.h>
+#include <signal.h>
+#include <sys/_types/_pid_t.h>
 
-#include "ms_expand.h"
-#include "ms_repl.h"
+#include "wrap.h"
 
-extern char	**environ;
-
-int	main(void)
+static void	child_signal(void)
 {
-	ms_expand_env_init(environ);
-	ms_repl_set_termianl();
-	ms_repl_main();
-	return (EXIT_SUCCESS);
+	signal(SIGINT, SIG_DFL);
+}
+
+static void	parent_signal(void)
+{
+	signal(SIGINT, SIG_IGN);
+}
+
+void	ms_execute_set_signals(pid_t pid)
+{
+	if (pid == CHILD_PID)
+		child_signal();
+	else
+		parent_signal();
 }

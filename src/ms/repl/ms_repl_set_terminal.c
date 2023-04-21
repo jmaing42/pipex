@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_repl_set_terminal.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Created: 2023/04/21 18:34:12 by seonlim           #+#    #+#             */
+/*   Updated: 2023/04/21 18:35:43 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_repl.h"
-#include <sys/signal.h>
 
-void	ms_repl_install_signal_handlers(void)
+#include <termios.h>
+#include <stdlib.h>
+
+#include "wrap.h"
+
+void	ms_repl_set_termianl(void)
 {
-	signal(SIGCHLD, SIG_DFL); //test only
+	struct termios	new_term;
+
+	if (tcgetattr(STDIN_FILENO, &new_term))
+		wrap_exit(EXIT_FAILURE);
+	new_term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, 0, &new_term);
 }

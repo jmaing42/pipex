@@ -52,6 +52,7 @@ static t_err	add_pid_node(t_ms_execute_pid_list *pid_list)
 
 	if (ft_os_fork(&pid))
 		return (true);
+	ms_execute_set_signals(pid);
 	new_node = ft_memory_allocate(1, sizeof(t_ms_execute_pid_list_node));
 	if (new_node == NULL)
 		return (true);

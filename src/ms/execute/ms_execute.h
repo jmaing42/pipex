@@ -127,4 +127,5 @@ void					ms_execute_child(
 							bool is_last);
 t_err					ms_execute_check_infiles(t_ms_command *command);
 void					ms_execute_exit(int status, char *message);
+void					ms_execute_set_signals(pid_t pid);
 #endif

@@ -26,7 +26,6 @@
 #include "ft_io.h"
 #include "wrap.h"
 
-
 static bool	is_empty_str(char *line)
 {
 	size_t	index;
