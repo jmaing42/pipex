@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/_types/_pid_t.h>
+#include <sys/unistd.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -103,6 +104,8 @@ void	ms_execute_command_simple(
 		wrap_exit(EXIT_FAILURE);
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
+	if (cmd_name == NULL)
+		wrap_exit(COMMAND_NOT_FOUND);
 	if (execve(cmd_name, args, envp))
 		wrap_exit(EXIT_FAILURE);
 }

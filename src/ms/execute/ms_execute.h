@@ -25,6 +25,7 @@
 # define FAIL -1
 # define READ_BUF_SIZE 10
 # define CHILD_PID 0
+# define COMMAND_NOT_FOUND 127
 
 typedef enum e_ms_execute_child_type
 {

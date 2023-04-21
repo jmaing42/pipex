@@ -126,6 +126,7 @@ void	ms_execute_command(t_ms_command *command, bool is_first, bool is_last)
 {
 	t_ms_redirections_info	info;
 
+	ms_execute_globals()->exit_status = 0;
 	ft_memory_set(&info, 0, sizeof(t_ms_redirections_info));
 	if ((command->type == ms_command_type_compound
 			&& command->value.compound->redirections.in.head != NULL)
@@ -146,5 +147,5 @@ void	ms_execute_command(t_ms_command *command, bool is_first, bool is_last)
 	else
 		ms_execute_child(
 			command, ms_execute_child_type_command, is_first, is_last);
-	wrap_exit(EXIT_SUCCESS);
+	wrap_exit(ms_execute_globals()->exit_status);
 }
