@@ -14,8 +14,8 @@
 # define MS_REPL_H
 
 # include "ms.h"
-
 # include "ft_types.h"
+
 
 typedef struct s_ms_repl_string_list_node
 {
@@ -31,14 +31,16 @@ typedef struct s_ms_repl_string_list
 
 void	ms_repl_main(void);
 void	ms_repl_die(void);
-void	ms_repl_die_if(t_err error);
-void	ms_repl_set_signals(void);
+void	ms_repl_set_signals(bool in_heredoc);
 void	ms_repl_line(void);
-t_err	ms_repl_replace_heredoc(
+t_err	ms_repl_heredoc_parse(
 			t_ms_program *mut,
-			t_ms_repl_string_list **out_tmp_files);
+			t_ms_repl_string_list *out_tmp_files);
 void	ms_repl_clear_tmp_files(t_ms_repl_string_list *list);
 void	ms_repl_string_list_free(t_ms_repl_string_list *list);
 void	ms_repl_set_termianl(void);
-
+t_err	ms_repl_heredoc_make_tmpfile(
+			t_ms_redirection_list_node *node,
+			char *file_name,
+			char *limiter);
 #endif

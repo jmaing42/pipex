@@ -22,7 +22,7 @@
 #include "readline/readline.h"
 #include "wrap.h"
 
-void	sig_int_handler(int sig)
+void	sigint_handler(int sig)
 {
 	if (sig != SIGINT)
 		return ;
@@ -33,8 +33,13 @@ void	sig_int_handler(int sig)
 	rl_redisplay();
 }
 
-void	ms_repl_set_signals(void)
+void	ms_repl_set_signals(bool in_heredoc)
 {
-	signal(SIGINT, sig_int_handler);
+	if (in_heredoc)
+	{
+		signal(SIGINT, SIG_IGN);
+		return ;
+	}
+	signal(SIGINT, sigint_handler);
 	signal(SIGCHLD, SIG_DFL); //test only
 }

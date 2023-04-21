@@ -30,13 +30,13 @@ t_err	ms_tmpname(char **out)
 	while (++i < 10000)
 	{
 		tmp = i;
-		buffer[3] = tmp % 10;
+		buffer[3] = (tmp % 10) + '0';
 		tmp /= 10;
-		buffer[2] = tmp % 10;
+		buffer[2] = (tmp % 10) + '0';
 		tmp /= 10;
-		buffer[1] = tmp % 10;
+		buffer[1] = (tmp % 10) + '0';
 		tmp /= 10;
-		buffer[0] = tmp % 10;
+		buffer[0] = (tmp % 10) + '0';
 		if (ft_cstring_concat(g_prefix, buffer, out))
 			return (true);
 		if (wrap_access(*out, F_OK))

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_types_char.h"
-#include "ms_execute.h"
 #include "ms_repl.h"
 
 #include <stdio.h>
@@ -25,6 +23,9 @@
 #include "ms.h"
 #include "ft_io.h"
 #include "wrap.h"
+#include "ft_memory.h"
+#include "ft_types_char.h"
+#include "ms_execute.h"
 
 static bool	is_empty_str(char *line)
 {
@@ -40,10 +41,44 @@ static bool	is_empty_str(char *line)
 	return (true);
 }
 
+static void	free_and_unlink_string_list(t_ms_repl_string_list *list)
+{
+	t_ms_repl_string_list_node	*node;
+	t_ms_repl_string_list_node	*next_node;
+
+	node = list->head;
+	while (node)
+	{
+		next_node = node->next;
+		wrap_unlink(node->str);
+		free(node->str);
+		free(node);
+		node = next_node;
+	}
+}
+
+static t_err	execute_program(t_ms_program *program)
+{
+	t_ms_repl_string_list	tmp_files;
+
+	ft_memory_set(&tmp_files, 0, sizeof(tmp_files));
+	if (ms_repl_heredoc_parse(program, &tmp_files))
+	{
+		free_and_unlink_string_list(&tmp_files);
+		return (true);
+	}
+	if (ms_execute(program))
+	{
+		free_and_unlink_string_list(&tmp_files);
+		return (true);
+	}
+	free_and_unlink_string_list(&tmp_files);
+	return (false);
+}
+
 void	ms_repl_line(void)
 {
 	t_ms_program			*program;
-	t_ms_repl_string_list	*tmp_files;
 	char *const				line = readline("minishell> ");
 
 	if (line == NULL)
@@ -54,13 +89,14 @@ void	ms_repl_line(void)
 		return ;
 	}
 	add_history(line);
-	ms_repl_die_if(ms_parse(line, &program));
+	if (ms_parse(line, &program))
+		ms_repl_die();
 	if (!program)
 	{
 		ft_puts(STDERR_FILENO, "syntax error\n");
 		return ;
 	}
-	ms_repl_die_if(ms_repl_replace_heredoc(program, &tmp_files));
-	ms_repl_die_if(ms_execute(program));
+	if (execute_program(program))
+		ms_repl_die();
 	wrap_free(line);
 }
