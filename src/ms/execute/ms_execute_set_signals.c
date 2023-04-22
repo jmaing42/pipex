@@ -16,31 +16,34 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/_types/_pid_t.h>
+#include <sys/signal.h>
 
 #include "wrap.h"
 
-void	parent_sigint_handler(int signo)
+static void	parent_sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
 	if (ft_puts(STDOUT_FILENO, "\n"))
-		ms_execute_exit(EXIT_FAILURE, "minishell handler");
+		ms_execute_exit(EXIT_FAILURE, "minishell sigint");
 }
 
-static void	child_signal(void)
+static void	parent_sigquit_handler(int signo)
 {
-	signal(SIGINT, SIG_DFL);
-}
-
-static void	parent_signal(void)
-{
-	signal(SIGINT, parent_sigint_handler);
+	if (signo != SIGQUIT)
+		return ;
+	if (ft_puts(STDOUT_FILENO, "Quit: 3\n"))
+		ms_execute_exit(EXIT_FAILURE, "minishell sigquit");
 }
 
 void	ms_execute_set_signals(pid_t pid)
 {
 	if (pid == CHILD_PID)
-		child_signal();
-	else
-		parent_signal();
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		return ;
+	}
+	signal(SIGINT, parent_sigint_handler);
+	signal(SIGQUIT, parent_sigquit_handler);
 }

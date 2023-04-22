@@ -37,5 +37,6 @@ static void	sigint_handler(int signo)
 void	ms_repl_set_signals(void)
 {
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGCHLD, SIG_DFL); //test only
 }

@@ -16,6 +16,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/signal.h>
 
 #include "readline/readline.h"
 #include "wrap.h"
@@ -41,7 +42,9 @@ void	ms_repl_heredoc_signals(pid_t pid)
 	if (pid == CHILD_PID)
 	{
 		signal(SIGINT, child_sigint_handler);
+		signal(SIGQUIT, SIG_IGN);
 		return ;
 	}
 	signal(SIGINT, parent_sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

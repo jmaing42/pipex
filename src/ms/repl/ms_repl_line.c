@@ -80,20 +80,13 @@ static t_err	execute_program(t_ms_program *program)
 	return (false);
 }
 
-static void	eof_handler(void)
-{
-	rl_replace_line("exit", 1);
-	// rl_redisplay();
-	wrap_exit(EXIT_SUCCESS);
-}
-
 void	ms_repl_line(void)
 {
 	t_ms_program	*program;
 	char *const		line = readline("minishell> ");
 
 	if (line == GET_EOF)
-		eof_handler();
+		wrap_exit(EXIT_SUCCESS);
 	if (is_empty_str(line))
 	{
 		free(line);
