@@ -62,10 +62,13 @@ static t_err	execute_program(t_ms_program *program)
 {
 	t_ms_repl_string_list	tmp_files;
 
+	ms_execute_globals()->exit_status = 0;
 	ft_memory_set(&tmp_files, 0, sizeof(tmp_files));
 	if (ms_repl_heredoc_parse(program, &tmp_files))
 	{
 		free_and_unlink_string_list(&tmp_files);
+		if (ms_execute_globals()->exit_status == EXIT_BY_SIGNAL)
+			return (false);
 		return (true);
 	}
 	if (ms_execute(program))
@@ -79,17 +82,16 @@ static t_err	execute_program(t_ms_program *program)
 
 static void	eof_handler(void)
 {
-	if (ft_puts(STDOUT_FILENO, "exit"))
-		ms_repl_die();
+	rl_replace_line("exit", 1);
+	// rl_redisplay();
 	wrap_exit(EXIT_SUCCESS);
 }
 
 void	ms_repl_line(void)
 {
 	t_ms_program	*program;
-	char			*line;
+	char *const		line = readline("minishell> ");
 
-	line = readline("minishell> ");
 	if (line == GET_EOF)
 		eof_handler();
 	if (is_empty_str(line))

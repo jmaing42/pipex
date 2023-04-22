@@ -10,32 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_io.h"
 #include "ms_repl.h"
 
+#include <signal.h>
 #include <stdio.h>
-#include <sys/signal.h>
 #include <stdlib.h>
-#include <sys/termios.h>
-#include <unistd.h>
 
-#include "ft_io.h"
-#include "ms_execute.h"
 #include "readline/readline.h"
 #include "wrap.h"
+#include "ms_execute.h"
 
-static void	sigint_handler(int signo)
+static void	child_sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
-	wrap_write(STDOUT_FILENO, "\n", 1);
-	if (rl_on_new_line() == FAIL)
-		wrap_exit(EXIT_FAILURE);
-	rl_replace_line("", 0);
-	rl_redisplay();
+	wrap_exit(EXIT_BY_SIGNAL);
 }
 
-void	ms_repl_set_signals(void)
+static void	parent_sigint_handler(int signo)
 {
-	signal(SIGINT, sigint_handler);
-	signal(SIGCHLD, SIG_DFL); //test only
+	if (signo != SIGINT)
+		return ;
+	if (ft_puts(STDOUT_FILENO, "\n"))
+		ms_execute_exit(EXIT_FAILURE, "minishell handler");
+}
+
+void	ms_repl_heredoc_signals(pid_t pid)
+{
+	if (pid == CHILD_PID)
+	{
+		signal(SIGINT, child_sigint_handler);
+		return ;
+	}
+	signal(SIGINT, parent_sigint_handler);
 }
