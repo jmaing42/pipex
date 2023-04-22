@@ -10,30 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#include "ms_builtin.h"
 
+#include <stdio.h>
+#include <sys/_types/_size_t.h>
 #include <stdlib.h>
 
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
+#include "ft_cstring.h"
+#include "ms_expand.h"
+#include "wrap.h"
 
-	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
-	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
-	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
+static void	die(void)
+{
+	perror("minishell export");
+	wrap_exit(EXIT_FAILURE);
+}
+
+void	ms_builtin_export(char *env)
+{
+	size_t	spacer;
+	char	*key;
+	char	*value;
+
+	spacer = ft_cstring_find_index(env, '=');
+	if (ft_cstring_duplicate_length(env, spacer, &key))
+		die();
+	if (ft_cstring_duplicate_length(env + spacer + 1, -1, &value))
+		die();
+	if (ms_expand_env_put(key, value))
+		die();
 }

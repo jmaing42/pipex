@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_io.h"
 #include "ms_execute.h"
 
 #include <stdlib.h>
@@ -18,6 +17,7 @@
 #include <sys/_types/_pid_t.h>
 #include <sys/signal.h>
 
+#include "ft_io.h"
 #include "wrap.h"
 
 static void	parent_sigint_handler(int signo)

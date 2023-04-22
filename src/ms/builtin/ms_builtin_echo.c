@@ -10,30 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#include "ft_types.h"
+#include "ms_builtin.h"
 
+#include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/_types/_size_t.h>
+#include <unistd.h>
 
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
+#include "ft_cstring.h"
+#include "ft_io.h"
+#include "wrap.h"
+
+static	void	print(char *message)
 {
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
-
-	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
+	if (ft_puts(STDOUT_FILENO, message))
 	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
+		perror("minishell echo");
+		wrap_exit(EXIT_FAILURE);
 	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
+}
+
+void	ms_builtin_echo(char **args)
+{
+	size_t	index;
+	bool	no_enter;
+
+	no_enter = false;
+	index = 0;
+	while (args[index])
+	{
+		if (!index && ft_cstring_equals(args[index], "-n"))
+			no_enter = true;
+		else
+			print(args[index]);
+		++index;
+	}
+	if (!no_enter)
+		print("\n");
 }
