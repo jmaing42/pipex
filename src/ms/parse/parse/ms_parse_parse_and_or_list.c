@@ -71,7 +71,7 @@ t_err	ms_parse_parse_and_or_list(
 	if (parse_and_or_list_node(mut_head, false, &node))
 		return (true);
 	*out = (t_ms_and_or_list){node, node};
-	while (is_and(mut_head) || is_or(mut_head))
+	while (node && (is_and(mut_head) || is_or(mut_head)))
 	{
 		is_next_and = is_and(mut_head);
 		*mut_head = (*mut_head)->next->next;
