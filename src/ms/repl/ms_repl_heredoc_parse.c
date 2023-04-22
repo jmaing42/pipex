@@ -54,7 +54,7 @@ static t_err	replace_redirection_list(
 	{
 		if (node->is_special)
 		{
-			if (ms_tmpname(&file_name))
+			if (ms_tmpname_find(&file_name))
 				return (true);
 			if (add_node(tmp_list, file_name))
 				return (true);

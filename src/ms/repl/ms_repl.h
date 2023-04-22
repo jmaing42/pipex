@@ -38,7 +38,7 @@ t_err	ms_repl_heredoc_parse(
 			t_ms_repl_string_list *out_tmp_files);
 void	ms_repl_clear_tmp_files(t_ms_repl_string_list *list);
 void	ms_repl_string_list_free(t_ms_repl_string_list *list);
-void	ms_repl_set_termianl(void);
+t_err	ms_repl_set_termianl(void);
 t_err	ms_repl_heredoc_make_tmpfile(
 			t_ms_redirection_list_node *node,
 			char *file_name,

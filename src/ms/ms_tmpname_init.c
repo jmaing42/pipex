@@ -12,18 +12,18 @@
 
 #include "ms.h"
 
-#include <stdbool.h>
-
 #include "ft_cstring.h"
+#include "ft_types.h"
 #include "wrap.h"
 
 static const char *const	g_prefix = "/tmp/minishell_tmp";
 
-t_err	ms_tmpname(char **out)
+t_err	ms_tmpname_init(void)
 {
 	unsigned int	i;
 	unsigned int	tmp;
 	char			buffer[5];
+	char			*path;
 
 	buffer[4] = '\0';
 	i = -1;
@@ -37,11 +37,12 @@ t_err	ms_tmpname(char **out)
 		buffer[1] = (tmp % 10) + '0';
 		tmp /= 10;
 		buffer[0] = (tmp % 10) + '0';
-		if (ft_cstring_concat(g_prefix, buffer, out))
+		if (ft_cstring_concat(g_prefix, buffer, &path))
 			return (true);
-		if (wrap_access(*out, F_OK))
+		if (wrap_access(path, F_OK) != FILE_EXIST)
 			return (false);
-		wrap_free(*out);
+		wrap_unlink(path);
+		wrap_free(path);
 	}
-	return (true);
+	return (false);
 }

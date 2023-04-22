@@ -12,6 +12,7 @@
 
 #ifndef MS_H
 # define MS_H
+# define FILE_EXIST 0
 
 # include <stdbool.h>
 # include <stddef.h>
@@ -163,11 +164,10 @@ typedef struct s_ms_program
 	t_ms_and_or_list	and_or_list;
 }	t_ms_program;
 
-t_err	ms_tmpname(char **out);
-
+t_err	ms_tmpname_find(char **out);
+t_err	ms_tmpname_init(void);
 t_err	ms_parse(const char *source, t_ms_program **out);
 void	ms_free(t_ms_program *program);
-
 t_err	ms_execute(t_ms_program *program);
 
 #endif
