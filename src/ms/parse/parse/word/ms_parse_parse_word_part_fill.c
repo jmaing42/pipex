@@ -20,8 +20,11 @@ static size_t	length_of_expansion(const char *data)
 {
 	size_t	length;
 
-	if (*data != '$' || (!ft_types_char_alpha(data[1]) && data[1] != '_'))
+	if (*data != '$' || (!ft_types_char_alpha(data[1])
+			&& data[1] != '_' && data[1] != '?'))
 		return (0);
+	if (data[1] == '?')
+		return (2);
 	length = 2;
 	while (ft_types_char_alnum(data[length]) || data[length] == '_')
 		length++;
@@ -63,7 +66,8 @@ static size_t	length_of_no_expansion(const char *data)
 
 	length = ft_cstring_find_index(data, '$');
 	while (data[length] == '$'
-		&& !(ft_types_char_alpha(data[length + 1]) || data[length + 1] == '_'))
+		&& !(ft_types_char_alpha(data[length + 1])
+			|| data[length + 1] == '_' || data[length + 1] == '?'))
 		length = length + 1 + ft_cstring_find_index(data + length + 1, '$');
 	return (length);
 }
