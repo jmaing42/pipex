@@ -53,7 +53,10 @@ void	ms_builtin_unset(char *key)
 	while (node)
 	{
 		if (ft_cstring_equals(key, node->key))
+		{
 			delete_next_node(front);
+			return ;
+		}
 		front = node;
 		node = node->next;
 	}

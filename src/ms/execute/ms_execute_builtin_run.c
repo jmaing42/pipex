@@ -10,30 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_builtin.h"
+#include "ms_execute.h"
 
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 
-#include "ft_io.h"
-#include "wrap.h"
+#include "ms_builtin.h"
+#include "ft_cstring.h"
+#include "ft_cstring_split.h"
 
-void	ms_builtin_pwd(void)
+void	ms_execute_builtin_run(t_ms_command *command)
 {
-	char	*path;
+	char	**args;
 
-	path = getcwd(NULL, 0);
-	if (path == NULL)
-	{
-		perror("minishell pwd");
-		wrap_exit(EXIT_FAILURE);
-	}
-	if (ft_puts(STDOUT_FILENO, path))
-	{
-		perror("minishell pwd");
-		wrap_exit(EXIT_FAILURE);
-	}
-	wrap_free(path);
-	ft_puts(STDOUT_FILENO, "\n");
+	if (ms_expand(&command->value.simple->word_list, &args))
+		ms_execute_exit(EXIT_FAILURE, "minishell");
+	if (ft_cstring_equals(args[0], "cd"))
+		ms_builtin_cd(args[1]);
+	if (ft_cstring_equals(args[0], "echo"))
+		ms_builtin_echo(args);
+	if (ft_cstring_equals(args[0], "env"))
+		ms_builtin_env();
+	if (ft_cstring_equals(args[0], "exit"))
+		ms_builtin_exit();
+	if (ft_cstring_equals(args[0], "export"))
+		ms_builtin_export(args[1]);
+	if (ft_cstring_equals(args[0], "pwd"))
+		ms_builtin_pwd();
+	if (ft_cstring_equals(args[0], "unset"))
+		ms_builtin_unset(args[1]);
+	ft_cstring_split_free(args);
 }

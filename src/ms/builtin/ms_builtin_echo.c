@@ -38,13 +38,17 @@ void	ms_builtin_echo(char **args)
 	bool	no_enter;
 
 	no_enter = false;
-	index = 0;
+	index = 1;
 	while (args[index])
 	{
-		if (!index && ft_cstring_equals(args[index], "-n"))
+		if (index == 1 && ft_cstring_equals(args[index], "-n"))
 			no_enter = true;
 		else
+		{
 			print(args[index]);
+			if (args[index + 1] != NULL)
+				print(" ");
+		}
 		++index;
 	}
 	if (!no_enter)

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
 #include "ms_execute.h"
 
 #include <stdlib.h>
 
 #include "ms.h"
 #include "wrap.h"
+#include "ft_cstring.h"
 
 static bool	is_builtin(char *cmd_name)
 {
