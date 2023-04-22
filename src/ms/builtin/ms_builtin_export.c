@@ -25,7 +25,7 @@ static void	die(void)
 	perror("minishell export");
 	wrap_exit(EXIT_FAILURE);
 }
-//TODO: front const search and delete
+
 static bool	is_registerd(char *key)
 {
 	t_ms_expand_env_list *const	list = ms_expand_env_list_get();

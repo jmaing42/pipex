@@ -61,9 +61,9 @@ static char	*env_to_str(const char *key, const char *value)
 
 t_err	ms_expand_env_get_environ(char ***out_envp)
 {
-	const t_ms_expand_env_list	*list = ms_expand_env_list_get();
-	t_ms_expand_env_list_node	*node;
-	size_t						index;
+	const t_ms_expand_env_list *const	list = ms_expand_env_list_get();
+	t_ms_expand_env_list_node			*node;
+	size_t								index;
 
 	*out_envp = ft_memory_allocate(get_list_len(list) + 1, sizeof(char *));
 	if (*out_envp == NULL)

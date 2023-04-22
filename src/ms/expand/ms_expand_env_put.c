@@ -15,7 +15,7 @@
 #include <stdlib.h>
 
 #include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
+
 t_err	ms_expand_env_put(char *key, char *value)
 {
 	t_ms_expand_env_list		*list;

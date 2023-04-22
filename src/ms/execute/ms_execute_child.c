@@ -20,7 +20,6 @@
 
 static void	child_execute_redirection_in(t_ms_command *command, bool is_first)
 {
-	//TODO: fd check
 	if (command->type == ms_command_type_simple)
 		ms_execute_redirecions_in(
 			&command->value.simple->redirections.in, is_first);

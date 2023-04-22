@@ -75,7 +75,7 @@ static t_err	find_cmd_path(char **path, char *cmd_name, char **out_name)
 
 static t_err	get_parsed_path(char ***out_parsed_path)
 {
-	const char	*path = ms_expand_env_get("PATH");
+	const char *const	path = ms_expand_env_get("PATH");
 
 	if (path == NULL)
 	{

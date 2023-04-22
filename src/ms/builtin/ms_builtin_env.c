@@ -18,7 +18,7 @@
 
 void	ms_builtin_env(void)
 {
-	const t_ms_expand_env_list	*list = ms_expand_env_list_get();
+	t_ms_expand_env_list *const	list = ms_expand_env_list_get();
 	t_ms_expand_env_list_node	*node;
 
 	node = list->head;
