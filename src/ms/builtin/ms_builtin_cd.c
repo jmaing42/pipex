@@ -10,30 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#include "ms_builtin.h"
 
+#include <stdio.h>
+#include <sys/unistd.h>
+#include <unistd.h>
 #include <stdlib.h>
 
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
+#include "ms_execute.h"
+#include "wrap.h"
 
-	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
-	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
-	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
+void	ms_builtin_cd(const char *const path)
+{
+	if (chdir(path) == FAIL)
+		perror("minishell cd");
 }

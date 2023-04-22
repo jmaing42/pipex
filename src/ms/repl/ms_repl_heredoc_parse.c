@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ms.h"
 #include "ms_repl.h"
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/_types/_pid_t.h>
+#include <sys/wait.h>
 
+#include "ms.h"
 #include "ms_execute.h"
 #include "wrap.h"
+#include "ft_memory.h"
 
 static t_err	add_node(t_ms_repl_string_list *list, char *str)
 {
@@ -54,7 +57,7 @@ static t_err	replace_redirection_list(
 	{
 		if (node->is_special)
 		{
-			if (ms_tmpname(&file_name))
+			if (ms_tmpname_find(&file_name))
 				return (true);
 			if (add_node(tmp_list, file_name))
 				return (true);
@@ -75,7 +78,6 @@ static t_err	replace_pipe_list(
 )
 {
 	t_ms_pipe_list_node	*node;
-
 
 	node = list->head;
 	while (node)
@@ -119,7 +121,6 @@ t_err	ms_repl_heredoc_parse(
 	t_ms_repl_string_list *out_tmp_files
 )
 {
-	ms_repl_set_signals(true);
 	if (replace_and_or_list(&mut->and_or_list, out_tmp_files))
 		return (true);
 	return (false);

@@ -25,6 +25,7 @@
 #include "wrap.h"
 #include "ft_memory.h"
 #include "ft_types_char.h"
+#include "ft_cstring.h"
 #include "ms_execute.h"
 
 static bool	is_empty_str(char *line)
@@ -61,10 +62,13 @@ static t_err	execute_program(t_ms_program *program)
 {
 	t_ms_repl_string_list	tmp_files;
 
+	ms_execute_globals()->exit_status = 0;
 	ft_memory_set(&tmp_files, 0, sizeof(tmp_files));
 	if (ms_repl_heredoc_parse(program, &tmp_files))
 	{
 		free_and_unlink_string_list(&tmp_files);
+		if (ms_execute_globals()->exit_status == EXIT_BY_SIGNAL)
+			return (false);
 		return (true);
 	}
 	if (ms_execute(program))
@@ -78,11 +82,11 @@ static t_err	execute_program(t_ms_program *program)
 
 void	ms_repl_line(void)
 {
-	t_ms_program			*program;
-	char *const				line = readline("minishell> ");
+	t_ms_program	*program;
+	char *const		line = readline("minishell> ");
 
-	if (line == NULL)
-		ms_execute_exit(EXIT_FAILURE, "minishell line malloc");
+	if (line == GET_EOF)
+		wrap_exit(EXIT_SUCCESS);
 	if (is_empty_str(line))
 	{
 		free(line);

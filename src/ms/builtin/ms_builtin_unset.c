@@ -10,30 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ms_builtin.h"
+
+#include "ft_cstring.h"
 #include "ms_expand.h"
+#include "wrap.h"
 
-#include <stdlib.h>
-
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
+static void	delete_next_node(t_ms_expand_env_list_node *front)
 {
 	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
+	t_ms_expand_env_list_node	*delete_node;
 
 	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
+	if (front == NULL)
 	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
+		delete_node = list->head;
+		wrap_free(delete_node->key);
+		wrap_free(delete_node->value);
+		wrap_free(delete_node);
+		list->head = NULL;
+		list->tail = NULL;
+		return ;
 	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
+	delete_node = front->next;
+	front->next = delete_node->next;
+	if (delete_node == list->tail)
+		list->tail = front;
+	wrap_free(delete_node->key);
+	wrap_free(delete_node->value);
+	wrap_free(delete_node);
+}
+
+void	ms_builtin_unset(char *key)
+{
+	t_ms_expand_env_list		*list;
+	t_ms_expand_env_list_node	*node;
+	t_ms_expand_env_list_node	*front;
+
+	list = ms_expand_env_list_get();
+	front = NULL;
+	node = list->head;
+	while (node)
+	{
+		if (ft_cstring_equals(key, node->key))
+		{
+			delete_next_node(front);
+			return ;
+		}
+		front = node;
+		node = node->next;
+	}
 }

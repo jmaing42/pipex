@@ -13,37 +13,47 @@
 #include "ms_execute.h"
 
 #include <stdlib.h>
-#include <signal.h>
-#include <sys/_types/_pid_t.h>
-#include <sys/signal.h>
 
-#include "ft_io.h"
+#include "ms.h"
 #include "wrap.h"
+#include "ft_cstring.h"
 
-static void	parent_sigint_handler(int signo)
+static bool	is_builtin(char *cmd_name)
 {
-	if (signo != SIGINT)
-		return ;
-	if (ft_puts(STDOUT_FILENO, "\n"))
-		ms_execute_exit(EXIT_FAILURE, "minishell sigint");
+	if (ft_cstring_equals(cmd_name, "cd"))
+		return (true);
+	if (ft_cstring_equals(cmd_name, "echo"))
+		return (true);
+	if (ft_cstring_equals(cmd_name, "env"))
+		return (true);
+	if (ft_cstring_equals(cmd_name, "exit"))
+		return (true);
+	if (ft_cstring_equals(cmd_name, "export"))
+		return (true);
+	if (ft_cstring_equals(cmd_name, "pwd"))
+		return (true);
+	if (ft_cstring_equals(cmd_name, "unset"))
+		return (true);
+	return (false);
 }
 
-static void	parent_sigquit_handler(int signo)
+bool	ms_execute_builtin_check(t_ms_pipe_list *list)
 {
-	if (signo != SIGQUIT)
-		return ;
-	if (ft_puts(STDOUT_FILENO, "Quit: 3\n"))
-		ms_execute_exit(EXIT_FAILURE, "minishell sigquit");
-}
+	char	*cmd_name;
 
-void	ms_execute_set_signals(pid_t pid)
-{
-	if (pid == CHILD_PID)
+	if (list->head != list->tail)
+		return (false);
+	if (list->head->command.type == ms_command_type_compound)
+		return (false);
+	if (ms_execute_word_to_str(
+			list->head->command.value.simple->word_list.head->word
+			, &cmd_name))
+		ms_execute_exit(EXIT_FAILURE, "minishell");
+	if (is_builtin(cmd_name))
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		return ;
+		wrap_free(cmd_name);
+		return (true);
 	}
-	signal(SIGINT, parent_sigint_handler);
-	signal(SIGQUIT, parent_sigquit_handler);
+	wrap_free(cmd_name);
+	return (false);
 }

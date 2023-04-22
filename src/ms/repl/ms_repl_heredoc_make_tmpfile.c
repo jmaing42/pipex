@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ms_execute.h"
 #include "ms_parse.h"
 #include "ms_repl.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/fcntl.h>
 #include <readline/readline.h>
+#include <sys/wait.h>
 
 #include "ft_cstring.h"
 #include "ft_io.h"
@@ -51,7 +54,11 @@ static t_err	write_heredoc(int fd, char *limiter)
 
 	line = readline("heredoc> ");
 	if (line == NULL)
-		return (true);
+	{
+		if (ft_puts(fd, ""))
+			return (true);
+		return (false);
+	}
 	while (ft_cstring_compare(line, limiter))
 	{
 		if (ft_puts(fd, line) || ft_puts(fd, "\n"))
@@ -71,14 +78,28 @@ t_err	ms_repl_heredoc_make_tmpfile(
 	char *limiter
 )
 {
-	int	fd;
+	const pid_t	pid = wrap_fork();
+	int			stat;
+	int			fd;
 
-	fd = wrap_open(file_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (fd < 0)
+	stat = -1;
+	ms_repl_heredoc_signals(pid);
+	if (pid == CHILD_PID)
+	{
+		fd = wrap_open(file_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (fd < 0)
+			return (true);
+		if (write_heredoc(fd, limiter))
+			return (true);
+		wrap_close(fd);
+		wrap_exit(EXIT_SUCCESS);
+	}
+	wrap_waitpid(pid, &stat, 0);
+	if (WEXITSTATUS(stat))
+	{
+		ms_execute_globals()->exit_status = WEXITSTATUS(stat);
 		return (true);
-	if (write_heredoc(fd, limiter))
-		return (true);
-	wrap_close(fd);
+	}
 	if (modify_node(node, file_name))
 		return (true);
 	return (false);

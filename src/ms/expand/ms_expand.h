@@ -55,8 +55,8 @@ typedef struct s_ms_expand_string_list_list_builder
 typedef struct s_ms_expand_env_list_node
 {
 	struct s_ms_expand_env_list_node	*next;
-	const char							*key;
-	const char							*value;
+	char								*key;
+	char								*value;
 }	t_ms_expand_env_list_node;
 
 typedef struct s_ms_expand_env_list
@@ -113,7 +113,7 @@ void		ms_expand_string_list_free(t_ms_expand_string_list *list);
 //env
 t_err		ms_expand_env_init(char **envp);
 void		*ms_expand_env_list_get(void);
-t_err		ms_expand_env_put(const char *key, const char *value);
+t_err		ms_expand_env_put(char *key, char *value);
 const char	*ms_expand_env_get(const char *key);
 t_err		ms_expand_env_get_environ(char ***out_envp);
 //strnstr

@@ -10,30 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#ifndef MS_BUILTIN_H
+# define MS_BUILTIN_H
 
-#include <stdlib.h>
-
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
-
-	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
-	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
-	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
-}
+void	ms_builtin_echo(char **args);
+void	ms_builtin_cd(const char *const path);
+void	ms_builtin_pwd(void);
+void	ms_builtin_export(char *env);
+void	ms_builtin_unset(char *key);
+void	ms_builtin_env(void);
+void	ms_builtin_exit(void);
+#endif

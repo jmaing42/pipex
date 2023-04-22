@@ -10,30 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#include "ms.h"
 
-#include <stdlib.h>
+#include "ft_cstring.h"
+#include "ft_types.h"
+#include "wrap.h"
 
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
+static const char *const	g_prefix = "/tmp/minishell_tmp";
+
+t_err	ms_tmpname_init(void)
 {
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
+	unsigned int	i;
+	unsigned int	tmp;
+	char			buffer[5];
+	char			*path;
 
-	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
+	buffer[4] = '\0';
+	i = -1;
+	while (++i < 10000)
 	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
+		tmp = i;
+		buffer[3] = (tmp % 10) + '0';
+		tmp /= 10;
+		buffer[2] = (tmp % 10) + '0';
+		tmp /= 10;
+		buffer[1] = (tmp % 10) + '0';
+		tmp /= 10;
+		buffer[0] = (tmp % 10) + '0';
+		if (ft_cstring_concat(g_prefix, buffer, &path))
+			return (true);
+		if (wrap_access(path, F_OK) != FILE_EXIST)
+			return (false);
+		wrap_unlink(path);
+		wrap_free(path);
 	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
 	return (false);
 }

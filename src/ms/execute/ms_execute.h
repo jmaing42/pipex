@@ -92,13 +92,17 @@ typedef struct s_ms_execute_fd_list
 }	t_ms_execute_fd_list;
 
 t_ms_execute_globals	*ms_execute_globals(void);
-
 t_err					ms_execute_program(
 							t_ms_program *program);
 t_err					ms_execute_and_or_list(
 							t_ms_and_or_list *and_or_list);
 t_err					ms_execute_pipe_list(
 							t_ms_pipe_list *pipe_list);
+t_err					ms_execute_pipe_and_fork(
+							t_ms_execute_cmd_pipe_info *info,
+							pid_t *pid);
+void					ms_execute_set_signals(pid_t pid);
+//child_functions
 void					ms_execute_command(
 							t_ms_command *command,
 							bool is_first,
@@ -118,9 +122,6 @@ void					ms_execute_redirecions_in(
 void					ms_execute_redirections_out(
 							t_ms_redirection_list *rd_list,
 							bool is_last);
-t_err					ms_execute_pipe_and_fork(
-							t_ms_execute_cmd_pipe_info *info,
-							pid_t *pid);
 void					ms_execute_child(
 							t_ms_command *command,
 							t_ms_execute_child_type type,
@@ -128,5 +129,7 @@ void					ms_execute_child(
 							bool is_last);
 t_err					ms_execute_check_infiles(t_ms_command *command);
 void					ms_execute_exit(int status, char *message);
-void					ms_execute_set_signals(pid_t pid);
+//builtin
+bool					ms_execute_builtin_check(t_ms_pipe_list *list);
+void					ms_execute_builtin_run(t_ms_command *command);
 #endif

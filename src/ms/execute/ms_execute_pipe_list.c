@@ -122,6 +122,11 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 	t_ms_execute_pipe_info			info;
 	t_ms_pipe_list_node				*node;
 
+	if (ms_execute_builtin_check(pipe_list))
+	{
+		ms_execute_builtin_run(&pipe_list->head->command);
+		return (false);
+	}
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
 	info.is_first = true;
 	node = pipe_list->head;

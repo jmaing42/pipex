@@ -10,38 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms.h"
+#include "ft_io.h"
+#include "ms_repl.h"
 
-#include <stdbool.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/signal.h>
 
-#include "ft_cstring.h"
+#include "readline/readline.h"
 #include "wrap.h"
+#include "ms_execute.h"
 
-static const char *const	g_prefix = "/tmp/minishell_tmp";
-
-t_err	ms_tmpname(char **out)
+static void	child_sigint_handler(int signo)
 {
-	unsigned int	i;
-	unsigned int	tmp;
-	char			buffer[5];
+	if (signo != SIGINT)
+		return ;
+	wrap_exit(EXIT_BY_SIGNAL);
+}
 
-	buffer[4] = '\0';
-	i = -1;
-	while (++i < 10000)
+static void	parent_sigint_handler(int signo)
+{
+	if (signo != SIGINT)
+		return ;
+	if (ft_puts(STDOUT_FILENO, "\n"))
+		ms_execute_exit(EXIT_FAILURE, "minishell handler");
+}
+
+void	ms_repl_heredoc_signals(pid_t pid)
+{
+	if (pid == CHILD_PID)
 	{
-		tmp = i;
-		buffer[3] = (tmp % 10) + '0';
-		tmp /= 10;
-		buffer[2] = (tmp % 10) + '0';
-		tmp /= 10;
-		buffer[1] = (tmp % 10) + '0';
-		tmp /= 10;
-		buffer[0] = (tmp % 10) + '0';
-		if (ft_cstring_concat(g_prefix, buffer, out))
-			return (true);
-		if (wrap_access(*out, F_OK))
-			return (false);
-		wrap_free(*out);
+		signal(SIGINT, child_sigint_handler);
+		signal(SIGQUIT, SIG_IGN);
+		return ;
 	}
-	return (true);
+	signal(SIGINT, parent_sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

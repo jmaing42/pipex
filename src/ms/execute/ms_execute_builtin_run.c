@@ -10,30 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms_expand.h"
+#include "ms_execute.h"
 
 #include <stdlib.h>
 
-#include "ft_memory.h"
-// TODO: 이미 있었으면 삭제
-t_err	ms_expand_env_put(char *key, char *value)
-{
-	t_ms_expand_env_list		*list;
-	t_ms_expand_env_list_node	*new_node;
+#include "ms_builtin.h"
+#include "ft_cstring.h"
+#include "ft_cstring_split.h"
 
-	list = ms_expand_env_list_get();
-	new_node = ft_memory_allocate(1, sizeof(t_ms_expand_env_list_node));
-	if (new_node == NULL)
-		return (true);
-	new_node->key = key;
-	new_node->value = value;
-	if (list->head == NULL)
-	{
-		list->head = new_node;
-		list->tail = new_node;
-		return (false);
-	}
-	list->tail->next = new_node;
-	list->tail = list->tail->next;
-	return (false);
+void	ms_execute_builtin_run(t_ms_command *command)
+{
+	char	**args;
+
+	if (ms_expand(&command->value.simple->word_list, &args))
+		ms_execute_exit(EXIT_FAILURE, "minishell");
+	if (ft_cstring_equals(args[0], "cd"))
+		ms_builtin_cd(args[1]);
+	if (ft_cstring_equals(args[0], "echo"))
+		ms_builtin_echo(args);
+	if (ft_cstring_equals(args[0], "env"))
+		ms_builtin_env();
+	if (ft_cstring_equals(args[0], "exit"))
+		ms_builtin_exit();
+	if (ft_cstring_equals(args[0], "export"))
+		ms_builtin_export(args[1]);
+	if (ft_cstring_equals(args[0], "pwd"))
+		ms_builtin_pwd();
+	if (ft_cstring_equals(args[0], "unset"))
+		ms_builtin_unset(args[1]);
+	ft_cstring_split_free(args);
 }
