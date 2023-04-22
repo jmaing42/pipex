@@ -13,6 +13,7 @@
 #include "ms_builtin.h"
 
 #include <stdio.h>
+#include <sys/unistd.h>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -22,8 +23,5 @@
 void	ms_builtin_cd(const char *const path)
 {
 	if (chdir(path) == FAIL)
-	{
 		perror("minishell cd");
-		wrap_exit(EXIT_FAILURE);
-	}
 }

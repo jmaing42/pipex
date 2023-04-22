@@ -129,5 +129,7 @@ void					ms_execute_child(
 							bool is_last);
 t_err					ms_execute_check_infiles(t_ms_command *command);
 void					ms_execute_exit(int status, char *message);
-//
+//builtin
+bool					ms_execute_builtin_check(t_ms_pipe_list *list);
+void					ms_execute_builtin_run(t_ms_command *command);
 #endif
