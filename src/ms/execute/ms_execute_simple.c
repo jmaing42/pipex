@@ -15,6 +15,7 @@
 #include "ft_exit.h"
 #include "ft_memory.h"
 #include "ft_os_file.h"
+#include "ms_builtin.h"
 #include "ms_execute.h"
 
 #include <_stdio.h>
@@ -87,6 +88,32 @@ static t_err	get_parsed_path(char ***out_parsed_path)
 	return (false);
 }
 
+static	void	execute_builtin(char **args)
+{
+	if (ft_cstring_equals(args[0], "cd"))
+		ms_builtin_cd(args[1]);
+	if (ft_cstring_equals(args[0], "echo"))
+		ms_builtin_echo(args);
+	if (ft_cstring_equals(args[0], "env"))
+		ms_builtin_env();
+	if (ft_cstring_equals(args[0], "exit"))
+		ms_builtin_exit();
+	if (ft_cstring_equals(args[0], "export"))
+		ms_builtin_export(args[1]);
+	if (ft_cstring_equals(args[0], "pwd"))
+		ms_builtin_pwd();
+	if (ft_cstring_equals(args[0], "unset"))
+		ms_builtin_unset(args[1]);
+	if (ft_cstring_equals(args[0], "cd")
+		|| ft_cstring_equals(args[0], "echo")
+		|| ft_cstring_equals(args[0], "env")
+		|| ft_cstring_equals(args[0], "exit")
+		|| ft_cstring_equals(args[0], "export")
+		|| ft_cstring_equals(args[0], "pwd")
+		|| ft_cstring_equals(args[0], "cd"))
+		exit(EXIT_SUCCESS);
+}
+
 void	ms_execute_command_simple(
 	t_ms_command_simple *command
 )
@@ -98,6 +125,7 @@ void	ms_execute_command_simple(
 
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
+	execute_builtin(args);
 	if (ms_expand_env_get_environ(&envp))
 		wrap_exit(EXIT_FAILURE);
 	if (get_parsed_path(&parsed_path))
