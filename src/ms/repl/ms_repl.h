@@ -12,6 +12,7 @@
 
 #ifndef MS_REPL_H
 # define MS_REPL_H
+# define GET_EOF NULL
 
 # include "ms.h"
 # include "ft_types.h"

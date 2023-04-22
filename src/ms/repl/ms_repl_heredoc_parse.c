@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ms.h"
 #include "ms_repl.h"
 
 #include <stdlib.h>
 
+#include "ms.h"
 #include "ms_execute.h"
 #include "wrap.h"
+#include "ft_memory.h"
 
 static t_err	add_node(t_ms_repl_string_list *list, char *str)
 {

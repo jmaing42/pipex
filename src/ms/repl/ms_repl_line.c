@@ -25,6 +25,7 @@
 #include "wrap.h"
 #include "ft_memory.h"
 #include "ft_types_char.h"
+#include "ft_cstring.h"
 #include "ms_execute.h"
 
 static bool	is_empty_str(char *line)
@@ -76,13 +77,21 @@ static t_err	execute_program(t_ms_program *program)
 	return (false);
 }
 
+static void	eof_handler(void)
+{
+	if (ft_puts(STDOUT_FILENO, "exit"))
+		ms_repl_die();
+	wrap_exit(EXIT_SUCCESS);
+}
+
 void	ms_repl_line(void)
 {
-	t_ms_program			*program;
-	char *const				line = readline("minishell> ");
+	t_ms_program	*program;
+	char			*line;
 
-	if (line == NULL)
-		ms_execute_exit(EXIT_FAILURE, "minishell line malloc");
+	line = readline("minishell> ");
+	if (line == GET_EOF)
+		eof_handler();
 	if (is_empty_str(line))
 	{
 		free(line);

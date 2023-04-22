@@ -51,7 +51,11 @@ static t_err	write_heredoc(int fd, char *limiter)
 
 	line = readline("heredoc> ");
 	if (line == NULL)
-		return (true);
+	{
+		if (ft_puts(fd, ""))
+			return (true);
+		return (false);
+	}
 	while (ft_cstring_compare(line, limiter))
 	{
 		if (ft_puts(fd, line) || ft_puts(fd, "\n"))

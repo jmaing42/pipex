@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_io.h"
 #include "ms_execute.h"
 
 #include <stdlib.h>
@@ -18,6 +19,14 @@
 
 #include "wrap.h"
 
+void	parent_sigint_handler(int signo)
+{
+	if (signo != SIGINT)
+		return ;
+	if (ft_puts(STDOUT_FILENO, "\n"))
+		ms_execute_exit(EXIT_FAILURE, "minishell handler");
+}
+
 static void	child_signal(void)
 {
 	signal(SIGINT, SIG_DFL);
@@ -25,7 +34,7 @@ static void	child_signal(void)
 
 static void	parent_signal(void)
 {
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, parent_sigint_handler);
 }
 
 void	ms_execute_set_signals(pid_t pid)
