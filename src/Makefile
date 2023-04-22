@@ -13,7 +13,6 @@ LDFLAGS := -L../assets/readline/lib -lreadline
 SRC_DIR := .
 OBJ_DIR := .cache
 
-SRCS_MINISHELL := ./main.c
 SRCS_LIBWRAP := $(shell find . -name "wrap_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
 SRCS_LIBFTO := $(shell find . -name "fto_*.c" | grep -v /test/ | xargs)
@@ -72,7 +71,7 @@ $(OBJ_DIR)/libwrap$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_L
 $(OBJ_DIR)/libft$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFT))
 $(OBJ_DIR)/libfto$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFTO))
 $(OBJ_DIR)/libms$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBMS))
-$(OBJ_DIR)/$(NAME)$(SUFFIX).exe: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_MINISHELL))
+$(OBJ_DIR)/$(NAME)$(SUFFIX).exe:
 $(EXECUTABLE_TARGETS): %: $(OBJ_DIR)/%$(SUFFIX).exe
 	$(Q1)cp $< $@.exe
 .PHONY: $(EXECUTABLE_TARGETS)
