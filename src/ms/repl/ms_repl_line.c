@@ -96,6 +96,7 @@ void	ms_repl_line(void)
 	add_history(line);
 	if (ms_parse(line, &program))
 		ms_repl_die();
+	wrap_free(line);
 	if (!program)
 	{
 		ft_puts(STDERR_FILENO, "syntax error\n");
@@ -103,5 +104,5 @@ void	ms_repl_line(void)
 	}
 	if (execute_program(program))
 		ms_repl_die();
-	wrap_free(line);
+	ms_free(program);
 }
