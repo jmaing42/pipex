@@ -111,7 +111,7 @@ static	void	execute_builtin(char **args)
 		|| ft_cstring_equals(args[0], "export")
 		|| ft_cstring_equals(args[0], "pwd")
 		|| ft_cstring_equals(args[0], "cd"))
-		exit(EXIT_SUCCESS);
+		wrap_exit(ms_execute_globals()->exit_status);
 }
 
 void	ms_execute_command_simple(
