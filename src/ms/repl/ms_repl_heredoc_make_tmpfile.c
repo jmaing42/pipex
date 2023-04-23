@@ -97,7 +97,7 @@ t_err	ms_repl_heredoc_make_tmpfile(
 	wrap_waitpid(pid, &stat, 0);
 	if (WEXITSTATUS(stat))
 	{
-		ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+		*ms_repl_heredoc_globals() = WEXITSTATUS(stat);
 		return (true);
 	}
 	if (modify_node(node, file_name))

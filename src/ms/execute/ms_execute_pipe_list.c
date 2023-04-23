@@ -116,7 +116,7 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
 	return (result);
 }
-//TODO : $?
+
 t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 {
 	t_ms_execute_pipe_info			info;

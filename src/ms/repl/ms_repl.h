@@ -48,4 +48,5 @@ t_err	ms_repl_heredoc_make_tmpfile(
 			char *file_name,
 			char *limiter);
 void	ms_repl_heredoc_signals(pid_t is_child);
+int		*ms_repl_heredoc_globals(void);
 #endif

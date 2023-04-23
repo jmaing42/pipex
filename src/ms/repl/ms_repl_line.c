@@ -62,12 +62,12 @@ static t_err	execute_program(t_ms_program *program)
 {
 	t_ms_repl_string_list	tmp_files;
 
-	ms_execute_globals()->exit_status = 0;
+	*ms_repl_heredoc_globals() = 0;
 	ft_memory_set(&tmp_files, 0, sizeof(tmp_files));
 	if (ms_repl_heredoc_parse(program, &tmp_files))
 	{
 		free_and_unlink_string_list(&tmp_files);
-		if (ms_execute_globals()->exit_status == EXIT_BY_SIGNAL)
+		if (*ms_repl_heredoc_globals() == EXIT_BY_SIGNAL)
 			return (false);
 		return (true);
 	}
