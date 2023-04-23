@@ -410,7 +410,7 @@ static const char	*get_string(t_ms_word_part_string_list_node *node)
 	if (node->type == ms_word_part_string_no_expansion)
 		return (node->value);
 	if (ft_cstring_equals(node->value, "?"))
-		result = g_error_codes[ms_execute_globals()->exit_status + 128];
+		return (g_error_codes[ms_execute_globals()->exit_status + 128]);
 	result = ms_expand_env_get(node->value);
 	if (result)
 		return (result);
