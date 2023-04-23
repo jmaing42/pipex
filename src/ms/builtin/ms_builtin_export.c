@@ -51,6 +51,11 @@ void	ms_builtin_export(char *env)
 	spacer = ft_cstring_find_index(env, '=');
 	if (ft_cstring_duplicate_length(env, spacer, &key))
 		die();
+	if (env[spacer] == '\0')
+	{
+		ms_execute_globals()->exit_status = EXIT_SUCCESS;
+		return ;
+	}
 	if (ft_cstring_duplicate_length(env + spacer + 1, -1, &value))
 		die();
 	if (is_registerd(key))
