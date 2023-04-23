@@ -24,13 +24,15 @@
 #include "ms_execute.h"
 #include "wrap.h"
 
-static	void	print(char *message)
+static	t_err	print(char *message)
 {
 	if (ft_puts(STDOUT_FILENO, message))
 	{
 		perror("minishell echo");
-		wrap_exit(EXIT_FAILURE);
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+		return (true);
 	}
+	return (false);
 }
 
 void	ms_builtin_echo(char **args)
@@ -46,13 +48,18 @@ void	ms_builtin_echo(char **args)
 			no_enter = true;
 		else
 		{
-			print(args[index]);
+			if (print(args[index]))
+				return ;
 			if (args[index + 1] != NULL)
-				print(" ");
+			{
+				if (print(" "))
+					return ;
+			}
 		}
 		++index;
 	}
 	if (!no_enter)
-		print("\n");
+		if (print("\n"))
+			return ;
 	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

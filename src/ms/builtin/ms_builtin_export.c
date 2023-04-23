@@ -21,12 +21,6 @@
 #include "ms_expand.h"
 #include "wrap.h"
 
-static void	die(void)
-{
-	perror("minishell export");
-	wrap_exit(EXIT_FAILURE);
-}
-
 static bool	is_registerd(char *key)
 {
 	t_ms_expand_env_list *const	list = ms_expand_env_list_get();
@@ -42,25 +36,38 @@ static bool	is_registerd(char *key)
 	return (false);
 }
 
-void	ms_builtin_export(char *env)
+static t_err	get_key_and_value(char *env, char **out_key, char **out_value)
 {
 	size_t	spacer;
+
+	spacer = ft_cstring_find_index(env, '=');
+	if (ft_cstring_duplicate_length(env, spacer, out_key))
+		return (true);
+	if (env[spacer] == '\0')
+		return (false);
+	if (ft_cstring_duplicate_length(env + spacer + 1, -1, out_value))
+		return (true);
+	return (false);
+}
+
+void	ms_builtin_export(char *env)
+{
 	char	*key;
 	char	*value;
 
-	spacer = ft_cstring_find_index(env, '=');
-	if (ft_cstring_duplicate_length(env, spacer, &key))
-		die();
-	if (env[spacer] == '\0')
+	if (get_key_and_value(env, &key, &value))
 	{
-		ms_execute_globals()->exit_status = EXIT_SUCCESS;
+		perror("minishell export");
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	if (ft_cstring_duplicate_length(env + spacer + 1, -1, &value))
-		die();
 	if (is_registerd(key))
 		ms_builtin_unset(key);
 	if (ms_expand_env_put(key, value))
-		die();
+	{
+		perror("minishell export");
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+		return ;
+	}
 	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

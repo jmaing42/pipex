@@ -28,14 +28,21 @@ void	ms_builtin_pwd(void)
 	if (path == NULL)
 	{
 		perror("minishell pwd");
-		wrap_exit(EXIT_FAILURE);
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+		return ;
 	}
 	if (ft_puts(STDOUT_FILENO, path))
 	{
 		perror("minishell pwd");
-		wrap_exit(EXIT_FAILURE);
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+		return ;
 	}
 	wrap_free(path);
-	ft_puts(STDOUT_FILENO, "\n");
+	if (ft_puts(STDOUT_FILENO, "\n"))
+	{
+		perror("minishell pwd");
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+		return ;
+	}
 	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

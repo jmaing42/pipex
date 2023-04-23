@@ -26,7 +26,12 @@ void	ms_builtin_env(void)
 	node = list->head;
 	while (node)
 	{
-		printf("%s=%s\n", node->key, node->value);
+		if (printf("%s=%s\n", node->key, node->value) == FAIL)
+		{
+			perror("minishell env");
+			ms_execute_globals()->exit_status = EXIT_FAILURE;
+			return ;
+		}
 		node = node->next;
 	}
 	ms_execute_globals()->exit_status = EXIT_SUCCESS;
