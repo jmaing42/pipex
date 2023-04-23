@@ -25,7 +25,8 @@ t_err	ms_parse_tokenize_state_quote(
 	if (!c)
 	{
 		stringbuilder_free(data);
-		return (true);
+		*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_ERROR, NULL};
+		return (false);
 	}
 	if (c == '\'')
 	{
