@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_parse_tokenize_double_quote.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/04/23 22:09:22 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_err	ms_parse_tokenize_state_double_quote(
 	if (!c)
 	{
 		ft_stringbuilder_free(data);
-		return (true);
+		*out_next_state = (t_s){MS_PARSE_TOKENIZE_STATE_ERROR, NULL};
+		return (false);
 	}
 	if (c == '"')
 	{
