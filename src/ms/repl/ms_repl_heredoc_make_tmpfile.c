@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_types.h"
 #include "ms_execute.h"
 #include "ms_parse.h"
 #include "ms_repl.h"
@@ -72,6 +73,16 @@ static t_err	write_heredoc(int fd, char *limiter)
 	return (false);
 }
 
+static	void	wait_child(pid_t pid)
+{
+	int	stat;
+
+	wrap_waitpid(pid, &stat, 0);
+	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+	if (WIFSIGNALED(stat))
+		ms_execute_globals()->exit_status = 128 + WTERMSIG(stat);
+}
+
 t_err	ms_repl_heredoc_make_tmpfile(
 	t_ms_redirection_list_node *node,
 	char *file_name,
@@ -79,10 +90,8 @@ t_err	ms_repl_heredoc_make_tmpfile(
 )
 {
 	const pid_t	pid = wrap_fork();
-	int			stat;
 	int			fd;
 
-	stat = -1;
 	ms_repl_heredoc_signals(pid);
 	if (pid == CHILD_PID)
 	{
@@ -94,12 +103,7 @@ t_err	ms_repl_heredoc_make_tmpfile(
 		wrap_close(fd);
 		wrap_exit(EXIT_SUCCESS);
 	}
-	wrap_waitpid(pid, &stat, 0);
-	if (WEXITSTATUS(stat))
-	{
-		*ms_repl_heredoc_globals() = WEXITSTATUS(stat);
-		return (true);
-	}
+	wait_child(pid);
 	if (modify_node(node, file_name))
 		return (true);
 	return (false);

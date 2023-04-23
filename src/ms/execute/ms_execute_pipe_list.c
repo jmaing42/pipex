@@ -114,6 +114,8 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 		node = next;
 	}
 	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
+	if (WIFSIGNALED(stat))
+		ms_execute_globals()->exit_status = 128 + WTERMSIG(stat);
 	return (result);
 }
 

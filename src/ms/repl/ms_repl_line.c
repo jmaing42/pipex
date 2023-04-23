@@ -61,16 +61,17 @@ static void	free_and_unlink_string_list(t_ms_repl_string_list *list)
 static t_err	execute_program(t_ms_program *program)
 {
 	t_ms_repl_string_list	tmp_files;
+	bool					is_heredoc;
 
-	*ms_repl_heredoc_globals() = 0;
+	is_heredoc = false;
 	ft_memory_set(&tmp_files, 0, sizeof(tmp_files));
-	if (ms_repl_heredoc_parse(program, &tmp_files))
+	if (ms_repl_heredoc_parse(program, &tmp_files, &is_heredoc))
 	{
 		free_and_unlink_string_list(&tmp_files);
-		if (*ms_repl_heredoc_globals() == EXIT_BY_SIGNAL)
-			return (false);
 		return (true);
 	}
+	if (is_heredoc && ms_execute_globals()->exit_status == EXIT_BY_SIGINT)
+		return (false);
 	if (ms_execute(program))
 	{
 		free_and_unlink_string_list(&tmp_files);

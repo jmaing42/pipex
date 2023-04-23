@@ -27,6 +27,7 @@ static void	sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
+	ms_execute_globals()->exit_status = EXIT_BY_SIGINT;
 	wrap_write(STDOUT_FILENO, "\n", 1);
 	if (rl_on_new_line() == FAIL)
 		wrap_exit(EXIT_FAILURE);

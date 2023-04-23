@@ -22,13 +22,6 @@
 #include "wrap.h"
 #include "ms_execute.h"
 
-static void	child_sigint_handler(int signo)
-{
-	if (signo != SIGINT)
-		return ;
-	wrap_exit(EXIT_BY_SIGNAL);
-}
-
 static void	parent_sigint_handler(int signo)
 {
 	if (signo != SIGINT)
@@ -41,7 +34,7 @@ void	ms_repl_heredoc_signals(pid_t pid)
 {
 	if (pid == CHILD_PID)
 	{
-		signal(SIGINT, child_sigint_handler);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 		return ;
 	}

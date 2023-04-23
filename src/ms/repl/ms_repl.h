@@ -13,7 +13,7 @@
 #ifndef MS_REPL_H
 # define MS_REPL_H
 # define GET_EOF NULL
-# define EXIT_BY_SIGNAL 127
+# define EXIT_BY_SIGINT 130
 
 # include "ms.h"
 # include "ft_types.h"
@@ -37,7 +37,8 @@ void	ms_repl_set_signals(void);
 void	ms_repl_line(void);
 t_err	ms_repl_heredoc_parse(
 			t_ms_program *mut,
-			t_ms_repl_string_list *out_tmp_files);
+			t_ms_repl_string_list *out_tmp_files,
+			bool *out_is_heredoc);
 void	ms_repl_clear_tmp_files(
 			t_ms_repl_string_list *list);
 void	ms_repl_string_list_free(
@@ -48,5 +49,4 @@ t_err	ms_repl_heredoc_make_tmpfile(
 			char *file_name,
 			char *limiter);
 void	ms_repl_heredoc_signals(pid_t is_child);
-int		*ms_repl_heredoc_globals(void);
 #endif

@@ -45,7 +45,8 @@ static t_err	add_node(t_ms_repl_string_list *list, char *str)
 
 static t_err	replace_redirection_list(
 	t_ms_redirection_list *list,
-	t_ms_repl_string_list *tmp_list
+	t_ms_repl_string_list *tmp_list,
+	bool *is_heredoc
 )
 {
 	t_ms_redirection_list_node	*node;
@@ -57,6 +58,7 @@ static t_err	replace_redirection_list(
 	{
 		if (node->is_special)
 		{
+			*is_heredoc = true;
 			if (ms_tmpname_find(&file_name))
 				return (true);
 			if (add_node(tmp_list, file_name))
@@ -74,7 +76,8 @@ static t_err	replace_redirection_list(
 
 static t_err	replace_pipe_list(
 	t_ms_pipe_list *list,
-	t_ms_repl_string_list *tmp_list
+	t_ms_repl_string_list *tmp_list,
+	bool *is_heredoc
 )
 {
 	t_ms_pipe_list_node	*node;
@@ -85,13 +88,15 @@ static t_err	replace_pipe_list(
 		if (node->command.type == ms_command_type_compound)
 		{
 			if (replace_redirection_list(
-					&node->command.value.compound->redirections.in, tmp_list))
+					&node->command.value.compound->redirections.in
+					, tmp_list, is_heredoc))
 				return (true);
 		}
 		else if (node->command.type == ms_command_type_simple)
 		{
 			if (replace_redirection_list(
-					&node->command.value.simple->redirections.in, tmp_list))
+					&node->command.value.simple->redirections.in
+					, tmp_list, is_heredoc))
 				return (true);
 		}
 		node = node->next;
@@ -101,7 +106,8 @@ static t_err	replace_pipe_list(
 
 static t_err	replace_and_or_list(
 	t_ms_and_or_list *list,
-	t_ms_repl_string_list *tmp_list
+	t_ms_repl_string_list *tmp_list,
+	bool *is_heredoc
 )
 {
 	t_ms_and_or_list_node	*node;
@@ -109,7 +115,7 @@ static t_err	replace_and_or_list(
 	node = list->head;
 	while (node)
 	{
-		if (replace_pipe_list(&node->pipe_list, tmp_list))
+		if (replace_pipe_list(&node->pipe_list, tmp_list, is_heredoc))
 			return (true);
 		node = node->next;
 	}
@@ -118,10 +124,11 @@ static t_err	replace_and_or_list(
 
 t_err	ms_repl_heredoc_parse(
 	t_ms_program *mut,
-	t_ms_repl_string_list *out_tmp_files
+	t_ms_repl_string_list *out_tmp_files,
+	bool *out_is_heredoc
 )
 {
-	if (replace_and_or_list(&mut->and_or_list, out_tmp_files))
+	if (replace_and_or_list(&mut->and_or_list, out_tmp_files, out_is_heredoc))
 		return (true);
 	return (false);
 }
