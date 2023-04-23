@@ -23,5 +23,9 @@
 void	ms_builtin_cd(const char *const path)
 {
 	if (chdir(path) == FAIL)
+	{
 		perror("minishell cd");
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+	}
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

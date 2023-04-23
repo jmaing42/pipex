@@ -13,7 +13,9 @@
 #include "ms_builtin.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
+#include "ms_execute.h"
 #include "ms_expand.h"
 
 void	ms_builtin_env(void)
@@ -27,4 +29,5 @@ void	ms_builtin_env(void)
 		printf("%s=%s\n", node->key, node->value);
 		node = node->next;
 	}
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

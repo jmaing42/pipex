@@ -17,6 +17,7 @@
 #include <stdlib.h>
 
 #include "ft_cstring.h"
+#include "ms_execute.h"
 #include "ms_expand.h"
 #include "wrap.h"
 
@@ -56,4 +57,5 @@ void	ms_builtin_export(char *env)
 		ms_builtin_unset(key);
 	if (ms_expand_env_put(key, value))
 		die();
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

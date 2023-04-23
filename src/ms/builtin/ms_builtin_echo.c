@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_types.h"
 #include "ms_builtin.h"
 
 #include <stdbool.h>
@@ -19,8 +18,10 @@
 #include <sys/_types/_size_t.h>
 #include <unistd.h>
 
+#include "ft_types.h"
 #include "ft_cstring.h"
 #include "ft_io.h"
+#include "ms_execute.h"
 #include "wrap.h"
 
 static	void	print(char *message)
@@ -53,4 +54,5 @@ void	ms_builtin_echo(char **args)
 	}
 	if (!no_enter)
 		print("\n");
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

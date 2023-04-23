@@ -12,7 +12,10 @@
 
 #include "ms_builtin.h"
 
+#include <stdlib.h>
+
 #include "ft_cstring.h"
+#include "ms_execute.h"
 #include "ms_expand.h"
 #include "wrap.h"
 
@@ -60,4 +63,5 @@ void	ms_builtin_unset(char *key)
 		front = node;
 		node = node->next;
 	}
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

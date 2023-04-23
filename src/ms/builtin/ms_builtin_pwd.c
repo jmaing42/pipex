@@ -17,6 +17,7 @@
 #include <stdlib.h>
 
 #include "ft_io.h"
+#include "ms_execute.h"
 #include "wrap.h"
 
 void	ms_builtin_pwd(void)
@@ -36,4 +37,5 @@ void	ms_builtin_pwd(void)
 	}
 	wrap_free(path);
 	ft_puts(STDOUT_FILENO, "\n");
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }
