@@ -50,6 +50,7 @@ void	ms_builtin_unset(char *key)
 	t_ms_expand_env_list_node	*node;
 	t_ms_expand_env_list_node	*front;
 
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	if (key == NULL || ft_cstring_equals(key, ""))
 		return ;
 	list = ms_expand_env_list_get();
@@ -65,5 +66,4 @@ void	ms_builtin_unset(char *key)
 		front = node;
 		node = node->next;
 	}
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

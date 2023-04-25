@@ -23,6 +23,7 @@
 
 void	ms_builtin_cd(const char *const path)
 {
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	if (path == NULL || ft_cstring_equals(path, ""))
 		return ;
 	if (chdir(path) == FAIL)
@@ -31,5 +32,4 @@ void	ms_builtin_cd(const char *const path)
 		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

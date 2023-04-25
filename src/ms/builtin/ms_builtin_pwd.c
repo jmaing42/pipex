@@ -24,6 +24,7 @@ void	ms_builtin_pwd(void)
 {
 	char	*path;
 
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 	{
@@ -44,5 +45,4 @@ void	ms_builtin_pwd(void)
 		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

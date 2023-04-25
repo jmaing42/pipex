@@ -23,6 +23,7 @@ void	ms_builtin_env(void)
 	t_ms_expand_env_list *const	list = ms_expand_env_list_get();
 	t_ms_expand_env_list_node	*node;
 
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	node = list->head;
 	while (node)
 	{
@@ -34,5 +35,4 @@ void	ms_builtin_env(void)
 		}
 		node = node->next;
 	}
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

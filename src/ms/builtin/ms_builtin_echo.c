@@ -40,6 +40,7 @@ void	ms_builtin_echo(char **args)
 	size_t	index;
 	bool	no_enter;
 
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	no_enter = false;
 	index = 1;
 	while (args[index])
@@ -61,5 +62,4 @@ void	ms_builtin_echo(char **args)
 	if (!no_enter)
 		if (print("\n"))
 			return ;
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }

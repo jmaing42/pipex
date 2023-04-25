@@ -58,6 +58,7 @@ void	ms_builtin_export(char *env)
 	char	*key;
 	char	*value;
 
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	if (env == NULL || ft_cstring_equals(env, ""))
 		return ;
 	key = NULL;
@@ -78,5 +79,4 @@ void	ms_builtin_export(char *env)
 		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 }
