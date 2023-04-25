@@ -105,4 +105,5 @@ void	ms_repl_line(void)
 	if (execute_program(program))
 		ms_repl_die();
 	ms_free(program);
+system("leaks pipex.production.debug.address.exe");
 }

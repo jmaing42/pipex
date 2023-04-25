@@ -40,7 +40,10 @@ t_err	ms_tmpname_init(void)
 		if (ft_cstring_concat(g_prefix, buffer, &path))
 			return (true);
 		if (wrap_access(path, F_OK) != FILE_EXIST)
+		{
+			wrap_free(path);
 			return (false);
+		}
 		wrap_unlink(path);
 		wrap_free(path);
 	}
