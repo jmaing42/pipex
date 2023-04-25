@@ -50,6 +50,8 @@ void	ms_builtin_unset(char *key)
 	t_ms_expand_env_list_node	*node;
 	t_ms_expand_env_list_node	*front;
 
+	if (key == NULL || ft_cstring_equals(key, ""))
+		return ;
 	list = ms_expand_env_list_get();
 	front = NULL;
 	node = list->head;
