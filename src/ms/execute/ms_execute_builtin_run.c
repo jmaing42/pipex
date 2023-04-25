@@ -26,17 +26,17 @@ void	ms_execute_builtin_run(t_ms_command *command)
 		ms_execute_exit(EXIT_FAILURE, "minishell");
 	if (ft_cstring_equals(args[0], "cd"))
 		ms_builtin_cd(args[1]);
-	if (ft_cstring_equals(args[0], "echo"))
+	else if (ft_cstring_equals(args[0], "echo"))
 		ms_builtin_echo(args);
-	if (ft_cstring_equals(args[0], "env"))
+	else if (ft_cstring_equals(args[0], "env"))
 		ms_builtin_env();
-	if (ft_cstring_equals(args[0], "exit"))
+	else if (ft_cstring_equals(args[0], "exit"))
 		ms_builtin_exit();
-	if (ft_cstring_equals(args[0], "export"))
-		ms_builtin_export(args[1]);
-	if (ft_cstring_equals(args[0], "pwd"))
+	else if (ft_cstring_equals(args[0], "export"))
+		ms_builtin_export(args);
+	else if (ft_cstring_equals(args[0], "pwd"))
 		ms_builtin_pwd();
-	if (ft_cstring_equals(args[0], "unset"))
+	else if (ft_cstring_equals(args[0], "unset"))
 		ms_builtin_unset(args[1]);
 	ft_cstring_split_free(args);
 }

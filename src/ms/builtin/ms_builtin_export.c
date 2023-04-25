@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_io.h"
 #include "ms_builtin.h"
 
 #include <stdio.h>
 #include <sys/_types/_size_t.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "ft_cstring.h"
 #include "ms_execute.h"
@@ -53,30 +55,43 @@ static t_err	get_key_and_value(char *env, char **out_key, char **out_value)
 	return (false);
 }
 
-void	ms_builtin_export(char *env)
+static t_err	register_env(char *env)
 {
 	char	*key;
 	char	*value;
 
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
-	if (env == NULL || ft_cstring_equals(env, ""))
-		return ;
 	key = NULL;
 	value = NULL;
-	if (get_key_and_value(env, &key, &value))
+	if (ft_cstring_equals(env, ""))
 	{
-		perror("minishell export");
-		ms_execute_globals()->exit_status = EXIT_FAILURE;
-		return ;
+		ft_puts(STDERR_FILENO, "minishell export: not valid in this context\n");
+		return (false);
 	}
+	if (get_key_and_value(env, &key, &value))
+		return (true);
 	if (key == NULL || value == NULL)
-		return ;
+		return (false);
 	if (is_registerd(key))
 		ms_builtin_unset(key);
 	if (ms_expand_env_put(key, value))
+		return (true);
+	return (false);
+}
+// TODO: export A=a "" B=b
+void	ms_builtin_export(char **envs)
+{
+	size_t	index;
+
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
+	index = 1;
+	while (envs[index])
 	{
-		perror("minishell export");
-		ms_execute_globals()->exit_status = EXIT_FAILURE;
-		return ;
+		if (register_env(envs[index]))
+		{
+			perror("minishell export");
+			ms_execute_globals()->exit_status = EXIT_FAILURE;
+			return ;
+		}
+		++index;
 	}
 }

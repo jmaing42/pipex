@@ -99,7 +99,7 @@ static	void	execute_builtin(char **args)
 	if (ft_cstring_equals(args[0], "exit"))
 		ms_builtin_exit();
 	if (ft_cstring_equals(args[0], "export"))
-		ms_builtin_export(args[1]);
+		ms_builtin_export(args);
 	if (ft_cstring_equals(args[0], "pwd"))
 		ms_builtin_pwd();
 	if (ft_cstring_equals(args[0], "unset"))
