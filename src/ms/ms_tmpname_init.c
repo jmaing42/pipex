@@ -18,10 +18,23 @@
 
 static const char *const	g_prefix = "/tmp/minishell_tmp";
 
+static void	fill_buffer(char *out_buffer, unsigned int i)
+{
+	unsigned int	tmp;
+
+	tmp = i;
+	out_buffer[3] = (tmp % 10) + '0';
+	tmp /= 10;
+	out_buffer[2] = (tmp % 10) + '0';
+	tmp /= 10;
+	out_buffer[1] = (tmp % 10) + '0';
+	tmp /= 10;
+	out_buffer[0] = (tmp % 10) + '0';
+}
+
 t_err	ms_tmpname_init(void)
 {
 	unsigned int	i;
-	unsigned int	tmp;
 	char			buffer[5];
 	char			*path;
 
@@ -29,14 +42,7 @@ t_err	ms_tmpname_init(void)
 	i = -1;
 	while (++i < 10000)
 	{
-		tmp = i;
-		buffer[3] = (tmp % 10) + '0';
-		tmp /= 10;
-		buffer[2] = (tmp % 10) + '0';
-		tmp /= 10;
-		buffer[1] = (tmp % 10) + '0';
-		tmp /= 10;
-		buffer[0] = (tmp % 10) + '0';
+		fill_buffer(buffer, i);
 		if (ft_cstring_concat(g_prefix, buffer, &path))
 			return (true);
 		if (wrap_access(path, F_OK) != FILE_EXIST)
