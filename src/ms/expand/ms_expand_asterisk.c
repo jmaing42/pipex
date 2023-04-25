@@ -53,16 +53,10 @@ static bool	is_possible_name(
 	t_ms_expand_string_list_node	*node;
 
 	node = cmd_list->head;
-	if (ft_cstring_equals(node->str, "."))
-	{
-		if (name[0] != '.')
-			return (false);
-	}
-	if (name[0] == '.')
-	{
-		if (ft_cstring_equals(node->str, "."))
-			return (false);
-	}
+	if (ft_cstring_equals(node->str, ".") && name[0] != '.')
+		return (false);
+	if (!ft_cstring_equals(node->str, ".") && name[0] == '.')
+		return (false);
 	while (node)
 	{
 		name = ms_expand_strnstr(name, node->str, -1);
@@ -78,8 +72,8 @@ static t_err	apply_wildcard(
 	t_ms_expand_string_list *out_string_list
 )
 {
-	t_ms_expand_string_list				dir_name_list;
-	t_ms_expand_string_list_node		*name_node;
+	t_ms_expand_string_list			dir_name_list;
+	t_ms_expand_string_list_node	*name_node;
 
 	ft_memory_set(&dir_name_list, 0, sizeof(t_ms_expand_string_list));
 	if (get_dir_name_list(&dir_name_list))
