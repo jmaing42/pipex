@@ -46,7 +46,10 @@ static t_err	get_key_and_value(char *env, char **out_key, char **out_value)
 	if (env[spacer] == '\0')
 		return (false);
 	if (ft_cstring_duplicate_length(env + spacer + 1, -1, out_value))
+	{
+		wrap_free(*out_key);
 		return (true);
+	}
 	return (false);
 }
 
@@ -55,12 +58,18 @@ void	ms_builtin_export(char *env)
 	char	*key;
 	char	*value;
 
+	if (env == NULL || ft_cstring_equals(env, ""))
+		return ;
+	key = NULL;
+	value = NULL;
 	if (get_key_and_value(env, &key, &value))
 	{
 		perror("minishell export");
 		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
+	if (key == NULL || value == NULL)
+		return ;
 	if (is_registerd(key))
 		ms_builtin_unset(key);
 	if (ms_expand_env_put(key, value))
