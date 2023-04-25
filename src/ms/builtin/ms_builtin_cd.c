@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_cstring.h"
 #include "ms_builtin.h"
 
 #include <stdio.h>
@@ -22,6 +23,8 @@
 
 void	ms_builtin_cd(const char *const path)
 {
+	if (path == NULL || ft_cstring_equals(path, ""))
+		return ;
 	if (chdir(path) == FAIL)
 	{
 		perror("minishell cd");
