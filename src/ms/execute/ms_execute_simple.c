@@ -93,15 +93,15 @@ static	void	execute_builtin(char **args)
 	if (ft_cstring_equals(args[0], "cd"))
 		ms_builtin_cd(args[1]);
 	if (ft_cstring_equals(args[0], "echo"))
-		ms_builtin_echo(args);
+		ms_builtin_echo(args, STDOUT_FILENO);
 	if (ft_cstring_equals(args[0], "env"))
-		ms_builtin_env();
+		ms_builtin_env(STDOUT_FILENO);
 	if (ft_cstring_equals(args[0], "exit"))
-		ms_builtin_exit(args);
+		ms_builtin_exit(args, STDOUT_FILENO);
 	if (ft_cstring_equals(args[0], "export"))
 		ms_builtin_export(args);
 	if (ft_cstring_equals(args[0], "pwd"))
-		ms_builtin_pwd();
+		ms_builtin_pwd(STDOUT_FILENO);
 	if (ft_cstring_equals(args[0], "unset"))
 		ms_builtin_unset(args);
 	if (ft_cstring_equals(args[0], "cd")

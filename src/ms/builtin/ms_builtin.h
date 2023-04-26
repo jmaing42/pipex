@@ -13,11 +13,11 @@
 #ifndef MS_BUILTIN_H
 # define MS_BUILTIN_H
 
-void	ms_builtin_echo(char **args);
+void	ms_builtin_echo(char **args, int fd);
 void	ms_builtin_cd(const char *const path);
-void	ms_builtin_pwd(void);
+void	ms_builtin_pwd(int fd);
 void	ms_builtin_export(char **args);
 void	ms_builtin_unset(char **args);
-void	ms_builtin_env(void);
-void	ms_builtin_exit(char **args);
+void	ms_builtin_env(int fd);
+void	ms_builtin_exit(char **args, int fd);
 #endif

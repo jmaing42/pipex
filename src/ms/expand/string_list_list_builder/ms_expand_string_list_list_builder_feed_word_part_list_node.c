@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cstring.h"
-#include "ms_execute.h"
 #include "ms_expand.h"
 
 #include "ms.h"
+#include "ms_execute.h"
+#include "ft_cstring.h"
 
 const char	*g_error_codes[] = {
 	"-128",

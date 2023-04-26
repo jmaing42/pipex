@@ -20,7 +20,7 @@
 #include "ms_execute.h"
 #include "wrap.h"
 
-void	ms_builtin_pwd(void)
+void	ms_builtin_pwd(int fd)
 {
 	char	*path;
 
@@ -32,14 +32,14 @@ void	ms_builtin_pwd(void)
 		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	if (ft_puts(STDOUT_FILENO, path))
+	if (ft_puts(fd, path))
 	{
 		perror("minishell pwd");
 		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
 	wrap_free(path);
-	if (ft_puts(STDOUT_FILENO, "\n"))
+	if (ft_puts(fd, "\n"))
 	{
 		perror("minishell pwd");
 		ms_execute_globals()->exit_status = EXIT_FAILURE;

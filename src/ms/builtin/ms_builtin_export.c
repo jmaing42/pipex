@@ -93,7 +93,7 @@ static t_err	register_env(char *env)
 	return (false);
 }
 // TODO: export A=a "" B=b
-// TODO: unset A B C
+
 void	ms_builtin_export(char **args)
 {
 	size_t	index;

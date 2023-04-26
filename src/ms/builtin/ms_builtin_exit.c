@@ -18,17 +18,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/_types/_size_t.h>
+#include <unistd.h>
 
 #include "ms_execute.h"
 #include "wrap.h"
 
-static void	print_message(int fd, char *message)
+static t_err	print(char *message, int fd)
 {
 	if (ft_puts(fd, message))
 	{
 		perror("minishell exit");
-		wrap_exit(EXIT_FAILURE);
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
+		return (true);
 	}
+	return (false);
 }
 
 static long long	my_atoi(const char *str)
@@ -59,43 +62,23 @@ static long long	my_atoi(const char *str)
 	return (num);
 }
 
-static long long	get_exit_code(char *str, bool *out_is_numeric)
+void	ms_builtin_exit(char **args, int fd)
 {
 	long long	exit_code;
 
-	exit_code = my_atoi(str);
-	if (exit_code > INT_MAX)
-	{
-		print_message(STDERR_FILENO,
-			"minishell exit: numeric argument required\n");
-		*out_is_numeric = false;
-	}
-	return (exit_code);
-}
-
-void	ms_builtin_exit(char **args)
-{
-	size_t		index;
-	long long	exit_code;
-	bool		is_numeric;
-
-	print_message(STDOUT_FILENO, "exit\n");
-	is_numeric = true;
+	if (print("exit\n", fd))
+		return ;
 	exit_code = ms_execute_globals()->exit_status;
-	index = 1;
-	while (args[index])
+	if (args[1])
 	{
-		if (index > 1)
+		exit_code = my_atoi(args[1]);
+		if (exit_code > INT_MAX)
 		{
-			ms_execute_globals()->exit_status = EXIT_FAILURE;
-			print_message(STDERR_FILENO, "minishell exit: too many arguments\n");
-			return ;
+			if (print("minishell exit: numeric argument required\n",
+					STDERR_FILENO))
+				return ;
+			wrap_exit(-1);
 		}
-		else if (index == 1)
-			exit_code = get_exit_code(args[index], &is_numeric);
-		++index;
 	}
-	if (!is_numeric)
-		wrap_exit(-1);
 	wrap_exit(exit_code);
 }
