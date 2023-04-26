@@ -86,6 +86,7 @@ void	ms_execute_builtin_run(t_ms_command *command)
 	if (ms_execute_check_infiles(command))
 	{
 		perror("minishell");
+		ms_execute_globals()->exit_status = EXIT_FAILURE;
 		return ;
 	}
 	if ((command->type == ms_command_type_compound

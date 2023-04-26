@@ -45,6 +45,8 @@ void	ms_builtin_env(int fd)
 			return ;
 		if (print(node->value, fd))
 			return ;
+		if (print("\n", fd))
+			return ;
 		node = node->next;
 	}
 }
