@@ -19,5 +19,5 @@ void	ms_builtin_pwd(void);
 void	ms_builtin_export(char **args);
 void	ms_builtin_unset(char **args);
 void	ms_builtin_env(void);
-void	ms_builtin_exit(void);
+void	ms_builtin_exit(char **args);
 #endif

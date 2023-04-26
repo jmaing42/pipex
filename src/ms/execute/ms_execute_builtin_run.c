@@ -31,7 +31,7 @@ void	ms_execute_builtin_run(t_ms_command *command)
 	else if (ft_cstring_equals(args[0], "env"))
 		ms_builtin_env();
 	else if (ft_cstring_equals(args[0], "exit"))
-		ms_builtin_exit();
+		ms_builtin_exit(args);
 	else if (ft_cstring_equals(args[0], "export"))
 		ms_builtin_export(args);
 	else if (ft_cstring_equals(args[0], "pwd"))
