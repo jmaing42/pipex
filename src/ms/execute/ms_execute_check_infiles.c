@@ -34,7 +34,10 @@ t_err	ms_execute_check_infiles(t_ms_command *command)
 		if (ms_execute_word_to_str(node->target, &path))
 			return (true);
 		if (wrap_access(path, R_OK) == FAIL)
+		{
+			wrap_free(path);
 			return (true);
+		}
 		wrap_free(path);
 		node = node->next;
 	}
