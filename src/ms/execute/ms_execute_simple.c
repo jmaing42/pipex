@@ -103,7 +103,7 @@ static	void	execute_builtin(char **args)
 	if (ft_cstring_equals(args[0], "pwd"))
 		ms_builtin_pwd();
 	if (ft_cstring_equals(args[0], "unset"))
-		ms_builtin_unset(args[1]);
+		ms_builtin_unset(args);
 	if (ft_cstring_equals(args[0], "cd")
 		|| ft_cstring_equals(args[0], "echo")
 		|| ft_cstring_equals(args[0], "env")

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_io.h"
+#include "ft_memory.h"
 #include "ms_builtin.h"
 
 #include <stdio.h>
@@ -55,6 +56,19 @@ static t_err	get_key_and_value(char *env, char **out_key, char **out_value)
 	return (false);
 }
 
+static t_err	call_unset(char *key)
+{
+	char	**args;
+
+	args = ft_memory_allocate(3, sizeof(char *));
+	if (args == NULL)
+		return (true);
+	args[1] = key;
+	ms_builtin_unset(args);
+	wrap_free(args);
+	return (false);
+}
+
 static t_err	register_env(char *env)
 {
 	char	*key;
@@ -72,21 +86,23 @@ static t_err	register_env(char *env)
 	if (key == NULL || value == NULL)
 		return (false);
 	if (is_registerd(key))
-		ms_builtin_unset(key);
+		if (call_unset(key))
+			return (true);
 	if (ms_expand_env_put(key, value))
 		return (true);
 	return (false);
 }
 // TODO: export A=a "" B=b
-void	ms_builtin_export(char **envs)
+// TODO: unset A B C
+void	ms_builtin_export(char **args)
 {
 	size_t	index;
 
 	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	index = 1;
-	while (envs[index])
+	while (args[index])
 	{
-		if (register_env(envs[index]))
+		if (register_env(args[index]))
 		{
 			perror("minishell export");
 			ms_execute_globals()->exit_status = EXIT_FAILURE;

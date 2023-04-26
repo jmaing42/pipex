@@ -16,8 +16,8 @@
 void	ms_builtin_echo(char **args);
 void	ms_builtin_cd(const char *const path);
 void	ms_builtin_pwd(void);
-void	ms_builtin_export(char **envs);
-void	ms_builtin_unset(char *key);
+void	ms_builtin_export(char **args);
+void	ms_builtin_unset(char **args);
 void	ms_builtin_env(void);
 void	ms_builtin_exit(void);
 #endif

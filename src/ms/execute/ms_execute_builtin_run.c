@@ -37,6 +37,6 @@ void	ms_execute_builtin_run(t_ms_command *command)
 	else if (ft_cstring_equals(args[0], "pwd"))
 		ms_builtin_pwd();
 	else if (ft_cstring_equals(args[0], "unset"))
-		ms_builtin_unset(args[1]);
+		ms_builtin_unset(args);
 	ft_cstring_split_free(args);
 }

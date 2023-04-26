@@ -44,13 +44,12 @@ static void	delete_next_node(t_ms_expand_env_list_node *front)
 	wrap_free(delete_node);
 }
 
-void	ms_builtin_unset(char *key)
+static void	delete_env(char *key)
 {
 	t_ms_expand_env_list		*list;
 	t_ms_expand_env_list_node	*node;
 	t_ms_expand_env_list_node	*front;
 
-	ms_execute_globals()->exit_status = EXIT_SUCCESS;
 	if (key == NULL || ft_cstring_equals(key, ""))
 		return ;
 	list = ms_expand_env_list_get();
@@ -65,5 +64,18 @@ void	ms_builtin_unset(char *key)
 		}
 		front = node;
 		node = node->next;
+	}
+}
+
+void	ms_builtin_unset(char **args)
+{
+	size_t	index;
+
+	ms_execute_globals()->exit_status = EXIT_SUCCESS;
+	index = 1;
+	while (args[index])
+	{
+		delete_env(args[index]);
+		++index;
 	}
 }
