@@ -1,14 +1,14 @@
 Q3 := $(if $(filter 3,$(V) $(VERBOSE)),,@)
 Q2 := $(if $(filter 2 3,$(V) $(VERBOSE)),,@)
 Q1 := $(if $(filter 1 2 3,$(V) $(VERBOSE)),,@)
-MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory) $(if $(filter 1,$(NO_ADDITIONAL_J)),,-j $(shell sh build/script/nproc.sh) NO_ADDITIONAL_J=1)
+MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory)
 
 CC := clang
 AR := ar
 ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
-CPPFLAGS += $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -I../assets/readline/include
+CPPFLAGS += $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -Ireadline/include
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
-LDFLAGS := -L../assets/readline/lib -lreadline
+LDFLAGS := -Lreadline/lib -lreadline
 
 SRC_DIR := .
 OBJ_DIR := .cache
@@ -37,7 +37,7 @@ test:
 
 .PHONY: prelude
 prelude:
-	$(Q2)(cd ../assets/readline && $(MAKE))
+	$(Q2)(cd readline && $(MAKE))
 
 PROFILE ?= release
 ifeq ($(PROFILE),release)
