@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ms.h"
 #include "test.h"
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ms.h"
 #include "ft_types.h"
 #include "ms_parse.h"
 #include "ms_expand.h"
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 		|| read_file_contents(argv[1], &contents))
 		return (EXIT_FAILURE);
 	ms_parse(contents, &program);
-	errno = leak_test(test_leak, contents, NULL);
+	errno = leak_test(test_leak, program, NULL);
 	if (errno && printf("leak_test: %s\n", leak_test_error(errno)) < 0)
 	{
 		free(contents);

@@ -31,6 +31,7 @@ test_word_list.c
 ../string_list_list_builder/ms_expand_string_list_list_builder_add_list_list_node.c
 ../string_list_list_builder/ms_expand_string_list_list_builder_free.c
 ../ms_expand_strnstr.c
+../../execute/ms_execute_globals.c
 ../../ms_free.c
 ../../parse/ms_parse.c
 ../../parse/tokenize/ms_parse_tokenize.c

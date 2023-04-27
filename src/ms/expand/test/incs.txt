@@ -1,6 +1,7 @@
 /ms
 /ms/parse
 /ms/expand
+/ms/execute
 /ft
 /ft/types
 /ft/types/char

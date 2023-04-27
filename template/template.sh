@@ -4,7 +4,6 @@ set -e
 
 printf ".POSIX:\n# this file is generated, do not modify directly\n\n"
 
-printf "OBJS_PIPEX = main.o %s\n" "$(find . -name "pipex_*.c" | grep -v /test/ | cut -c 3- | sed s/\\.c\$/.o/ | xargs)"
 printf "OBJS_LIBWRAP = %s\n" "$(find . -name "wrap_*.c" | grep -v /test/ | cut -c 3- | sed s/\\.c\$/.o/ | xargs)"
 printf "OBJS_LIBFT = %s\n" "$(find . -name "ft_*.c" | grep -v /test/ | cut -c 3- | sed s/\\.c\$/.o/ | xargs)"
 printf "OBJS_LIBFTO = %s\n" "$(find . -name "fto_*.c" | grep -v /test/ | cut -c 3- | sed s/\\.c\$/.o/ | xargs)"

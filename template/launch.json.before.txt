@@ -4,10 +4,10 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug pipex",
-      "program": "${workspaceFolder}/src/.cache/pipex.production.debug.address.exe",
+      "name": "Debug minishell",
+      "program": "${workspaceFolder}/src/.cache minishell.production.debug.address.exe",
       "cwd": "${workspaceFolder}/src",
       "args": ["Makefile", "e'ch'\"o\" $HELLO_WORLD .* *.* '*'", "test.txt"],
       "env": {"HELLO_WORLD":"hello       world"},
-      "preLaunchTask": "build pipex (debug)",
+      "preLaunchTask": "build minishell (debug)",
     },
