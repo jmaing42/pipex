@@ -1,84 +1,62 @@
-Q3 := $(if $(filter 3,$(V) $(VERBOSE)),,@)
-Q2 := $(if $(filter 2 3,$(V) $(VERBOSE)),,@)
-Q1 := $(if $(filter 1 2 3,$(V) $(VERBOSE)),,@)
-MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/27 20:47:55 by Juyeong Maing     #+#    #+#              #
+#    Updated: 2023/04/27 20:56:38 by Juyeong Maing    ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC := clang
-AR := ar
-ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
-CPPFLAGS += $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -Ireadline/include
-CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
-LDFLAGS := -Lreadline/lib -lreadline
+NAME = minishell
 
-SRC_DIR := .
-OBJ_DIR := .cache
+OBJ_DIR = ./obj
 
-SRCS_LIBWRAP := $(shell find . -name "wrap_*.c" | grep -v /test/ | xargs)
-SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
-SRCS_LIBFTO := $(shell find . -name "fto_*.c" | grep -v /test/ | xargs)
-SRCS_LIBMS := $(shell find . -name "ms_*.c" | grep -v /test/ | xargs)
+CFLAGS = -I./ft/byte_map -I./ft/cstring -I./ft/cstring/split -I./ft -I./ft/io -I./ft/memory -I./ft/os/file -I./ft/os/fork -I./ft/os/pipe -I./ft/os/process -I./ft/os/util/envp -I./ft/simple_map -I./ft/stringbuilder -I./ft/to_lines -I./ft/trie -I./ft/types -I./ft/types/convert/strict -I./ft/types -I./ft/types/primitive -I./fto/stream/buffered -I./fto/stream/buffered/in -I./fto/stream/buffered/out -I./fto/stream/fd -I./fto/stream/fd/in -I./fto/stream/fd/out -I./fto/stream -I./fto/stream/string -I./fto/stream/string/in -I./fto/stream/string/out -I./fto/stream/v/in -I./fto/stream/v/out -I./fto/unwinder -I./fto/unwinder/list -I./fto/va -I./fto/va/va_list -I./ms/builtin -I./ms/execute -I./ms/expand -I./ms -I./ms/parse -I./ms/repl -I./wrap
+OBJS = $(OBJ_DIR)/ft/byte_map/ft_byte_map.o $(OBJ_DIR)/ft/cstring/compare/ft_cstring_compare.o $(OBJ_DIR)/ft/cstring/compare/ft_cstring_compare_length.o $(OBJ_DIR)/ft/cstring/duplicate/ft_cstring_duplicate.o $(OBJ_DIR)/ft/cstring/duplicate/ft_cstring_duplicate_length.o $(OBJ_DIR)/ft/cstring/find/ft_cstring_find.o $(OBJ_DIR)/ft/cstring/find/ft_cstring_find_index.o $(OBJ_DIR)/ft/cstring/find/ft_cstring_find_index_reverse.o $(OBJ_DIR)/ft/cstring/find/ft_cstring_find_one_of.o $(OBJ_DIR)/ft/cstring/ft_cstring_concat.o $(OBJ_DIR)/ft/cstring/ft_cstring_contains_char.o $(OBJ_DIR)/ft/cstring/ft_cstring_ends_with_char.o $(OBJ_DIR)/ft/cstring/ft_cstring_equals.o $(OBJ_DIR)/ft/cstring/ft_cstring_starts_with.o $(OBJ_DIR)/ft/cstring/ft_cstring_strlen.o $(OBJ_DIR)/ft/cstring/ft_cstring_strnchp.o $(OBJ_DIR)/ft/cstring/ft_cstring_strnlen.o $(OBJ_DIR)/ft/cstring/length/ft_cstring_length.o $(OBJ_DIR)/ft/cstring/split/ft_cstring_split.o $(OBJ_DIR)/ft/cstring/split/ft_cstring_split_count.o $(OBJ_DIR)/ft/cstring/split/ft_cstring_split_free.o $(OBJ_DIR)/ft/ft_exit.o $(OBJ_DIR)/ft/ft_malloc.o $(OBJ_DIR)/ft/ft_strict_atoi.o $(OBJ_DIR)/ft/io/ft_io_basic.o $(OBJ_DIR)/ft/memory/ft_memory_allocate.o $(OBJ_DIR)/ft/memory/ft_memory_copy.o $(OBJ_DIR)/ft/memory/ft_memory_duplicate.o $(OBJ_DIR)/ft/memory/ft_memory_find.o $(OBJ_DIR)/ft/memory/ft_memory_set.o $(OBJ_DIR)/ft/memory/ft_memory_zero.o $(OBJ_DIR)/ft/os/file/ft_os_file_close.o $(OBJ_DIR)/ft/os/file/ft_os_file_is_executable.o $(OBJ_DIR)/ft/os/file/ft_os_file_open.o $(OBJ_DIR)/ft/os/file/ft_os_file_open2.o $(OBJ_DIR)/ft/os/file/ft_os_file_resolve_executable_path.o $(OBJ_DIR)/ft/os/fork/ft_os_fork.o $(OBJ_DIR)/ft/os/fork/ft_os_fork_multiple.o $(OBJ_DIR)/ft/os/pipe/ft_os_pipe.o $(OBJ_DIR)/ft/os/process/ft_os_process_wait_pids.o $(OBJ_DIR)/ft/os/util/envp/ft_os_util_envp_get.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_dynamic_free.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_dynamic_get.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_dynamic_new.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_dynamic_pop.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_dynamic_set.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_static_free.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_static_get.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_static_new.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_static_pop.o $(OBJ_DIR)/ft/simple_map/ft_simple_map_static_set.o $(OBJ_DIR)/ft/stringbuilder/ft_stringbuilder_append.o $(OBJ_DIR)/ft/stringbuilder/ft_stringbuilder_append_char.o $(OBJ_DIR)/ft/stringbuilder/ft_stringbuilder_append_string.o $(OBJ_DIR)/ft/stringbuilder/ft_stringbuilder_free.o $(OBJ_DIR)/ft/stringbuilder/ft_stringbuilder_new.o $(OBJ_DIR)/ft/stringbuilder/ft_stringbuilder_to_string.o $(OBJ_DIR)/ft/to_lines/ft_to_lines.o $(OBJ_DIR)/ft/to_lines/ft_to_lines_drain.o $(OBJ_DIR)/ft/to_lines/ft_to_lines_end.o $(OBJ_DIR)/ft/to_lines/ft_to_lines_feed.o $(OBJ_DIR)/ft/to_lines/ft_to_lines_free.o $(OBJ_DIR)/ft/to_lines/ft_to_lines_get_current_line.o $(OBJ_DIR)/ft/to_lines/ft_to_lines_init.o $(OBJ_DIR)/ft/trie/ft_trie_new.o $(OBJ_DIR)/ft/types/char/ft_types_char_alnum.o $(OBJ_DIR)/ft/types/char/ft_types_char_alpha.o $(OBJ_DIR)/ft/types/char/ft_types_char_ascii.o $(OBJ_DIR)/ft/types/char/ft_types_char_blank.o $(OBJ_DIR)/ft/types/char/ft_types_char_cntrl.o $(OBJ_DIR)/ft/types/char/ft_types_char_digit.o $(OBJ_DIR)/ft/types/char/ft_types_char_graph.o $(OBJ_DIR)/ft/types/char/ft_types_char_lower.o $(OBJ_DIR)/ft/types/char/ft_types_char_print.o $(OBJ_DIR)/ft/types/char/ft_types_char_punct.o $(OBJ_DIR)/ft/types/char/ft_types_char_space.o $(OBJ_DIR)/ft/types/char/ft_types_char_upper.o $(OBJ_DIR)/ft/types/char/ft_types_char_xdigit.o $(OBJ_DIR)/ft/types/convert/strict/ft_types_convert_strict_string_to_int.o $(OBJ_DIR)/ft/types/convert/strict/ft_types_convert_strict_string_to_long_double.o $(OBJ_DIR)/ft/types/primitive/ft_types_primitive_const_pointer.o $(OBJ_DIR)/ft/types/primitive/ft_types_primitive_int.o $(OBJ_DIR)/ft/types/primitive/ft_types_primitive_pointer.o $(OBJ_DIR)/ft/types/primitive/ft_types_primitive_size_t.o $(OBJ_DIR)/fto/stream/buffered/in/fto_stream_buffered_in_new.o $(OBJ_DIR)/fto/stream/buffered/in/fto_stream_buffered_in_v_end.o $(OBJ_DIR)/fto/stream/buffered/in/fto_stream_buffered_in_v_free.o $(OBJ_DIR)/fto/stream/buffered/in/fto_stream_buffered_in_v_read_all.o $(OBJ_DIR)/fto/stream/buffered/out/fto_stream_buffered_out_new.o $(OBJ_DIR)/fto/stream/buffered/out/fto_stream_buffered_out_v_flush.o $(OBJ_DIR)/fto/stream/buffered/out/fto_stream_buffered_out_v_free_without_flush.o $(OBJ_DIR)/fto/stream/buffered/out/fto_stream_buffered_out_v_write.o $(OBJ_DIR)/fto/stream/fd/in/fto_stream_fd_in_new.o $(OBJ_DIR)/fto/stream/fd/in/fto_stream_fd_in_v_end.o $(OBJ_DIR)/fto/stream/fd/in/fto_stream_fd_in_v_free.o $(OBJ_DIR)/fto/stream/fd/in/fto_stream_fd_in_v_read.o $(OBJ_DIR)/fto/stream/fd/in/fto_stream_fd_in_v_read_all.o $(OBJ_DIR)/fto/stream/fd/out/fto_stream_fd_out_new.o $(OBJ_DIR)/fto/stream/fd/out/fto_stream_fd_out_v_free_without_flush.o $(OBJ_DIR)/fto/stream/fd/out/fto_stream_fd_out_v_write.o $(OBJ_DIR)/fto/stream/string/in/fto_stream_string_in_new.o $(OBJ_DIR)/fto/stream/string/in/fto_stream_string_in_v_end.o $(OBJ_DIR)/fto/stream/string/in/fto_stream_string_in_v_free.o $(OBJ_DIR)/fto/stream/string/in/fto_stream_string_in_v_read_all.o $(OBJ_DIR)/fto/stream/string/in/fto_stream_string_in_v_reset.o $(OBJ_DIR)/fto/stream/string/out/fto_stream_string_out_new.o $(OBJ_DIR)/fto/stream/string/out/fto_stream_string_out_v_free_without_flush.o $(OBJ_DIR)/fto/stream/string/out/fto_stream_string_out_v_to_string.o $(OBJ_DIR)/fto/stream/string/out/fto_stream_string_out_v_write.o $(OBJ_DIR)/fto/stream/v/out/fto_stream_out_v_flush.o $(OBJ_DIR)/fto/stream/v/out/fto_stream_out_v_try_free.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_new.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_new_failed_to_alloc.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_add.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_add_always.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_add_failed_to_alloc.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_end_error.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_end_error_failed_to_alloc.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_end_ok.o $(OBJ_DIR)/fto/unwinder/list/fto_unwinder_list_v_end_ok_failed_to_alloc.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_new.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_clone.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_free.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_char.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_double.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_float.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_intmax_t.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_long_double.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_pointer.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_ptrdiff_t.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_signed_char.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_signed_int.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_signed_long.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_signed_long_long.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_signed_short.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_size_t.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_ssize_t.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_uintmax_t.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_unsigned_char.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_unsigned_int.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_unsigned_long.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_unsigned_long_long.o $(OBJ_DIR)/fto/va/va_list/fto_va_va_list_v_get_unsigned_short.o $(OBJ_DIR)/ms/builtin/ms_builtin_cd.o $(OBJ_DIR)/ms/builtin/ms_builtin_echo.o $(OBJ_DIR)/ms/builtin/ms_builtin_env.o $(OBJ_DIR)/ms/builtin/ms_builtin_exit.o $(OBJ_DIR)/ms/builtin/ms_builtin_export.o $(OBJ_DIR)/ms/builtin/ms_builtin_pwd.o $(OBJ_DIR)/ms/builtin/ms_builtin_unset.o $(OBJ_DIR)/ms/execute/ms_exectue_redirections_out.o $(OBJ_DIR)/ms/execute/ms_execute.o $(OBJ_DIR)/ms/execute/ms_execute_and_or_list.o $(OBJ_DIR)/ms/execute/ms_execute_builtin_check.o $(OBJ_DIR)/ms/execute/ms_execute_builtin_run.o $(OBJ_DIR)/ms/execute/ms_execute_check_infiles.o $(OBJ_DIR)/ms/execute/ms_execute_child.o $(OBJ_DIR)/ms/execute/ms_execute_command.o $(OBJ_DIR)/ms/execute/ms_execute_command_compound.o $(OBJ_DIR)/ms/execute/ms_execute_exit.o $(OBJ_DIR)/ms/execute/ms_execute_globals.o $(OBJ_DIR)/ms/execute/ms_execute_pipe_and_fork.o $(OBJ_DIR)/ms/execute/ms_execute_pipe_list.o $(OBJ_DIR)/ms/execute/ms_execute_program.o $(OBJ_DIR)/ms/execute/ms_execute_redirect_in_out.o $(OBJ_DIR)/ms/execute/ms_execute_redirections_in.o $(OBJ_DIR)/ms/execute/ms_execute_redirections_word_to_str.o $(OBJ_DIR)/ms/execute/ms_execute_set_signals.o $(OBJ_DIR)/ms/execute/ms_execute_simple.o $(OBJ_DIR)/ms/expand/ms_expand.o $(OBJ_DIR)/ms/expand/ms_expand_asterisk.o $(OBJ_DIR)/ms/expand/ms_expand_env_get.o $(OBJ_DIR)/ms/expand/ms_expand_env_get_environ.o $(OBJ_DIR)/ms/expand/ms_expand_env_init.o $(OBJ_DIR)/ms/expand/ms_expand_env_list_get.o $(OBJ_DIR)/ms/expand/ms_expand_env_put.o $(OBJ_DIR)/ms/expand/ms_expand_internal.o $(OBJ_DIR)/ms/expand/ms_expand_string_list_free.o $(OBJ_DIR)/ms/expand/ms_expand_string_list_list_free.o $(OBJ_DIR)/ms/expand/ms_expand_strnstr.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_add_list_list_node.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_add_list_node.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_feed_char.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_feed_string.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_feed_word.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_feed_word_list.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_feed_word_part_list.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_feed_word_part_list_node.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_fill_node.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_finalize.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_free.o $(OBJ_DIR)/ms/expand/string_list_list_builder/ms_expand_string_list_list_builder_init.o $(OBJ_DIR)/ms/ms_free.o $(OBJ_DIR)/ms/ms_tmpname_find.o $(OBJ_DIR)/ms/ms_tmpname_init.o $(OBJ_DIR)/ms/parse/ms_parse.o $(OBJ_DIR)/ms/parse/parse/command/ms_parse_parse_command.o $(OBJ_DIR)/ms/parse/parse/command/ms_parse_parse_command_add_redirection.o $(OBJ_DIR)/ms/parse/parse/command/ms_parse_parse_command_compound.o $(OBJ_DIR)/ms/parse/parse/command/ms_parse_parse_command_is_redirection.o $(OBJ_DIR)/ms/parse/parse/command/ms_parse_parse_command_is_word.o $(OBJ_DIR)/ms/parse/parse/command/ms_parse_parse_command_simple.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_and_or_list.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_command.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_pipe_list.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_program.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_redirections.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_word.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_word_part.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_word_part_list.o $(OBJ_DIR)/ms/parse/parse/free/ms_parse_free_word_part_string_list.o $(OBJ_DIR)/ms/parse/parse/ms_parse_parse_and_or_list.o $(OBJ_DIR)/ms/parse/parse/ms_parse_parse_pipe_list.o $(OBJ_DIR)/ms/parse/parse/ms_parse_parse_program.o $(OBJ_DIR)/ms/parse/parse/ms_parse_parse_util_skip_space_if_any.o $(OBJ_DIR)/ms/parse/parse/word/ms_parse_parse_word.o $(OBJ_DIR)/ms/parse/parse/word/ms_parse_parse_word_part_double_quoted.o $(OBJ_DIR)/ms/parse/parse/word/ms_parse_parse_word_part_fill.o $(OBJ_DIR)/ms/parse/parse/word/ms_parse_parse_word_part_single_quoted.o $(OBJ_DIR)/ms/parse/parse/word/ms_parse_parse_word_part_unquoted.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_add_simple_token.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_add_string_token.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_default.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_double_quote.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_free.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_quote.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_space.o $(OBJ_DIR)/ms/parse/tokenize/ms_parse_tokenize_word.o $(OBJ_DIR)/ms/repl/ms_repl_die.o $(OBJ_DIR)/ms/repl/ms_repl_heredoc_make_tmpfile.o $(OBJ_DIR)/ms/repl/ms_repl_heredoc_parse.o $(OBJ_DIR)/ms/repl/ms_repl_heredoc_signals.o $(OBJ_DIR)/ms/repl/ms_repl_line.o $(OBJ_DIR)/ms/repl/ms_repl_main.o $(OBJ_DIR)/ms/repl/ms_repl_set_signals.o $(OBJ_DIR)/ms/repl/ms_repl_set_terminal.o $(OBJ_DIR)/ms_main.o $(OBJ_DIR)/wrap/wrap_access.o $(OBJ_DIR)/wrap/wrap_close.o $(OBJ_DIR)/wrap/wrap_dup.o $(OBJ_DIR)/wrap/wrap_dup2.o $(OBJ_DIR)/wrap/wrap_exit.o $(OBJ_DIR)/wrap/wrap_fork.o $(OBJ_DIR)/wrap/wrap_free.o $(OBJ_DIR)/wrap/wrap_malloc.o $(OBJ_DIR)/wrap/wrap_open.o $(OBJ_DIR)/wrap/wrap_pipe.o $(OBJ_DIR)/wrap/wrap_read.o $(OBJ_DIR)/wrap/wrap_unlink.o $(OBJ_DIR)/wrap/wrap_wait.o $(OBJ_DIR)/wrap/wrap_waitpid.o $(OBJ_DIR)/wrap/wrap_write.o 
 
-NAME := minishell
-EXECUTABLE_TARGETS := $(NAME)
+default: all
+.PHONY: default
 
-all: $(NAME)
-bonus: all
+
+.PHONY: all
+all: $(NAME) $(OTHER_USEFUL_FILES)
+
+.PHONY: bonus
+bonus: $(NAME) $(OTHER_USEFUL_FILES)
+
+.PHONY: clean
 clean:
-	$(Q1)rm -rf $(OBJ_DIR)
-fclean:
-	$(Q3)$(MAKE) clean
-	$(Q1)rm -f $(EXECUTABLE_TARGETS:=.exe)
+	rm -rf $(OBJ_DIR)
+	$(MAKE) -C readline clean
+
+.PHONY: fclean
+fclean: clean
+	rm -f $(NAME)
+	$(MAKE) -C readline fclean
+
+.PHONY: re
 re:
-	$(Q3)$(MAKE) NO_ADDITIONAL_J=1 fclean
-	$(Q3)$(MAKE) NO_ADDITIONAL_J=1 all
-test:
-	$(Q1)find . -type d -mindepth 1 -name "test" | xargs -L1 -I {} $(MAKE) -C {} test
-.PHONY: all bonus clean fclean re test
+	$(MAKE) fclean
+	$(MAKE) all
+
+
+.editorconfig:
+	printf "root = true\n\n[*]\ncharset = utf-8\nend_of_line = lf\nindent_size = 4\nindent_style = tab\ninsert_final_newline = true\ntrim_trailing_whitespace = true\n" > .editorconfig
+
+.gitignore:
+	(printf ".*\n*.o\n\n" && echo "$(NAME)" | xargs -n 1 echo) > $@
+
+
+$(NAME): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%$(SUFFIX).o: %.c | prelude
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
 
 .PHONY: prelude
 prelude:
-	$(Q2)(cd readline && $(MAKE))
-
-PROFILE ?= release
-ifeq ($(PROFILE),release)
-CFLAGS += -O3 -DNDEBUG
-else ifeq ($(PROFILE),debug)
-CFLAGS += -g3 -DDEBUG
-else
-$(error Bad profile)
-endif
-
-TARGET ?= production
-ifeq ($(TARGET),production)
-CFLAGS += -DNDEVELOPMENT
-else ifeq ($(TARGET),development)
-CFLAGS += -DDEVELOPMENT
-else
-$(error Bad target)
-endif
-
-SUFFIX := .$(TARGET).$(PROFILE)$(if $(SANITIZER),.$(SANITIZER))
-CFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
-LDFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
-
-$(OBJ_DIR)/%.a:
-	$(Q3)mkdir -p $(@D)
-	$(Q2)$(AR) $(ARFLAGS) $@ $^
-$(OBJ_DIR)/%.exe: $(OBJ_DIR)/libwrap$(SUFFIX).a $(OBJ_DIR)/libft$(SUFFIX).a $(OBJ_DIR)/libfto$(SUFFIX).a $(OBJ_DIR)/libms$(SUFFIX).a
-	$(Q3)mkdir -p $(@D)
-	$(Q2)$(CC) $(LDFLAGS) -o $@ $^
-$(OBJ_DIR)/%$(SUFFIX).o: %.c | prelude
-	$(Q3)mkdir -p $(@D)
-	$(Q2)$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
-
-$(OBJ_DIR)/libwrap$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBWRAP))
-$(OBJ_DIR)/libft$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFT))
-$(OBJ_DIR)/libfto$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFTO))
-$(OBJ_DIR)/libms$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBMS))
-$(OBJ_DIR)/$(NAME)$(SUFFIX).exe:
-$(EXECUTABLE_TARGETS): %: $(OBJ_DIR)/%$(SUFFIX).exe
-	$(Q1)cp $< $@.exe
-.PHONY: $(EXECUTABLE_TARGETS)
-
-# dependencies
--include $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).d,$(SRCS))
+	$(MAKE) -C readline
