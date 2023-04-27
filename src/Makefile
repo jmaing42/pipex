@@ -35,6 +35,10 @@ test:
 	$(Q1)find . -type d -mindepth 1 -name "test" | xargs -L1 -I {} $(MAKE) -C {} test
 .PHONY: all bonus clean fclean re test
 
+.PHONY: prelude
+prelude:
+	$(Q2)(cd ../assets/readline && $(MAKE))
+
 PROFILE ?= release
 ifeq ($(PROFILE),release)
 CFLAGS += -O3 -DNDEBUG
@@ -63,7 +67,7 @@ $(OBJ_DIR)/%.a:
 $(OBJ_DIR)/%.exe: $(OBJ_DIR)/libwrap$(SUFFIX).a $(OBJ_DIR)/libft$(SUFFIX).a $(OBJ_DIR)/libfto$(SUFFIX).a $(OBJ_DIR)/libms$(SUFFIX).a
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(CC) $(LDFLAGS) -o $@ $^
-$(OBJ_DIR)/%$(SUFFIX).o: %.c
+$(OBJ_DIR)/%$(SUFFIX).o: %.c | prelude
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
 
