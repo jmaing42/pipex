@@ -1,7 +1,0 @@
-main.c
-../../ms_expand_string_list_list_builder_add_list_node.c
-../../../ms_expand_string_list_free.c
-../../../../../ft/memory/ft_memory_set.c
-../../../../../ft/memory/ft_memory_zero.c
-../../../../../ft/memory/ft_memory_allocate.c
-../../../../../wrap/wrap_malloc.c

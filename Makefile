@@ -1,64 +1,84 @@
 Q3 := $(if $(filter 3,$(V) $(VERBOSE)),,@)
 Q2 := $(if $(filter 2 3,$(V) $(VERBOSE)),,@)
 Q1 := $(if $(filter 1 2 3,$(V) $(VERBOSE)),,@)
-MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory) $(if $(filter 1,$(NO_ADDITIONAL_J)),,-j $(shell sh src/build/script/nproc.sh) NO_ADDITIONAL_J=1)
+MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory) $(if $(filter 1,$(NO_ADDITIONAL_J)),,-j $(shell sh build/script/nproc.sh) NO_ADDITIONAL_J=1)
 
-export V
+CC := clang
+AR := ar
+ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
+CPPFLAGS += $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -I../assets/readline/include
+CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
+LDFLAGS := -L../assets/readline/lib -lreadline
 
-all: test
+SRC_DIR := .
+OBJ_DIR := .cache
+
+SRCS_LIBWRAP := $(shell find . -name "wrap_*.c" | grep -v /test/ | xargs)
+SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
+SRCS_LIBFTO := $(shell find . -name "fto_*.c" | grep -v /test/ | xargs)
+SRCS_LIBMS := $(shell find . -name "ms_*.c" | grep -v /test/ | xargs)
+
+NAME := minishell
+EXECUTABLE_TARGETS := $(NAME)
+
+all: $(NAME)
+bonus: all
 clean:
-	$(Q2)rm -rf tmp
-	$(Q2)$(MAKE) -C src clean
-	$(Q2)$(MAKE) -C assets/leak_test clean
-	$(Q2)find src \( -type f \( -name compile_commands.json -o -name "*.part.json" -o -name "*.exe" \) -o -type d -name .cache \) -delete
-	$(Q2)find src -type d -empty -delete
-	$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} clean
-	@printf "\033[0m"
+	$(Q1)rm -rf $(OBJ_DIR)
 fclean:
-	$(Q2)rm -f compile_commands.json .vscode/launch.json .vscode/tasks.json
-	$(Q2)$(MAKE) -C src fclean
-	$(Q2)$(MAKE) -C assets/leak_test fclean
-	$(Q2)find src \( -type f \( -name compile_commands.json -o -name "*.part.json" -o -name "*.exe" \) -o -type d -name .cache \) -delete
-	$(Q2)find src -type d -empty -delete
-	$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} fclean
-	@printf "\033[0m"
+	$(Q3)$(MAKE) clean
+	$(Q1)rm -f $(EXECUTABLE_TARGETS:=.exe)
 re:
-	$(Q3)$(MAKE) fclean
-	$(Q3)$(MAKE) all
+	$(Q3)$(MAKE) NO_ADDITIONAL_J=1 fclean
+	$(Q3)$(MAKE) NO_ADDITIONAL_J=1 all
 test:
-	$(Q2)find src -type d -name test | sort | xargs -L1 $(MAKE) -C
-	$(Q2)$(MAKE) prepare_publish
-	$(Q2)$(MAKE) -C tmp
-	$(Q2)$(MAKE) -C test
-	@echo "Some test might need manual review"
-prepare_publish:
-	$(Q2)rm -rf tmp
-	$(Q2)mkdir tmp
-	$(Q2)sh src/build/script/copy_src_to_tmp_flatten.sh
-	$(Q2)cd tmp && sh ../template/template.sh > Makefile
-publish_without_test: prepare_publish
-ifndef GIT_REMOTE_URL
-	$(error GIT_REMOTE_URL is undefined)
-endif
-	$(Q2)(cd tmp && git init && git add . && git commit -m "Initial commit" && git push "$(GIT_REMOTE_URL)" HEAD:master) || (echo "Failed to publish" && false)
-	$(Q2)rm -rf tmp
-	$(Q2)git push "$(GIT_REMOTE_URL)" HEAD:source || echo "Failed to push HEAD to source"
-publish:
-	$(Q1)$(MAKE) test
-	$(Q1)$(MAKE) publish_without_test
-.PHONY: all clean fclean re init deinit reinit refresh test publish publish_without_test prepare_publish
+	$(Q1)find . -type d -mindepth 1 -name "test" | xargs -L1 -I {} $(MAKE) -C {} test
+.PHONY: all bonus clean fclean re test
 
-.PHONY: pre_dev
-pre_dev:
-	$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} dev
-.PHONY: compile_commands.json
-compile_commands.json: pre_dev
-	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (printf "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && printf "]") > $@
-.PHONY: .vscode/launch.json
-.vscode/launch.json: pre_dev
-	$(Q2)(cat template/launch.json.before.txt && find src -name launch.part.json | sort | xargs cat && cat template/launch.json.after.txt) > $@
-.PHONY: .vscode/tasks.json
-.vscode/tasks.json: pre_dev
-	$(Q2)(cat template/tasks.json.before.txt && find src -name tasks.part.json | sort | xargs cat && cat template/tasks.json.after.txt) > $@
-.PHONY: dev
-dev: compile_commands.json .vscode/launch.json .vscode/tasks.json
+.PHONY: prelude
+prelude:
+	$(Q2)(cd ../assets/readline && $(MAKE))
+
+PROFILE ?= release
+ifeq ($(PROFILE),release)
+CFLAGS += -O3 -DNDEBUG
+else ifeq ($(PROFILE),debug)
+CFLAGS += -g3 -DDEBUG
+else
+$(error Bad profile)
+endif
+
+TARGET ?= production
+ifeq ($(TARGET),production)
+CFLAGS += -DNDEVELOPMENT
+else ifeq ($(TARGET),development)
+CFLAGS += -DDEVELOPMENT
+else
+$(error Bad target)
+endif
+
+SUFFIX := .$(TARGET).$(PROFILE)$(if $(SANITIZER),.$(SANITIZER))
+CFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
+LDFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
+
+$(OBJ_DIR)/%.a:
+	$(Q3)mkdir -p $(@D)
+	$(Q2)$(AR) $(ARFLAGS) $@ $^
+$(OBJ_DIR)/%.exe: $(OBJ_DIR)/libwrap$(SUFFIX).a $(OBJ_DIR)/libft$(SUFFIX).a $(OBJ_DIR)/libfto$(SUFFIX).a $(OBJ_DIR)/libms$(SUFFIX).a
+	$(Q3)mkdir -p $(@D)
+	$(Q2)$(CC) $(LDFLAGS) -o $@ $^
+$(OBJ_DIR)/%$(SUFFIX).o: %.c | prelude
+	$(Q3)mkdir -p $(@D)
+	$(Q2)$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
+
+$(OBJ_DIR)/libwrap$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBWRAP))
+$(OBJ_DIR)/libft$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFT))
+$(OBJ_DIR)/libfto$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFTO))
+$(OBJ_DIR)/libms$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBMS))
+$(OBJ_DIR)/$(NAME)$(SUFFIX).exe:
+$(EXECUTABLE_TARGETS): %: $(OBJ_DIR)/%$(SUFFIX).exe
+	$(Q1)cp $< $@.exe
+.PHONY: $(EXECUTABLE_TARGETS)
+
+# dependencies
+-include $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).d,$(SRCS))
