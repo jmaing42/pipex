@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_io.h"
 #include "ms_execute.h"
 
 #include <stdlib.h>
 #include <sys/unistd.h>
+#include <unistd.h>
 
 #include "ft_types.h"
 #include "ms.h"
@@ -36,6 +38,7 @@ t_err	ms_execute_check_infiles(t_ms_command *command)
 		if (wrap_access(path, R_OK) == FAIL)
 		{
 			wrap_free(path);
+			ft_puts(STDERR_FILENO, "minishell: No such file or directory\n");
 			return (true);
 		}
 		wrap_free(path);

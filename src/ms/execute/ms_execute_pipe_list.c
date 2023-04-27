@@ -108,8 +108,6 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 		next = node->next;
 		if (wrap_waitpid(node->pid, &stat, 0) == FAIL)
 			result = true;
-		if (WEXITSTATUS(stat) == COMMAND_NOT_FOUND)
-			ft_puts(STDOUT_FILENO, "minishell: command not found\n");
 		free(node);
 		node = next;
 	}

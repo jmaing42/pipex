@@ -13,6 +13,7 @@
 #include "ft_cstring.h"
 #include "ft_cstring_split.h"
 #include "ft_exit.h"
+#include "ft_io.h"
 #include "ft_memory.h"
 #include "ft_os_file.h"
 #include "ms_builtin.h"
@@ -133,7 +134,10 @@ void	ms_execute_command_simple(
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
 	if (cmd_name == NULL)
-		wrap_exit(COMMAND_NOT_FOUND);
+	{
+		ft_puts(STDERR_FILENO, "minishell: command not found\n");
+		wrap_exit(EXIT_FAILURE);
+	}
 	if (execve(cmd_name, args, envp))
 		wrap_exit(EXIT_FAILURE);
 }
