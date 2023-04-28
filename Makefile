@@ -6,7 +6,7 @@
 #    By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/27 20:47:55 by Juyeong Maing     #+#    #+#              #
-#    Updated: 2023/04/28 13:05:50 by Juyeong Maing    ###   ########.fr        #
+#    Updated: 2023/04/28 13:09:38 by Juyeong Maing    ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(NAME): $(OBJS)
 
 ./obj/%$(SUFFIX).o: %.c | prelude
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 .PHONY: prelude
 prelude:
