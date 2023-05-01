@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_execute_pipe_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/05/01 16:59:42 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_err	ms_execute_pipe_list(t_ms_pipe_list *pipe_list)
 		ms_execute_builtin_run(&pipe_list->head->command);
 		return (false);
 	}
-	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
+	ft_memory_set(&info, 0, sizeof(t_ms_execute_pipe_info));
 	info.is_first = true;
 	node = pipe_list->head;
 	while (node)
