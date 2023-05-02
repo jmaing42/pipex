@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_parse_tokenize_add_string_token.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/05/02 19:31:20 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_err	ms_parse_tokenize_add_string_token(
 {
 	t_ms_parse_token_list_node *const	node
 		= wrap_malloc(sizeof(t_ms_parse_token_list_node));
-	char *const							str = ft_stringbuilder_to_string(data, 0);
+	char *const							str
+		= ft_stringbuilder_to_string(data, 0);
 
 	ft_stringbuilder_free(data);
 	if (!node || !str)
