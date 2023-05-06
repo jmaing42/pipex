@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parse_tokenize_add_string_token.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/02 19:31:20 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/06 18:37:21 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
