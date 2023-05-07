@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+         #
+#    By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/27 20:47:55 by Juyeong Maing     #+#    #+#              #
-#    Updated: 2023/05/06 18:40:16 by Juyeong Maing    ###   ########.fr        #
+#    Created: 2023/04/27 20:47:55 by Juyeong Mai       #+#    #+#              #
+#    Updated: 2023/05/07 15:51:47 by seonlim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(NAME): $(OBJS)
 
 ./obj/%$(SUFFIX).o: %.c | prelude
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) -g $(CFLAGS) -o $@ -c $<
 
 .PHONY: prelude
 prelude:

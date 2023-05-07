@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_execute_simple.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/05/07 16:12:16 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,11 @@ void	ms_execute_command_simple(
 
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
+	if (args[0] == NULL)
+	{
+		ft_puts(STDERR_FILENO, "minishell: command not found\n");
+		wrap_exit(EXIT_FAILURE);
+	}
 	execute_builtin(args);
 	if (ms_expand_env_get_environ(&envp))
 		wrap_exit(EXIT_FAILURE);

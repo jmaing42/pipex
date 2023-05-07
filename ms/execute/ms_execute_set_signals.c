@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_execute_set_signals.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/05/06 22:41:25 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_execute.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/_types/_pid_t.h>
@@ -20,7 +21,7 @@
 #include "ft_io.h"
 #include "wrap.h"
 
-static void	parent_sigint_handler(int signo)
+static void	sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
@@ -28,7 +29,7 @@ static void	parent_sigint_handler(int signo)
 		ms_execute_exit(EXIT_FAILURE, "minishell sigint");
 }
 
-static void	parent_sigquit_handler(int signo)
+static void	sigquit_handler(int signo)
 {
 	if (signo != SIGQUIT)
 		return ;
@@ -44,6 +45,6 @@ void	ms_execute_set_signals(pid_t pid)
 		signal(SIGQUIT, SIG_DFL);
 		return ;
 	}
-	signal(SIGINT, parent_sigint_handler);
-	signal(SIGQUIT, parent_sigquit_handler);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 }

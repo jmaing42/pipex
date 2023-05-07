@@ -5,9 +5,8 @@
       "type": "lldb",
       "request": "launch",
       "name": "Debug pipex",
-      "program": "${workspaceFolder}/src/.cache/pipex.production.debug.address.exe",
-      "cwd": "${workspaceFolder}/src",
-      "preLaunchTask": "build pipex (debug)",
+      "program": "${workspaceFolder}/minishell",
+      "cwd": "${workspaceFolder}",
     },
     {
       "type": "lldb",

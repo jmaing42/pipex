@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_execute_builtin_check.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/05/07 16:15:50 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	ms_execute_builtin_check(t_ms_pipe_list *list)
 			list->head->command.value.simple->word_list.head->word
 			, &cmd_name))
 		ms_execute_exit(EXIT_FAILURE, "minishell");
-	if (is_builtin(cmd_name))
+	if (cmd_name != NULL && is_builtin(cmd_name))
 	{
 		wrap_free(cmd_name);
 		return (true);
