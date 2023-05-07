@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/07 16:24:21 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/07 17:19:03 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_err	replace_redirection_list(
 				return (true);
 			if (add_node(tmp_list, file_name))
 				return (true);
-			if (ms_execute_word_to_str(node->target, &limiter)) //TODO: no expanstion
+			if (ms_repl_heredoc_word_to_str(&node->target->part_list, &limiter))
 				return (true);
 			if (ms_repl_heredoc_make_tmpfile(node, file_name, limiter))
 				return (true);
