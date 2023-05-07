@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/06 20:13:06 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:07:36 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ static t_err	wait_all_and_free_pid_list(t_ms_execute_pid_list *list)
 	}
 	ms_execute_globals()->exit_status = WEXITSTATUS(stat);
 	if (WIFSIGNALED(stat))
-		ms_execute_globals()->exit_status = 128 + WTERMSIG(stat);
+		if (ms_execute_signal_message(WTERMSIG(stat)))
+			return (true);
 	return (result);
 }
 
