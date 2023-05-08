@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/08 17:51:54 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:16:35 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,5 @@ void	ms_execute_command_simple(t_ms_command_simple *command)
 	if (cmd_name == NULL)
 		ms_execute_fd_exit(STDERR_FILENO, CMD_NOT_FOUNT);
 	if (execve(cmd_name, args, envp))
-		wrap_exit(EXIT_FAILURE);
+		ms_execute_exit(EXIT_FAILURE, "minishell");
 }
