@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/07 17:17:27 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:02:22 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,7 @@ static void	run_and_redirection_out(t_ms_command *command)
 
 void	ms_execute_builtin_run(t_ms_command *command)
 {
-	if (ms_execute_check_infiles(command))
-	{
-		perror("minishell");
-		ms_execute_globals()->exit_status = EXIT_FAILURE;
-		return ;
-	}
+	ms_execute_check_infiles(command);
 	if ((command->type == ms_command_type_compound
 			&& command->value.compound->redirections.out.head == NULL)
 		|| (command->type == ms_command_type_simple
