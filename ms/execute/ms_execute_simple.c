@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/07 16:12:16 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:34:43 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,7 @@ static	void	execute_builtin(char **args)
 		wrap_exit(ms_execute_globals()->exit_status);
 }
 
-void	ms_execute_command_simple(
-	t_ms_command_simple *command
-)
+void	ms_execute_command_simple(t_ms_command_simple *command)
 {
 	char	**args;
 	char	**envp;
@@ -127,10 +125,7 @@ void	ms_execute_command_simple(
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
 	if (args[0] == NULL)
-	{
-		ft_puts(STDERR_FILENO, "minishell: command not found\n");
-		wrap_exit(EXIT_FAILURE);
-	}
+		ms_execute_fd_exit(STDERR_FILENO, "minishell: no matches found\n");
 	execute_builtin(args);
 	if (ms_expand_env_get_environ(&envp))
 		wrap_exit(EXIT_FAILURE);
@@ -139,10 +134,7 @@ void	ms_execute_command_simple(
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
 	if (cmd_name == NULL)
-	{
-		ft_puts(STDERR_FILENO, "minishell: command not found\n");
-		wrap_exit(EXIT_FAILURE);
-	}
+		ms_execute_fd_exit(STDERR_FILENO, "minishell: command not found\n");
 	if (execve(cmd_name, args, envp))
 		wrap_exit(EXIT_FAILURE);
 }

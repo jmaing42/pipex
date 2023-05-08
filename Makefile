@@ -6,7 +6,7 @@
 #    By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/27 20:47:55 by Juyeong Mai       #+#    #+#              #
-#    Updated: 2023/05/07 21:08:13 by seonlim          ###   ########.fr        #
+#    Updated: 2023/05/08 17:25:21 by seonlim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(NAME): $(OBJS)
 
 ./obj/%$(SUFFIX).o: %.c | prelude
 	mkdir -p $(@D)
-	$(CC) -g $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 .PHONY: prelude
 prelude:
