@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/06 22:31:19 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:49:48 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ static void	in_out_execute(t_ms_command *command, bool is_first, bool is_last)
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
 	info.is_first = true;
-	if (ms_execute_check_infiles(command))
-		wrap_exit(EXIT_FAILURE);
+	ms_execute_check_infiles(command);
 	if (ms_execute_pipe_and_fork(&info, &info.redirection_in_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_in_pid == CHILD_PID)
@@ -84,8 +83,7 @@ static void	in_execute(t_ms_command *command, bool is_first, bool is_last)
 
 	ft_memory_set(&info, 0, sizeof(t_ms_execute_cmd_pipe_info));
 	info.is_first = true;
-	if (ms_execute_check_infiles(command))
-		wrap_exit(EXIT_FAILURE);
+	ms_execute_check_infiles(command);
 	if (ms_execute_pipe_and_fork(&info, &info.redirection_in_pid))
 		wrap_exit(EXIT_FAILURE);
 	if (info.redirection_in_pid == CHILD_PID)

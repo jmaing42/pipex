@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/08 17:33:49 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:48:47 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define FAIL -1
 # define READ_BUF_SIZE 10
 # define CHILD_PID 0
+# define NO_MATCH "minishell: no matches found\n"
+# define NO_FILE "minishell: No such file or directory\n"
+# define INTERNAL_ERROR "minishell: internal error\n"
 
 typedef enum e_ms_execute_child_type
 {
@@ -130,7 +133,7 @@ void					ms_execute_child(
 							t_ms_execute_child_type type,
 							bool is_first,
 							bool is_last);
-t_err					ms_execute_check_infiles(t_ms_command *command);
+void					ms_execute_check_infiles(t_ms_command *command);
 void					ms_execute_exit(int status, char *message);
 //builtin
 bool					ms_execute_builtin_check(t_ms_pipe_list *list);

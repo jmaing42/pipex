@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:30:30 by seonlim           #+#    #+#             */
-/*   Updated: 2023/05/07 16:58:36 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:36:35 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #include "ms_expand.h"
 #include "ft_stringbuilder.h"
-
 
 static t_err	double_and_unquoted(
 	t_ms_word_part_string_list *list,

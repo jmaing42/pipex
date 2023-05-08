@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/07 16:16:01 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:48:37 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "ms.h"
 #include "wrap.h"
 
-t_err	ms_execute_check_infiles(t_ms_command *command)
+void	ms_execute_check_infiles(t_ms_command *command)
 {
 	t_ms_redirection_list_node	*node;
 	char						*path;
@@ -34,15 +34,15 @@ t_err	ms_execute_check_infiles(t_ms_command *command)
 	while (node)
 	{
 		if (ms_execute_word_to_str(node->target, &path))
-			return (true);
+			ms_execute_fd_exit(STDERR_FILENO, INTERNAL_ERROR);
+		if (path == NULL)
+			ms_execute_fd_exit(STDERR_FILENO, NO_MATCH);
 		if (wrap_access(path, R_OK) == FAIL)
 		{
 			wrap_free(path);
-			ft_puts(STDERR_FILENO, "minishell: No such file or directory\n");
-			return (true);
+			ms_execute_fd_exit(STDERR_FILENO, NO_MATCH);
 		}
 		wrap_free(path);
 		node = node->next;
 	}
-	return (false);
 }
