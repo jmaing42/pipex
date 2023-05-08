@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/08 17:34:43 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 17:51:54 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	ms_execute_command_simple(t_ms_command_simple *command)
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
 	if (args[0] == NULL)
-		ms_execute_fd_exit(STDERR_FILENO, "minishell: no matches found\n");
+		ms_execute_fd_exit(STDERR_FILENO, NO_MATCH);
 	execute_builtin(args);
 	if (ms_expand_env_get_environ(&envp))
 		wrap_exit(EXIT_FAILURE);
@@ -134,7 +134,7 @@ void	ms_execute_command_simple(t_ms_command_simple *command)
 	if (find_cmd_path(parsed_path, args[0], &cmd_name))
 		wrap_exit(EXIT_FAILURE);
 	if (cmd_name == NULL)
-		ms_execute_fd_exit(STDERR_FILENO, "minishell: command not found\n");
+		ms_execute_fd_exit(STDERR_FILENO, CMD_NOT_FOUNT);
 	if (execve(cmd_name, args, envp))
 		wrap_exit(EXIT_FAILURE);
 }
