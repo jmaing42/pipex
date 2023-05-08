@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ms_repl_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/05/08 22:27:08 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ static t_err	execute_program(t_ms_program *program)
 void	ms_repl_line(void)
 {
 	t_ms_program	*program;
-	char *const		line = readline("minishell> ");
+	char			*line;
 
+	line = readline("minishell> ");
 	if (line == GET_EOF)
-		wrap_exit(EXIT_SUCCESS);
+		if (ft_cstring_duplicate("exit", &line))
+			ms_repl_die();
 	if (is_empty_str(line))
 	{
 		free(line);

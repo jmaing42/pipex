@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/08 18:16:35 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 22:28:09 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	ms_execute_command_simple(t_ms_command_simple *command)
 	if (ms_expand(&command->word_list, &args))
 		wrap_exit(EXIT_FAILURE);
 	if (args[0] == NULL)
-		ms_execute_fd_exit(STDERR_FILENO, NO_MATCH);
+		ms_execute_fd_exit(STDERR_FILENO, NO_MATCHS);
 	execute_builtin(args);
 	if (ms_expand_env_get_environ(&envp))
 		wrap_exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/08 17:48:37 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 22:28:04 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	ms_execute_check_infiles(t_ms_command *command)
 		if (ms_execute_word_to_str(node->target, &path))
 			ms_execute_fd_exit(STDERR_FILENO, INTERNAL_ERROR);
 		if (path == NULL)
-			ms_execute_fd_exit(STDERR_FILENO, NO_MATCH);
+			ms_execute_fd_exit(STDERR_FILENO, NO_MATCHS);
 		if (wrap_access(path, R_OK) == FAIL)
 		{
 			wrap_free(path);
-			ms_execute_fd_exit(STDERR_FILENO, NO_MATCH);
+			ms_execute_fd_exit(STDERR_FILENO, NO_MATCHS);
 		}
 		wrap_free(path);
 		node = node->next;

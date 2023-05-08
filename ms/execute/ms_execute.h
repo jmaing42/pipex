@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/08 17:51:33 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/08 22:27:49 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define FAIL -1
 # define READ_BUF_SIZE 10
 # define CHILD_PID 0
-# define NO_MATCH "minishell: no matches found\n"
+# define NO_MATCHS "minishell: no matches found\n"
 # define NO_FILE "minishell: No such file or directory\n"
 # define INTERNAL_ERROR "minishell: internal error\n"
 # define CMD_NOT_FOUNT "minishell: command not found\n"
