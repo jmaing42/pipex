@@ -6,7 +6,7 @@
 /*   By: seonlim <seonlim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2023/05/07 16:15:50 by seonlim          ###   ########.fr       */
+/*   Updated: 2023/05/15 15:38:56 by seonlim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ bool	ms_execute_builtin_check(t_ms_pipe_list *list)
 		wrap_free(cmd_name);
 		return (true);
 	}
-	wrap_free(cmd_name);
+	if (cmd_name != NULL)
+		wrap_free(cmd_name);
 	return (false);
 }
